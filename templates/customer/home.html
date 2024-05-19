@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} FreshBite {% endblock %}
+{% block styles %}
+    <style>
+        .container1 {
+            position: relative;
+            background: aqua;
+        }
+
+        .search-form {
+            left: 50%;
+            transform: translate(-50%, 40%);
+            width: 100%;
+            z-index: 10;
+        }
+
+        .main-img {
+            filter: brightness(50%);
+        }
+
+        .card-floating {
+            transform: translateY(-70%);
+            background: white;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container1">
+        <form class="position-absolute search-form p-5 d-flex flex-column gap-3">
+            <div>
+                <h1 class="text-white display-4">Quality food, right where you want it.</h1>
+            </div>
+            <div class="d-flex gap-3">
+                <input type="text" placeholder="Location" class="form-control"/>
+                <button type="submit" class="btn btn-warning text-nowrap text-white">Find Food</button>
+            </div>
+        </form>
+        <img class="img-fluid main-img" src="{% static 'images/main-bg.jpg' %}" alt="background">
+    </div>
+
+    <div class="mt-5 pt-5">
+        <div class="">
+            <h2 class="display-5 ms-5">We take care of everything, you concentrate on cooking</h2>
+            <img class="img-fluid" src="{% static 'images/main-sec-6.jpg' %}" alt="man cooking">
+            <div class="border m-5 rounded  card-floating shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">List your Restaurant on Fresh Bite!</h2>
+                    <p>Want millions of new fans to savor your amazing food and groceries? So do we!</p>
+                    <p>Here’s the deal: we showcase your menu and goodies online, handle all the orders, pick them up,
+                        and zoom them over to hungry customers – faster than you can say "bon appétit!"</p>
+                    <p>Sound good? Let’s team up today and make magic happen!</p>
+                    <div class="d-flex justify-content-start">
+                        <button class="btn btn-warning text-white">Get Started</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" py-5">
+        <div>
+            <h2 class="display-5 ms-5">Find us in these cities and many more!</h2>
+        </div>
+        <div class="p-5 row ">
+
+            <div class=" col-12 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
+                         alt="Card image cap">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white">Lahore</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-12 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
+                         alt="Card image cap">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white">Karachi</h5>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class=" col-12 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
+                         alt="Card image cap">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white">Faisalabad</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-12 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
+                         alt="Card image cap">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white">Rawalpindi</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-12 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
+                         alt="Card image cap">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white">Gujranwala</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-12 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
+                         alt="Card image cap">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white">Peshawar</h5>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class=" col-12 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
+                         alt="Card image cap">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white text-nowrap">Muzafarabad</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-12 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
+                         alt="Card image cap">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white">Larkana</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mt-5 pt-5">
+        <div class="">
+            <h2 class="display-5 ms-5">Experience true joy of food with Family!</h2>
+            <img class="img-fluid" src="{% static 'images/family-food.jpg' %}" alt="man cooking">
+            <div class="border m-5 rounded  card-floating shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Food Served at your doorstep!</h2>
+                    <p>Gather your loved ones around the table and enjoy our delicious meals together, delivered
+                        straight to your doorstep. </p>
+                    <p>From our kitchen to your home, savor quality time with those who matter most.</p>
+                    <div class="d-flex justify-content-start">
+                        <button class="btn btn-warning text-white">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 pt-5">
+        <div class="">
+            <h2 class="display-5 ms-5">Spice up your life !</h2>
+            <img class="img-fluid" src="{% static 'images/spicy-img.jpg' %}" alt="man cooking">
+            <div class="border m-5 rounded  card-floating shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Embrace the heat and elevate your dining experience!</h2>
+                    <p>Indulge in the fiery flavors of our signature spicy dishes, guaranteed to ignite your taste buds
+                        and leave you craving more. </p>
+                    <div class="d-flex justify-content-start">
+                        <button class="btn btn-warning text-white">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 pt-5">
+        <h3 class="display-7 ms-5">Order food from the best restaurants and shops with FreshBite Pakistan!</h3>
+
+    </div>
+
+{% endblock %}
