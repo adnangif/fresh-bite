@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Nearby restaurants{% endblock %}
+
+{% block content %}
+    <div class="py-5 p-2 d-flex gap-5 position-relative">
+        <div class=" d-flex flex-column gap-3 px-5 border rounded p-3 sticky-top">
+            <h2 class="display-7">Filters</h2>
+
+            <div>
+                <h5 class="">Sort By</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Relevance
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Shortest Distance
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Fastest Delivery
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="">Cuisines</h5>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Asian
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Bakery
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Beverage
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Cafe
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Cake
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Deserts
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Biriyani
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Chicken
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Chinese
+                    </label>
+                </div>
+            </div>
+            
+            <button class="btn btn-warning text-white">Filter</button>
+
+        </div>
+
+        <div class="flex-fill">
+            <div class="input-group mb-3 ">
+                <input type="text" class="form-control" placeholder="Cuisine" aria-label="Search food"
+                       aria-describedby="button-addon2">
+                <button class="btn btn-warning text-white" type="button" id="button-addon2">Search</button>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

@@ -3,7 +3,6 @@
 
 {% block title %} FreshBite {% endblock %}
 {% block styles %}
-    <style>
         .container1 {
             position: relative;
             background: aqua;
@@ -25,7 +24,6 @@
             background: white;
         }
 
-    </style>
 {% endblock %}
 
 {% block content %}
@@ -44,7 +42,7 @@
 
     <div class="mt-5 pt-5">
         <div class="">
-            <h2 class="display-5 ms-5">We take care of everything, you concentrate on cooking</h2>
+            <h2 class="display-5 ms-5">We take care of the rest, you focus on cooking</h2>
             <img class="img-fluid" src="{% static 'images/main-sec-6.jpg' %}" alt="man cooking">
             <div class="border m-5 rounded  card-floating shadow-sm">
                 <div class="card-body">
@@ -63,7 +61,7 @@
 
     <div class=" py-5">
         <div>
-            <h2 class="display-5 ms-5">Find us in these cities and many more!</h2>
+            <h2 class="display-5 mx-5">Find us in these cities and many more!</h2>
         </div>
         <div class="p-5 row ">
 
@@ -194,9 +192,176 @@
             </div>
         </div>
     </div>
-    <div class="mt-5 pt-5">
-        <h3 class="display-7 ms-5">Order food from the best restaurants and shops with FreshBite Pakistan!</h3>
+    <div class="m-5 pt-5">
+        <h3 class="display-7">Order food from the best restaurants and shops with FreshBite Pakistan!</h3>
+        <p class="text-secondary">Feeling hungry? Had a long and stressful day? Whether you're craving a cheesy pizza
+            delivered to your
+            doorstep or aiming to skip the weekly grocery shopping, FreshBite Pakistan has got you covered! With a vast
+            selection of the finest restaurants and shops in your area, FreshBite makes your everyday life easier. Our
+            online food delivery service offers everything you desire, whether it's a succulent burger from Takeout,
+            fresh sushi from Samdado, or peri peri chicken from Nando's. With over 2000 restaurants available from
+            Karachi to Lahore and Islamabad to Faisalabad, FreshBite Pakistan ensures you never run out of options. And
+            did you know? You can also order groceries and more from FreshBite shops! Explore our favorite partners like
+            Hyperstar, Naheed Supermarket, Al-Fatah, and many more. Sit back, relax, and let FreshBite Pakistan take the
+            burden off your shoulders.</p>
+
+        <div class="accordion accordion-flush border" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        More Info
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                     data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+
+                        <h4><strong>Why choose FreshBite?</strong></h4>
+                        <ul class="list-unstyled text-secondary">
+                            <li><span class="link">✓</span> More options: food delivery from 2000+ restaurants in
+                                Karachi, Lahore, Islamabad, and Faisalabad in Pakistan, as well as grocery delivery and
+                                more from shop partners.
+                            </li>
+                            <li><span class="link">✓</span> Easy search: filter by cuisine or location, or simply type
+                                in the name of the business you want.
+                            </li>
+                            <li><span class="link">✓</span> Various offers: indulge in the endless discounts and offers
+                                available from top restaurants and shops.
+                            </li>
+                            <li><span class="link">✓</span> Payment options: Payment made easier with cash on delivery
+                                and online payment options
+                            </li>
+                            <li><span class="link">✓</span> A simple 4-step food ordering process: Search → Choose → Pay
+                                → Enjoy
+                            </li>
+                        </ul>
+
+                        <h4><strong>Explore Over 25 Cuisines and Order Online Now!</strong></h4>
+                        <p class="text-secondary">From selecting your location to savoring your meal, FreshBite ensures
+                            a seamless ordering
+                            experience. Craving Indian, Mexican, or Middle Eastern delicacies? Embark on a culinary
+                            journey with our diverse range of cuisines. Indulge in your favorite soup, salad, sandwich,
+                            or dessert from top-notch restaurants or budget-friendly local favorites. Opt for home
+                            delivery to unwind, or choose Pick-Up for on-the-go convenience. Let FreshBite handle it
+                            all.</p>
+
+                        <h4><strong>Home Delivery Made Easy</strong></h4>
+                        <p class="text-secondary">Enjoy the convenience of home delivery with FreshBite. Whether you're
+                            relaxing at home or busy with work, our reliable delivery service ensures your favorite
+                            meals are brought straight to your doorstep. Simply place your order, sit back, and let us
+                            take care of the rest. With FreshBite, delicious meals are just a click away.</p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
+
+    <footer
+            class="text-center text-lg-start text-white bg-danger"
+            {#            style="background-color: #45526e"#}
+    >
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Links -->
+            <section class="">
+                <!--Grid row-->
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">
+                            FreshBite
+                        </h6>
+                        <p>
+                            FreshBite is dedicated to exceptional service and quality. Our team ensures your
+                            satisfaction from order to delivery. 
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="w-100 clearfix d-md-none"/>
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                        <p>
+                            <a class="text-white">Asian Cuisine</a>
+                        </p>
+                        <p>
+                            <a class="text-white">Mexican Cuisine</a>
+                        </p>
+                        <p>
+                            <a class="text-white">Italian Cuisine</a>
+                        </p>
+                        <p>
+                            <a class="text-white">Deserts</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="w-100 clearfix d-md-none"/>
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">
+                            Useful links
+                        </h6>
+                        <p>
+                            <a class="text-white">FreshBite</a>
+                        </p>
+                        <p>
+                            <a class="text-white">Become an Affiliate</a>
+                        </p>
+                        <p>
+                            <a class="text-white">Shipping Rates</a>
+                        </p>
+                        <p>
+                            <a class="text-white">Help</a>
+                        </p>
+                    </div>
+
+                    <!-- Grid column -->
+                    <hr class="w-100 clearfix d-md-none"/>
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                        <p><i class="fas fa-home mr-3"></i> Lahore, Pakistan</p>
+                        <p><i class="fas fa-envelope mr-3"></i> info@freshbite.com</p>
+                        <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                        <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!--Grid row-->
+            </section>
+            <!-- Section: Links -->
+
+            <hr class="my-3">
+
+            <!-- Section: Copyright -->
+            <section class="p-3 pt-0">
+                <div class="row d-flex align-items-center">
+                    <!-- Grid column -->
+                    <div class="col-md-7 col-lg-8 text-center text-md-start">
+                        <!-- Copyright -->
+                        <div class="p-3">
+                            © 2020 Copyright:
+                            <a class="text-white" href="https://example.com/"
+                            >FreshBite</a
+                            >
+                        </div>
+                        <!-- Copyright -->
+                    </div>
+                    <!-- Grid column -->
+                </div>
+            </section>
+            <!-- Section: Copyright -->
+        </div>
+        <!-- Grid container -->
+    </footer>
 
 {% endblock %}
