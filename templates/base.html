@@ -17,10 +17,27 @@
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <style>
-        nav{
+        nav {
             z-index: 10;
         }
 
+        .item-container {
+            background: aqua;
+            max-width: 100%;
+            overflow-x: scroll;
+        }
+
+        .filter-sidepanel {
+            z-index: 10;
+            width: 20rem;
+        }
+
+        .rounded-btn{
+            border-radius: 3rem;
+            height: 2rem;
+            width: 2rem;
+
+        }
 
         {% block styles %}{% endblock %}
     </style>
@@ -29,10 +46,15 @@
         {% endblock %}
     </title>
 </head>
-<body class="" style="overflow-x: clip">
+<body class="position-relative" style="overflow-x: clip">
 {% include 'navbar-menu.html' %}
 {% block content %}
 {% endblock %}
+
+
+{% include 'base-footer.html' %}
+
+
 </body>
 </html>
 

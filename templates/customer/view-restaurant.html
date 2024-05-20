@@ -1,0 +1,427 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dhansiri Restaurant{% endblock %}
+
+
+
+{% block content %}
+    <div class="accordion accordion-flush fixed-bottom d-lg-none d-md-block" style="max-height: 30rem; overflow-y: auto" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed fw-bolder bg-warning" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Your Items
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                 data-bs-parent="#accordionFlushExample">
+
+
+                <div class="filter-sidepanel d-flex flex-column  gap-3 p-3 w-100">
+
+
+                    <div class="card mb-3">
+                        <div class="d-flex gap-5 justify-content-start">
+                            <img style="height: 100px; width: 100px;" src="{% static 'images/squared-img.png' %}"
+                                 class="img-fluid rounded-start"
+                                 alt="...">
+                            <div class="d-flex flex-fill flex-column justify-content-around align-items-center flex-nowrap">
+                                <h6 class="card-title ">Tehari <strong>x3</strong>
+                                </h6>
+                                <div>
+                                    <button class="btn btn-sm btn-warning rounded-btn">+</button>
+                                    <button class="btn btn-sm btn-warning rounded-btn">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="d-flex gap-5 justify-content-start">
+                            <img style="height: 100px; width: 100px;" src="{% static 'images/squared-img.png' %}"
+                                 class="img-fluid rounded-start"
+                                 alt="...">
+                            <div class="d-flex flex-fill flex-column justify-content-around align-items-center flex-nowrap">
+                                <h6 class="card-title ">Tehari <strong>x3</strong>
+                                </h6>
+                                <div>
+                                    <button class="btn btn-sm btn-warning rounded-btn">+</button>
+                                    <button class="btn btn-sm btn-warning rounded-btn">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button class="btn btn-warning text-white  w-100 my-3">Review Order</button>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-5 d-flex gap-5 position-relative ">
+        <div class="filter-sidepanel d-flex flex-column gap-3 h-75 border rounded p-2 sticky-top d-none d-lg-block  col-md-6 ">
+            <div class="py-5 sticky-top"></div>
+            <h4 class="fw-bold">Your Items</h4>
+
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{% static 'images/squared-img.png' %}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8 ">
+                        <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
+                            <h6 class="card-title ">Biriyani <strong>x3</strong>
+                            </h6>
+                            <div>
+                                <button class="btn btn-sm btn-warning rounded-btn">+</button>
+                                <button class="btn btn-sm btn-warning rounded-btn">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{% static 'images/squared-img.png' %}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8 ">
+                        <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
+                            <h6 class="card-title ">Tehari <strong>x3</strong>
+                            </h6>
+                            <div>
+                                <button class="btn btn-sm btn-warning rounded-btn">+</button>
+                                <button class="btn btn-sm btn-warning rounded-btn">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{% static 'images/squared-img.png' %}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8 ">
+                        <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
+                            <h6 class="card-title ">Cold Drinks <strong>x6</strong>
+                            </h6>
+                            <div>
+                                <button class="btn btn-sm btn-warning rounded-btn">+</button>
+                                <button class="btn btn-sm btn-warning rounded-btn">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button class="btn btn-warning text-white  w-100 my-3">Review Order</button>
+
+        </div>
+
+        <div class="flex-fill">
+            <div class="input-group mb-3 ">
+                <input type="text" class="form-control" placeholder="Cuisine" aria-label="Search food"
+                       aria-describedby="button-addon2">
+                <button class="btn btn-warning text-white" type="button" id="button-addon2">Search</button>
+            </div>
+
+            <div class="mt-5 overflow-hidden">
+                <h2 class="fw-bold">Popular</h2>
+
+                <div class="row overflow-hidden">
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-1.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Biriyani</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Tehari</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nihari</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Sajji</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-5 overflow-hidden">
+                <h2 class="fw-bold">Dhanshiri Special</h2>
+
+                <div class="row overflow-hidden">
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-1.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Biriyani</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Tehari</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nihari</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Sajji</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Haleem</h5>
+                                <h6>Price: <strong>500 PKR</strong></h6>
+
+                                <button class="btn btn-warning text-white fw-bold">ADD</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

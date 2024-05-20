@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Nearby restaurants{% endblock %}
 
+{% block styles %}
+
+{% endblock %}
+
 {% block content %}
-    <div class="py-5 p-2 d-flex gap-5 position-relative">
-        <div class=" d-flex flex-column gap-3 px-5 border rounded p-3 sticky-top">
+    <div class="m-5 d-flex gap-5 position-relative">
+        <div class="filter-sidepanel d-flex flex-column gap-3 px-5 border rounded p-3 sticky-top d-none d-lg-block h-75  ">
+            <div class="py-4 sticky-top"></div>
             <h2 class="display-7">Filters</h2>
 
             <div>
@@ -33,7 +38,7 @@
 
             <div>
                 <h5 class="">Cuisines</h5>
-                
+
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
@@ -89,8 +94,8 @@
                     </label>
                 </div>
             </div>
-            
-            <button class="btn btn-warning text-white">Filter</button>
+
+            <button class="btn btn-warning text-white  w-100 my-3">Filter</button>
 
         </div>
 
@@ -100,6 +105,696 @@
                        aria-describedby="button-addon2">
                 <button class="btn btn-warning text-white" type="button" id="button-addon2">Search</button>
             </div>
+
+            <div class="mt-5 overflow-hidden">
+                <h2 class="display-5">Homechefs</h2>
+
+                <div class="row overflow-hidden">
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Khan baba's Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1 ">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-5 overflow-hidden">
+                <h2 class="display-5">Breakfast Bites</h2>
+
+                <div class="row overflow-hidden">
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Khan baba's Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1 ">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-5 overflow-hidden">
+                <h2 class="display-5">Top Rated Restaurants</h2>
+
+                <div class="row overflow-hidden">
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Khan baba's Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1 ">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-5 overflow-hidden">
+                <h2 class="display-5">Sweet Tooth</h2>
+
+                <div class="row overflow-hidden">
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Khan baba's Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1 ">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            
+            
+            
+            
+            
+            <div class="mt-5 overflow-hidden">
+                <h2 class="display-5">All Restaurants</h2>
+
+                <div class="row overflow-hidden">
+
+                    <div class="col-md-6 col-lg-3 col-12 my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Khan baba's Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 col-12  my-1 ">
+                        <div class="card">
+                            <img src="{% static 'images/tower-cropped.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Nazrul Restaurant</h5>
+                                <h6>Rating:
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                </h6>
+
+                                <h6>distance: <strong>34</strong> min</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            
+
+
         </div>
 
 
