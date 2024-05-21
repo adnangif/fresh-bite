@@ -1,0 +1,68 @@
+{% extends 'base-footerless.html' %}
+
+
+{% load static %}
+
+
+
+
+{% block title %}Live Chat{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex flex-column gap-5 p-3  position-relative" style="min-height: 100dvh;">
+        <div class=" d-flex flex-column align-items-start">
+            <div class="px-3 fw-bold">Fresh Bite</div>
+            <div class="rounded-elem p-3 border border-warning d-flex align-items-center">
+                <div>Assalamu Alaikum Sir, How can I help you today?</div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column align-items-end">
+            <div class="px-3 fw-bold">You</div>
+            <div class="rounded-elem p-3 bg-warning d-flex align-items-center">
+                <div>I want to know about the dishes fresh bite serves.</div>
+            </div>
+        </div>
+
+        <div class=" d-flex flex-column align-items-start">
+            <div class="px-3 fw-bold">Fresh Bite</div>
+            <div class="rounded-elem p-3 border border-warning d-flex align-items-center">
+                <div>Assalamu Alaikum Sir, How can I help you today?</div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column align-items-end">
+            <div class="px-3 fw-bold">You</div>
+            <div class="rounded-elem p-3 bg-warning d-flex align-items-center">
+                <div>I want to know about the dishes fresh bite serves.</div>
+            </div>
+        </div>
+
+        <div class=" d-flex flex-column align-items-start">
+            <div class="px-3 fw-bold">Fresh Bite</div>
+            <div class="rounded-elem p-3 border border-warning d-flex align-items-center">
+                <div>Assalamu Alaikum Sir, How can I help you today?</div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column align-items-end">
+            <div class="px-3 fw-bold">You</div>
+            <div class="rounded-elem p-3 bg-warning d-flex align-items-center">
+                <div>I want to know about the dishes fresh bite serves.</div>
+            </div>
+        </div>
+
+
+        <div class=" w-100 d-flex flex-column align-items-end">
+
+            <div class="form-floating w-100 border-warning ">
+                <textarea style="min-height: 7rem" class="form-control border border-warning rounded-elem"
+                          placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">Write your message here</label>
+            </div>
+            <button class="btn btn-warning text-white m-3 rounded-elem">Send</button>
+        </div>
+
+    </div>
+{% endblock %}

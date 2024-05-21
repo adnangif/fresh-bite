@@ -22,3 +22,23 @@ def review_order( request: HttpRequest, order_id: int):
     print(order_id)
 
     return render(request, 'customer/review-order.html')
+
+
+def livechat(request: HttpRequest):
+
+    return render(request, 'customer/live-chat.html')
+
+
+def track_orders(request: HttpRequest):
+
+    return render(request, 'customer/hello-world.html')
+
+
+def faq(request: HttpRequest):
+
+    return render(request, 'customer/hello-world.html')
+
+
+def feedback(request: HttpRequest):
+
+    return render(request, 'customer/hello-world.html')
