@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}Review Order{% endblock %}
+
+
+{% block content %}
+    <div class="row p-5">
+
+        <div class="col-lg-6 col-md-12 my-3">
+
+            <div class="card h-100">
+                <div class="card-header">
+                    <div class=" fw-bolder">Delivery Address</div>
+                </div>
+                <img height="200px" width="" src="{% static 'images/map-demo1.png' %}" class="card-img-top" alt="...">
+
+                <div class="card-body">
+
+                    <p class="card-text align-items-center d-flex ">
+                        <img class="text-warning" src="{% static 'icons/location-marker.svg' %}">
+                        <span>Uni Centre I.I.Chundrigar Road, Karachi</span>
+                    </p>
+                    <p class="card-text align-text-top">
+                        <img src="{% static 'icons/note-text.svg' %}">
+                        <span class="text-secondary"> Note to rider:</span> <span> None </span>
+                    </p>
+                    <a href="#" class="btn btn-warning text-white m-1">Change Address</a>
+                    <a href="#" class="btn btn-warning text-white m-1">Add A note</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 my-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <div class=" fw-bolder">Personal Details</div>
+                </div>
+                <div class="card-body">
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">First Name</span>
+                        <input type="text" class="form-control" placeholder="Muhammad" aria-label="Username"
+                               aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Last Name</span>
+                        <input type="text" class="form-control" placeholder="Ali" aria-label="Username"
+                               aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Mobile Phone</span>
+                        <input type="text" class="form-control" placeholder="012345678" aria-label="Username"
+                               aria-describedby="basic-addon1">
+                    </div>
+                    <a href="#" class="btn btn-warning text-white m-1">Change</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-3">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class=" fw-bolder">Tip Your Rider</div>
+                </div>
+                <div class="card-body">
+
+                    <p>Your Rider receives the 100% of the tip</p>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                   checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Not Now
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                100 PKR
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                200 PKR
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Save it for the next order
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <button class="btn btn-warning text-white">Save</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-12 my-3">
+            <div class="card">
+                <div class="card-header">
+                    <div class=" fw-bolder">Your Order From</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title fw-bold">Dhansiri Restaurant</div>
+
+
+                    <table class="table table-borderless rounded-3 table-striped">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr class="">
+                            <td class="text-start"><strong>3x</strong> Chicken Biriyani</td>
+                            <td>1000 Rs</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>3x</strong> Tehari</td>
+                            <td>1000 Rs</td>
+                        </tr>
+
+
+                        <tr>
+                            <td><strong>6x</strong> Cold Drinks</td>
+                            <td>1000 Rs</td>
+                        </tr>
+                        </tbody>
+
+                        <tfoot>
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Total</div>
+                            </td>
+                            <td><div class="fs-3 fw-bold">3000 Rs</div></td>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <button class="btn btn-warning btn-lg text-white">Place Order</button>
+            <p class="text-muted p-2  fs-6">By making this purchase you agree to our <a href="#" class="link-primary">terms and conditions</a>.<br>
+                I agree that placing the order places me under an obligation to make a payment in accordance with the
+                <a href="#" class="link-primary">General Terms and Conditions</a>.</p>
+        </div>
+
+    </div>
+
+
+{% endblock %}

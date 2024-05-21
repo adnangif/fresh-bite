@@ -16,3 +16,9 @@ def restaurant(request: HttpRequest, restaurant_id: int):
     print(restaurant_id)
 
     return render(request, 'customer/view-restaurant.html')
+
+
+def review_order( request: HttpRequest, order_id: int):
+    print(order_id)
+
+    return render(request, 'customer/review-order.html')
