@@ -31,7 +31,7 @@ def livechat(request: HttpRequest):
 
 def track_orders(request: HttpRequest):
 
-    return render(request, 'customer/hello-world.html')
+    return render(request, 'customer/track-orders.html')
 
 
 def faq(request: HttpRequest):
