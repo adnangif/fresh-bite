@@ -36,7 +36,7 @@ def track_orders(request: HttpRequest):
 
 def faq(request: HttpRequest):
 
-    return render(request, 'customer/hello-world.html')
+    return render(request, 'customer/faq.html')
 
 
 def feedback(request: HttpRequest):
