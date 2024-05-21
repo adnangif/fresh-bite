@@ -41,4 +41,4 @@ def faq(request: HttpRequest):
 
 def feedback(request: HttpRequest):
 
-    return render(request, 'customer/hello-world.html')
+    return render(request, 'customer/feedback.html')

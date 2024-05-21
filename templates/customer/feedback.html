@@ -1,0 +1,25 @@
+{% extends 'base-footerless.html' %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+    <div class="m-5">
+        <div class="fs-3 fw-bold my-3">Send us your feedback</div>
+
+        <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Your Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <div class="form-floating">
+                    <textarea style="min-height: 10rem" class="form-control" placeholder="Leave a comment here"
+                              id="floatingTextarea"></textarea>
+                    <label for="floatingTextarea">Write your feedback here</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning text-white">Submit</button>
+        </form>
+    </div>
+{% endblock %}
