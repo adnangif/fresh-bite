@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DeliverymanConfig(AppConfig):
+class RiderConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'deliveryman'
+    name = 'rider'
