@@ -42,3 +42,11 @@ def faq(request: HttpRequest):
 def feedback(request: HttpRequest):
 
     return render(request, 'customer/feedback.html')
+
+
+def login(request: HttpRequest):
+    return render(request, 'customer/login.html')
+
+
+def register(request: HttpRequest):
+    return render(request, 'customer/register.html')

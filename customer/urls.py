@@ -11,5 +11,7 @@ urlpatterns = [
     path('track-orders/',views.track_orders),
     path('faq/', views.faq),
     path('feedback/', views.feedback),
+    path('login/', views.login),
+    path('register/', views.register),
 
 ]
