@@ -105,95 +105,21 @@
         </div>
         <div class="p-5 row ">
 
-            <div class=" col-12 col-md-3 mb-3">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
-                         alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white">Lahore</h5>
-                    </div>
+            {% for city in covered_cities %}
+
+                <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
+                    <a href="{{ city.wiki_link }}" class="card " style="border-radius: 1rem;overflow: clip; text-decoration: none;" >
+                        <img class="card-img-top"
+                             src="{{ city.city_image.url }}"
+                             height="200px"
+                             width="100px"
+                             alt="Card image cap">
+                        <div class="card-body  ">
+                            <h5 class="card-title">{{ city.name }}</h5>
+                        </div>
+                    </a>
                 </div>
-            </div>
-
-            <div class=" col-12 col-md-3 mb-3">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
-                         alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white">Karachi</h5>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class=" col-12 col-md-3 mb-3">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
-                         alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white">Faisalabad</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class=" col-12 col-md-3 mb-3">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
-                         alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white">Rawalpindi</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class=" col-12 col-md-3 mb-3">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
-                         alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white">Gujranwala</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class=" col-12 col-md-3 mb-3">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
-                         alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white">Peshawar</h5>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class=" col-12 col-md-3 mb-3">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
-                         alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white text-nowrap">Muzafarabad</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class=" col-12 col-md-3 mb-3">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://fastly.picsum.photos/id/870/536/354.jpg?blur=2&grayscale&hmac=A5T7lnprlMMlQ18KQcVMi3b7Bwa1Qq5YJFp8LSudZ84"
-                         alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white">Larkana</h5>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
     </div>
