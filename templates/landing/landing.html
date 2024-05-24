@@ -22,13 +22,13 @@
         }
 
         .card-floating {
-            transform: translateY(-70%);
+            transform: translateY(-70%) translateX(-5%);
             background: white;
             transition: all 250ms;
+            opacity: 0;
         }
 
         .card-floating:hover {
-            transform: translateY(-70%);
             background-color: #eff1f2;
         }
 
@@ -42,19 +42,25 @@
             transform: scale(1.01, 1.2);
         }
 
-        .img-animate {
+        .animate-entry {
             opacity: 0;
             transform: scale(0.9);
-            animation: fade linear both;
+            transition: all 250ms;
 
 
         }
+
 
         .show {
             opacity: 1;
             transform: scale(1);
+
         }
 
+        .show-card {
+            transform: translateX(0%) translateY(-70%);
+            opacity: 1;
+        }
 
 
     </style>
@@ -77,7 +83,7 @@
     <div class="mt-5 pt-5">
         <div class="">
             <h2 class="display-5 ms-5">We take care of the rest, you focus on cooking</h2>
-            <img class="img-fluid img-animate" src="{% static 'images/main-sec-6.jpg' %}" alt="man cooking">
+            <img class="img-fluid animate-entry" src="{% static 'images/main-sec-6.jpg' %}" alt="man cooking">
             <div class="border m-5 rounded  card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">List your Restaurant on Fresh Bite!</h2>
@@ -195,7 +201,7 @@
     <div class="mt-5 pt-5">
         <div class="">
             <h2 class="display-5 ms-5">Experience true joy of food with Family!</h2>
-            <img class="img-fluid img-animate" src="{% static 'images/family-food.jpg' %}" alt="man cooking">
+            <img class="img-fluid animate-entry" src="{% static 'images/family-food.jpg' %}" alt="man cooking">
             <div class="border m-5 rounded  card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">Food Served at your doorstep!</h2>
@@ -213,7 +219,7 @@
     <div class="mt-5 pt-5">
         <div class="">
             <h2 class="display-5 ms-5">Spice up your life !</h2>
-            <img class="img-fluid img-animate" src="{% static 'images/spicy-img.jpg' %}" alt="man cooking">
+            <img class="img-fluid animate-entry" src="{% static 'images/spicy-img.jpg' %}" alt="man cooking">
             <div class="border m-5 rounded  card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">Embrace the heat and elevate your dining experience!</h2>
@@ -296,7 +302,43 @@
 
 
     <script defer>
+        const img_observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const intersecting = entry.isIntersecting
 
+                if (intersecting) {
+                    entry.target.classList.add("show")
+
+                } else {
+                    entry.target.classList.remove("show")
+                }
+            })
+        }, {rootMargin: "-200px"})
+
+        document.querySelectorAll('.animate-entry').forEach(element => {
+            img_observer.observe(element)
+        })
+
+    </script>
+
+
+    <script defer>
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const intersecting = entry.isIntersecting
+
+                if (intersecting) {
+                    entry.target.classList.add("show-card")
+
+                } else {
+                    entry.target.classList.remove("show-card")
+                }
+            })
+        }, {rootMargin: "-100px"})
+
+        document.querySelectorAll('.card-floating').forEach(element => {
+            observer.observe(element)
+        })
 
     </script>
 

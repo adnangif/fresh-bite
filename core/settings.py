@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "user",
     "restaurant",
     "rider",
+    "landingapp",
 ]
 
 MIDDLEWARE = [

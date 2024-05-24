@@ -22,4 +22,5 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('restaurant/', include('restaurant.urls')),
     path('rider/', include('rider.urls')),
+    path('', include('landingapp.urls'))
 ]
