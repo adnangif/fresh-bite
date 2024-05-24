@@ -3,6 +3,8 @@
 
 {% block title %} FreshBite {% endblock %}
 {% block styles %}
+    <style>
+
         .container1 {
             position: relative;
             background: aqua;
@@ -22,8 +24,40 @@
         .card-floating {
             transform: translateY(-70%);
             background: white;
+            transition: all 250ms;
         }
 
+        .card-floating:hover {
+            transform: translateY(-70%);
+            background-color: #eff1f2;
+        }
+
+
+        input.form-control {
+            transition: all 250ms;
+
+        }
+
+        input:focus {
+            transform: scale(1.01, 1.2);
+        }
+
+        .img-animate {
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fade linear both;
+
+
+        }
+
+        .show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+
+
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -43,7 +77,7 @@
     <div class="mt-5 pt-5">
         <div class="">
             <h2 class="display-5 ms-5">We take care of the rest, you focus on cooking</h2>
-            <img class="img-fluid" src="{% static 'images/main-sec-6.jpg' %}" alt="man cooking">
+            <img class="img-fluid img-animate" src="{% static 'images/main-sec-6.jpg' %}" alt="man cooking">
             <div class="border m-5 rounded  card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">List your Restaurant on Fresh Bite!</h2>
@@ -161,7 +195,7 @@
     <div class="mt-5 pt-5">
         <div class="">
             <h2 class="display-5 ms-5">Experience true joy of food with Family!</h2>
-            <img class="img-fluid" src="{% static 'images/family-food.jpg' %}" alt="man cooking">
+            <img class="img-fluid img-animate" src="{% static 'images/family-food.jpg' %}" alt="man cooking">
             <div class="border m-5 rounded  card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">Food Served at your doorstep!</h2>
@@ -179,7 +213,7 @@
     <div class="mt-5 pt-5">
         <div class="">
             <h2 class="display-5 ms-5">Spice up your life !</h2>
-            <img class="img-fluid" src="{% static 'images/spicy-img.jpg' %}" alt="man cooking">
+            <img class="img-fluid img-animate" src="{% static 'images/spicy-img.jpg' %}" alt="man cooking">
             <div class="border m-5 rounded  card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">Embrace the heat and elevate your dining experience!</h2>
@@ -259,6 +293,12 @@
         </div>
 
     </div>
+
+
+    <script defer>
+
+
+    </script>
 
 
 

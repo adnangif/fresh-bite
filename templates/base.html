@@ -43,8 +43,29 @@
             border-radius: 2rem;
         }
 
-        {% block styles %}{% endblock %}
+        .btn {
+            transition: all 250ms;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .card {
+            transition: all 250ms;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
     </style>
+
+    {% block styles %}
+
+    {% endblock %}
+
     <title>
         {% block title %}
         {% endblock %}

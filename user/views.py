@@ -7,7 +7,7 @@ def hello_world(request: HttpRequest):
 
 
 def home(request: HttpRequest):
-    return render(request, 'user/home.html')
+    return render(request, 'user/landing.html')
 
 def nearby_restaurants(request: HttpRequest):
     return render(request, 'user/nearby-restaurants.html')
