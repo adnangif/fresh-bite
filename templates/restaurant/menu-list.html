@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Menu List {% endblock %}
+
+{% block styles %}
+    <style>
+        body {
+            background-color: #ededed;
+
+        }
+
+        .main-container {
+            margin: 3rem;
+            min-height: 70dvh;
+            background: white;
+            display: grid;
+            padding: 3rem;
+
+
+        }
+
+        h1 {
+            font-weight: bold;
+        }
+
+        .menu-item {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            background: #9acd32;
+            border-radius: 1rem;
+            padding: 0.5rem;
+            text-decoration: none;
+            color: black;
+            transition: all 250ms;
+
+        }
+
+        a:hover {
+            color: black;
+            transform: scale(1.05);
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="main-container rounded-elem">
+        <h1>Menus</h1>
+
+        <a class="menu-item" href="#">APPETIZERS</a>
+
+        <a class="menu-item" href="#">BARBECUE</a>
+        <a class="menu-item" href="#">KIDS MENU</a>
+        <a class="menu-item" href="#">DRINKS</a>
+        <a class="menu-item" href="#">NAAN & PARATHA</a>
+
+        <button class="btn btn-warning text-white btn-lg m-3">Add A New Menu</button>
+
+    </div>
+{% endblock %}
