@@ -12,5 +12,6 @@ urlpatterns = [
     path('feedback/', views.feedback),
     path('login/', views.login),
     path('register/', views.register),
+    path('edit-profile/', views.edit_profile),
 
 ]

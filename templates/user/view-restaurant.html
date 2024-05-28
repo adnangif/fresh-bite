@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Dhansiri Restaurant{% endblock %}
+{% block title %}Monal Lahore{% endblock %}
 
 
+{% block styles %}
+    <style>
+        .title {
+            font-weight: bold;
+            margin:  2rem 0;
+            font-size: 4rem;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
-    <div class="accordion accordion-flush fixed-bottom d-lg-none d-md-block" style="max-height: 30rem; overflow-y: auto" id="accordionFlushExample">
+    <div class="accordion accordion-flush fixed-bottom d-lg-none d-md-block" style="max-height: 30rem; overflow-y: auto"
+         id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
                 <button class="accordion-button collapsed fw-bolder bg-warning" type="button" data-bs-toggle="collapse"
@@ -27,7 +37,7 @@
                                  class="img-fluid rounded-start"
                                  alt="...">
                             <div class="d-flex flex-fill flex-column justify-content-around align-items-center flex-nowrap">
-                                <h6 class="card-title ">Tehari <strong>x3</strong>
+                                <h6 class="card-title ">Haleem <strong>x3</strong>
                                 </h6>
                                 <div>
                                     <button class="btn btn-sm btn-warning rounded-btn">+</button>
@@ -43,7 +53,7 @@
                                  class="img-fluid rounded-start"
                                  alt="...">
                             <div class="d-flex flex-fill flex-column justify-content-around align-items-center flex-nowrap">
-                                <h6 class="card-title ">Tehari <strong>x3</strong>
+                                <h6 class="card-title ">Paya <strong>x3</strong>
                                 </h6>
                                 <div>
                                     <button class="btn btn-sm btn-warning rounded-btn">+</button>
@@ -76,7 +86,7 @@
                     </div>
                     <div class="col-md-8 ">
                         <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
-                            <h6 class="card-title ">Biriyani <strong>x3</strong>
+                            <h6 class="card-title ">Nihari <strong>x3</strong>
                             </h6>
                             <div>
                                 <button class="btn btn-sm btn-warning rounded-btn">+</button>
@@ -94,7 +104,7 @@
                     </div>
                     <div class="col-md-8 ">
                         <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
-                            <h6 class="card-title ">Tehari <strong>x3</strong>
+                            <h6 class="card-title ">Tarka daal <strong>x3</strong>
                             </h6>
                             <div>
                                 <button class="btn btn-sm btn-warning rounded-btn">+</button>
@@ -129,6 +139,8 @@
         </div>
 
         <div class="flex-fill">
+
+            <h1 class="title">Monal Lahore</h1>
             <div class="input-group mb-3 ">
                 <input type="text" class="form-control" placeholder="Cuisine" aria-label="Search food"
                        aria-describedby="button-addon2">
@@ -144,7 +156,7 @@
                         <div class="card">
                             <img src="{% static 'images/cooked-food-1.png' %}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">Biriyani</h5>
+                                <h5 class="card-title fw-bold">Nihari</h5>
                                 <h6>Price: <strong>500 PKR</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
@@ -157,7 +169,7 @@
                         <div class="card">
                             <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">Tehari</h5>
+                                <h5 class="card-title fw-bold">Tarka daal</h5>
                                 <h6>Price: <strong>500 PKR</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
@@ -277,7 +289,7 @@
 
 
             <div class="mt-5 overflow-hidden">
-                <h2 class="fw-bold">Dhanshiri Special</h2>
+                <h2 class="fw-bold">Special</h2>
 
                 <div class="row overflow-hidden">
 
@@ -285,7 +297,7 @@
                         <div class="card">
                             <img src="{% static 'images/cooked-food-1.png' %}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">Biriyani</h5>
+                                <h5 class="card-title fw-bold">Nihari</h5>
                                 <h6>Price: <strong>500 PKR</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
@@ -298,7 +310,7 @@
                         <div class="card">
                             <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">Tehari</h5>
+                                <h5 class="card-title fw-bold">Tarka daal</h5>
                                 <h6>Price: <strong>500 PKR</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>

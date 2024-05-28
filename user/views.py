@@ -46,3 +46,7 @@ def login(request: HttpRequest):
 
 def register(request: HttpRequest):
     return render(request, 'user/register.html')
+
+
+def edit_profile(request: HttpRequest):
+    return render(request, 'user/edit-profile.html')
