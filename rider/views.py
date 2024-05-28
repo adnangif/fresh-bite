@@ -10,3 +10,7 @@ def login(request: HttpRequest) -> HttpResponse:
 
 def register(request: HttpRequest) -> HttpResponse:
     return render(request, 'rider/register.html')
+
+
+def edit_profile(request: HttpRequest) -> HttpResponse:
+    return render(request,'rider/edit-profile.html')
