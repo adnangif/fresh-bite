@@ -227,7 +227,7 @@
     </div>
 
 
-    <script defer>
+    <script>
         const img_observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 const intersecting = entry.isIntersecting
@@ -244,11 +244,9 @@
         document.querySelectorAll('.animate-entry').forEach(element => {
             img_observer.observe(element)
         })
-
-    </script>
-
-
-    <script defer>
+        
+        
+        
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 const intersecting = entry.isIntersecting
