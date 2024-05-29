@@ -17,3 +17,14 @@ def edit_restaurant(request: HttpRequest):
 
 def menus(request: HttpRequest):
     return render(request, 'restaurant/menu-list.html')
+
+def add_menu(request: HttpRequest):
+    return render(request, 'restaurant/add-menu.html')
+
+
+def edit_menu(request: HttpRequest):
+    return render(request, 'restaurant/edit-menu.html')
+
+
+def track_orders(request: HttpRequest):
+    return render(request, 'restaurant/track-orders.html')

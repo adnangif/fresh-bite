@@ -16,6 +16,7 @@
             background: white;
             display: grid;
             padding: 3rem;
+            row-gap: 2rem;
 
 
         }
@@ -25,14 +26,17 @@
         }
 
         .menu-item {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            background: #9acd32;
+            font-size: 1.3rem;
             border-radius: 1rem;
             padding: 0.5rem;
             text-decoration: none;
             color: black;
             transition: all 250ms;
+            border: solid 1px gray;
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+
 
         }
 
@@ -41,21 +45,101 @@
             transform: scale(1.05);
         }
 
+        .item {
+            padding: 1rem;
+            border-radius: 1rem;
+            border: solid 3px gray;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            transition: all 250ms;
+            text-transform: capitalize;
+        }
+
+        .item:hover {
+            transform: scale(1.02);
+        }
+
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="main-container rounded-elem">
         <h1>Menus</h1>
+        <div class="item">
+            <h2>chicken handi</h2>
+            <ul>
+                <li class="menu-item">
+                    <div>chicken makhni handi</div>
+                    <div class="fw-bold">Rs. 4000</div>
+                </li>
 
-        <a class="menu-item" href="#">APPETIZERS</a>
+                <li class="menu-item">
+                    <div>chicken qorma</div>
+                    <div class="fw-bold">Rs. 4000</div>
 
-        <a class="menu-item" href="#">BARBECUE</a>
-        <a class="menu-item" href="#">KIDS MENU</a>
-        <a class="menu-item" href="#">DRINKS</a>
-        <a class="menu-item" href="#">NAAN & PARATHA</a>
+                </li>
 
-        <button class="btn btn-warning text-white btn-lg m-3">Add A New Menu</button>
+                <li class="menu-item">
+                    <div>chicken palak</div>
+                    <div class="fw-bold">Rs. 4000</div>
+
+                </li>
+
+                <li class="menu-item">
+                    <div>CHICKEN HALEEM</div>
+                    <div class="fw-bold">Rs. 4000</div>
+
+                </li>
+            </ul>
+
+            <div class="d-flex justify-content-end gap-4">
+                <button class="btn btn-warning btn-lg my-3">Edit</button>
+                <button class="btn btn-danger btn-lg my-3">Delete</button>
+
+            </div>
+
+        </div>
+
+
+        <div class="item">
+            <h2>Chinese Cuisine</h2>
+            <ul>
+                <li class="menu-item">
+                    <div>Chicken Chowmein</div>
+                    <div class="fw-bold">Rs. 4000</div>
+                </li>
+
+                <li class="menu-item">
+                    <div>Momos Steem</div>
+                    <div class="fw-bold">Rs. 4000</div>
+
+                </li>
+
+                <li class="menu-item">
+                    <div>Vegetables Chowmin</div>
+                    <div class="fw-bold">Rs. 4000</div>
+
+                </li>
+
+                <li class="menu-item">
+                    <div>Monglian Chicken</div>
+                    <div class="fw-bold">Rs. 4000</div>
+
+                </li>
+            </ul>
+
+            <div class="d-flex justify-content-end gap-4">
+                <button class="btn btn-warning btn-lg my-3">Edit</button>
+                <button class="btn btn-danger btn-lg my-3">Delete</button>
+
+            </div>
+
+        </div>
+
+        <div>
+            <button class="btn btn-warning text-white btn-lg m-3">Add A New Menu</button>
+
+        </div>
+
 
     </div>
 {% endblock %}

@@ -4,9 +4,20 @@
 
 {% block title %}Orders{% endblock %}
 
+{% block styles %}
+    <style>
+        .header {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 2rem auto;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="m-3 row" style="min-height: 100dvh;">
-
+        <h1 class="header">Lahore Restuarant Orders</h1>
 
         <div class="col-lg-6 col-md-12 p-2">
             <div class="card">
@@ -49,12 +60,22 @@
                                 <div class="fs-3 fw-bold">Rs. 3000</div>
                             </td>
                         </tr>
+
                         <tr>
                             <td>
-                                <div class="fs-3 fw-bold">OTP</div>
+                                <div class="fs-3 fw-bold">Order ID</div>
                             </td>
                             <td>
-                                <div class="fs-3 fw-bold ">234234</div>
+                                <div class="fs-3 fw-bold">2342</div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Customer Phone No</div>
+                            </td>
+                            <td>
+                                <div class="fs-3 fw-bold">+92342323453</div>
                             </td>
                         </tr>
 
@@ -66,12 +87,22 @@
                                 <div class="fs-3 fw-bold text-primary">Preparing</div>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <div class="input-group input-group-lg mb-3">
+                                    <input type="text" class="form-control" placeholder="OTP From Rider"
+                                           aria-label="Username"
+                                           aria-describedby="basic-addon1">
+                                </div>
+                            </td>
+                        </tr>
                         </tfoot>
                     </table>
 
                     <div class="d-grid">
 
-                        <a href="#" class="btn btn-danger">Cancel</a>
+                        <a href="#" class="btn btn-success">Mark as Rider On Way</a>
                     </div>
                 </div>
             </div>
@@ -119,12 +150,21 @@
                                 <div class="fs-3 fw-bold">Rs. 3000</div>
                             </td>
                         </tr>
+
                         <tr>
                             <td>
-                                <div class="fs-3 fw-bold">OTP</div>
+                                <div class="fs-3 fw-bold">Order ID</div>
                             </td>
                             <td>
-                                <div class="fs-3 fw-bold ">234234</div>
+                                <div class="fs-3 fw-bold">2342</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Customer Phone No</div>
+                            </td>
+                            <td>
+                                <div class="fs-3 fw-bold">+92342323453</div>
                             </td>
                         </tr>
 
@@ -141,7 +181,7 @@
 
                     <div class="d-grid">
 
-                        <a href="#" class="btn btn-primary  ">Write A Review</a>
+                        <a href="#" class="btn btn-primary disabled ">Marked as Rider On Way</a>
                     </div>
                 </div>
             </div>
@@ -189,12 +229,21 @@
                                 <div class="fs-3 fw-bold">Rs. 3000</div>
                             </td>
                         </tr>
+
                         <tr>
                             <td>
-                                <div class="fs-3 fw-bold">OTP</div>
+                                <div class="fs-3 fw-bold">Order ID</div>
                             </td>
                             <td>
-                                <div class="fs-3 fw-bold ">234234</div>
+                                <div class="fs-3 fw-bold">2342</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Customer Phone No</div>
+                            </td>
+                            <td>
+                                <div class="fs-3 fw-bold">+92342323453</div>
                             </td>
                         </tr>
 
@@ -211,77 +260,7 @@
 
                     <div class="d-grid">
 
-                        <a href="#" class="btn btn-warning disabled ">Cannot be cancelled</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold ">234234</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-success">Delivered</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-
-                    <div class="d-grid">
-
-                        <a href="#" class="btn btn-primary ">Write a Review</a>
+                        <a href="#" class="btn btn-primary disabled ">Marked as Rider On Way</a>
                     </div>
                 </div>
             </div>
@@ -332,10 +311,18 @@
 
                         <tr>
                             <td>
-                                <div class="fs-3 fw-bold">OTP</div>
+                                <div class="fs-3 fw-bold">Order ID</div>
                             </td>
                             <td>
-                                <div class="fs-3 fw-bold ">234234</div>
+                                <div class="fs-3 fw-bold">2342</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Customer Phone No</div>
+                            </td>
+                            <td>
+                                <div class="fs-3 fw-bold">+92342323453</div>
                             </td>
                         </tr>
 
@@ -352,7 +339,86 @@
 
                     <div class="d-grid">
 
-                        <a href="#" class="btn btn-primary ">Write a Review</a>
+                        <a href="#" class="btn btn-primary disabled">Marked As Rider On Way</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6 col-md-12 p-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
+
+
+                    <table class="table table-borderless rounded-3 table-striped">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr class="">
+                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
+                            <td>Rs. 1000</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>3x</strong> Chicken Fried Rice</td>
+                            <td>Rs. 1000</td>
+                        </tr>
+
+
+                        <tr>
+                            <td><strong>6x</strong> Cold Drinks</td>
+                            <td>Rs. 1000</td>
+                        </tr>
+                        </tbody>
+
+                        <tfoot>
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Total</div>
+                            </td>
+                            <td>
+                                <div class="fs-3 fw-bold">Rs. 3000</div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Order ID</div>
+                            </td>
+                            <td>
+                                <div class="fs-3 fw-bold">2342</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Customer Phone No</div>
+                            </td>
+                            <td>
+                                <div class="fs-3 fw-bold">+92342323453</div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="fs-3 fw-bold">Status</div>
+                            </td>
+                            <td>
+                                <div class="fs-3 fw-bold text-success">Delivered</div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="d-grid">
+
+                        <a href="#" class="btn btn-primary disabled ">Marked As Rider On Way</a>
                     </div>
                 </div>
             </div>

@@ -14,3 +14,7 @@ def register(request: HttpRequest) -> HttpResponse:
 
 def edit_profile(request: HttpRequest) -> HttpResponse:
     return render(request,'rider/edit-profile.html')
+
+
+def track_orders(request: HttpRequest) -> HttpResponse:
+    return render(request, 'rider/track-orders.html')
