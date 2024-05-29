@@ -8,7 +8,7 @@
     <style>
         .title {
             font-weight: bold;
-            margin:  2rem 0;
+            margin: 2rem 0;
             font-size: 4rem;
         }
     </style>
@@ -81,8 +81,8 @@
 
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{% static 'images/squared-img.png' %}" class="img-fluid rounded-start" alt="...">
+                    <div style="max-height: 100px;overflow: clip" class="col-md-4">
+                        <img src="https://recipe52.com/wp-content/uploads/2022/08/Nihari-recipe-2.jpg" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8 ">
                         <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
@@ -99,8 +99,8 @@
 
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{% static 'images/squared-img.png' %}" class="img-fluid rounded-start" alt="...">
+                    <div style="max-height: 100px; overflow: clip" class="col-md-4">
+                        <img src="https://media.istockphoto.com/id/495455544/photo/red-lentil-indian-soup-with-flat-bread-masoor-dal.jpg?s=612x612&w=0&k=20&c=9fFtTaToOQlA5MksySTcwj1imV-Siz6zSwX4CW1NBQg=" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8 ">
                         <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
@@ -148,16 +148,21 @@
             </div>
 
             <div class="mt-5 overflow-hidden">
-                <h2 class="fw-bold">Popular</h2>
+                <h2 class="fw-bold">Traditional Pakistani dishes</h2>
 
                 <div class="row overflow-hidden">
 
                     <div class="col-md-6 col-lg-3 col-12 my-1">
                         <div class="card">
-                            <img src="{% static 'images/cooked-food-1.png' %}" class="card-img-top" alt="...">
+                            <div style="max-height: 300px;overflow: clip">
+
+
+                                <img src="https://recipe52.com/wp-content/uploads/2022/08/Nihari-recipe-2.jpg"
+                                     class="card-img-top" alt="...">
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">Nihari</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
+                                <h6>Price: <strong>Rs. 500</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
 
@@ -167,10 +172,14 @@
 
                     <div class="col-md-6 col-lg-3 col-12 my-1">
                         <div class="card">
-                            <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
+                            <div style="max-height: 300px;overflow: clip">
+
+                                <img src="https://media.istockphoto.com/id/495455544/photo/red-lentil-indian-soup-with-flat-bread-masoor-dal.jpg?s=612x612&w=0&k=20&c=9fFtTaToOQlA5MksySTcwj1imV-Siz6zSwX4CW1NBQg="
+                                     class="card-img-top" alt="...">
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">Tarka daal</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
+                                <h6>Price: <strong>Rs. 500</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
 
@@ -178,103 +187,17 @@
                         </div>
                     </div>
 
+
                     <div class="col-md-6 col-lg-3 col-12 my-1">
                         <div class="card">
-                            <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Nihari</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
+                            <div style="max-height: 300px;overflow: clip">
 
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJDj-F6051HobeUPF-56oqxL_qauWAHuKm7w&s"
+                                     class="card-img-top" alt="...">
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Sajji</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
+                                <h6>Price: <strong>Rs. 500</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
 
@@ -289,16 +212,21 @@
 
 
             <div class="mt-5 overflow-hidden">
-                <h2 class="fw-bold">Special</h2>
+                <h2 class="fw-bold">Chinese Cuisine</h2>
 
                 <div class="row overflow-hidden">
 
                     <div class="col-md-6 col-lg-3 col-12 my-1">
                         <div class="card">
-                            <img src="{% static 'images/cooked-food-1.png' %}" class="card-img-top" alt="...">
+                            <div style="max-height: 300px;overflow: clip">
+
+
+                                <img src="https://www.chilitochoc.com/wp-content/uploads/2020/06/ChickenManchurian5-683x1024.jpg"
+                                     class="card-img-top" alt="...">
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">Nihari</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
+                                <h5 class="card-title fw-bold">Chicken Manchurian</h5>
+                                <h6>Price: <strong>Rs. 500</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
 
@@ -308,10 +236,14 @@
 
                     <div class="col-md-6 col-lg-3 col-12 my-1">
                         <div class="card">
-                            <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
+                            <div style="max-height: 300px;overflow: clip">
+
+                                <img src="https://www.flourandspiceblog.com/wp-content/uploads/2018/12/IMG_0205-333x500.jpg"
+                                     class="card-img-top" alt="...">
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">Tarka daal</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
+                                <h5 class="card-title fw-bold">Beef Chilli Dry</h5>
+                                <h6>Price: <strong>Rs. 500</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
 
@@ -319,103 +251,17 @@
                         </div>
                     </div>
 
+
                     <div class="col-md-6 col-lg-3 col-12 my-1">
                         <div class="card">
-                            <img src="{% static 'images/cooked-food-2.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Nihari</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
+                            <div style="max-height: 300px;overflow: clip">
 
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
+                                <img src="https://butteroverbae.com/wp-content/uploads/2021/06/sweet-sour-chicken-12-768x1024.jpg"
+                                     class="card-img-top" alt="...">
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">Sajji</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
-
-                                <button class="btn btn-warning text-white fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="{% static 'images/cooked-food-3.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>500 PKR</strong></h6>
+                                <h5 class="card-title fw-bold">Sweet and Sour Chicken</h5>
+                                <h6>Price: <strong>Rs. 500</strong></h6>
 
                                 <button class="btn btn-warning text-white fw-bold">ADD</button>
 
