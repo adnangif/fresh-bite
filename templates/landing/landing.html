@@ -26,6 +26,7 @@
             background: white;
             transition: all 250ms;
             opacity: 0;
+            border-radius: 2rem;
         }
 
         .card-floating:hover {
@@ -68,28 +69,26 @@
 
 {% block content %}
     <div class="container1">
-        <form class="position-absolute search-form p-5 d-flex flex-column gap-3">
+        <form class="position-absolute top-0 mt-lg-5 p-5 mt-sm-0 search-form d-flex flex-column gap-3">
             <div>
                 <h1 class="text-white display-4">Quality food, right where you want it.</h1>
             </div>
             <div class="d-flex gap-3">
-                <input type="text" placeholder="Location" class="form-control"/>
-                <button type="submit" class="btn btn-warning text-nowrap text-white">Find Food</button>
+                <input type="text" placeholder="Location" class="form-control rounded-elem p-3"/>
+                <button type="submit" class="btn btn-warning text-nowrap text-white rounded-elem px-4">Find Food</button>
             </div>
         </form>
-        <img class="img-fluid main-img" src="{% static 'images/main-bg.jpg' %}" alt="background">
+        <img class="img-fluid main-img" src="{% static 'images/restaurant-mural-wallpaper.jpg' %}" alt="background">
     </div>
 
     <div class="mt-5 pt-5">
         <div class="">
             <h2 class="display-5 ms-5">We take care of the rest, you focus on cooking</h2>
-            <img class="img-fluid animate-entry" src="{% static 'images/main-sec-6.jpg' %}" alt="man cooking">
-            <div class="border m-5 rounded  card-floating shadow-sm">
+            <img class="img-fluid animate-entry" src="{% static 'images/chef.jpg' %}" alt="man cooking">
+            <div class="border m-5 card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">List your Restaurant on Fresh Bite!</h2>
                     <p>Want millions of new fans to savor your amazing food and groceries? So do we!</p>
-                    <p>Here’s the deal: we showcase your menu and goodies online, handle all the orders, pick them up,
-                        and zoom them over to hungry customers – faster than you can say "bon appétit!"</p>
                     <p>Sound good? Let’s team up today and make magic happen!</p>
                     <div class="d-flex justify-content-start">
                         <button class="btn btn-warning text-white">Get Started</button>
@@ -125,10 +124,10 @@
     </div>
 
     <div class="mt-5 pt-5">
-        <div class="">
+        <div class="bg">
             <h2 class="display-5 ms-5">Experience true joy of food with Family!</h2>
-            <img class="img-fluid animate-entry" src="{% static 'images/family-food.jpg' %}" alt="man cooking">
-            <div class="border m-5 rounded  card-floating shadow-sm">
+            <img class="img-fluid animate-entry" src="{% static 'images/map-delivery-see.jpg' %}" alt="man cooking">
+            <div class="border m-5  card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">Food Served at your doorstep!</h2>
                     <p>Gather your loved ones around the table and enjoy our delicious meals together, delivered
@@ -145,8 +144,8 @@
     <div class="mt-5 pt-5">
         <div class="">
             <h2 class="display-5 ms-5">Spice up your life !</h2>
-            <img class="img-fluid animate-entry" src="{% static 'images/spicy-img.jpg' %}" alt="man cooking">
-            <div class="border m-5 rounded  card-floating shadow-sm">
+            <img class="img-fluid animate-entry" src="{% static 'images/food-bg.jpg' %}" alt="man cooking">
+            <div class="border m-5  card-floating shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">Embrace the heat and elevate your dining experience!</h2>
                     <p>Indulge in the fiery flavors of our signature spicy dishes, guaranteed to ignite your taste buds
@@ -158,6 +157,24 @@
             </div>
         </div>
     </div>
+
+
+    <div class="mt-5 pt-5">
+        <div class="">
+            <h2 class="display-5 ms-5">Ride The Tide!</h2>
+            <img class="img-fluid animate-entry" src="{% static 'images/person-delivering-food.jpg' %}" alt="man cooking">
+            <div class="border m-5  card-floating shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Ride With Us!</h2>
+                    <p>Earn great pay with flexible hours as a rider. Work independently and enjoy the freedom to choose your shifts. Apply now and start delivering today! </p>
+                    <div class="d-flex justify-content-start">
+                        <button class="btn btn-warning text-white">Join Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="m-5 pt-5">
         <h3 class="display-7">Order food from the best restaurants and shops with FreshBite Pakistan!</h3>
         <p class="text-secondary">Feeling hungry? Had a long and stressful day? Whether you're craving a cheesy pizza
@@ -244,9 +261,9 @@
         document.querySelectorAll('.animate-entry').forEach(element => {
             img_observer.observe(element)
         })
-        
-        
-        
+
+
+
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 const intersecting = entry.isIntersecting
