@@ -27,8 +27,8 @@
                         <img src="{% static 'icons/note-text.svg' %}">
                         <span class="text-secondary"> Note to rider:</span> <span> None </span>
                     </p>
-                    <a href="#" class="btn btn-warning text-white m-1">Change Address</a>
-                    <a href="#" class="btn btn-warning text-white m-1">Add A note</a>
+                    <a href="#" class="btn btn-warning  m-1">Change Address</a>
+                    <a href="#" class="btn btn-warning  m-1">Add A note</a>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                         <input type="text" class="form-control" placeholder="012345678" aria-label="Username"
                                aria-describedby="basic-addon1">
                     </div>
-                    <a href="#" class="btn btn-warning text-white m-1">Change</a>
+                    <a href="#" class="btn btn-warning  m-1">Change</a>
                 </div>
             </div>
         </div>
@@ -83,26 +83,51 @@
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                             <label class="form-check-label" for="flexRadioDefault2">
-                                100 PKR
+                                Rs. 100
                             </label>
                         </div>
 
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                             <label class="form-check-label" for="flexRadioDefault2">
-                                200 PKR
+                                Rs. 200
                             </label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Save it for the next order
-                            </label>
-                        </div>
+
                     </div>
+                    <button class="btn btn-warning ">Save</button>
+                </div>
+
+            </div>
+        </div>
 
 
-                    <button class="btn btn-warning text-white">Save</button>
+        <div class="my-3">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class=" fw-bolder">Payment type</div>
+                </div>
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                   checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Stripe
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Cash On delivery
+                            </label>
+                        </div>
+
+                    </div>
+                    <button class="btn btn-warning ">Save</button>
                 </div>
 
             </div>
@@ -114,7 +139,7 @@
                     <div class=" fw-bolder">Your Order From</div>
                 </div>
                 <div class="card-body">
-                    <div class="card-title fw-bold">Dhansiri Restaurant</div>
+                    <div class="card-title fw-bold">Lahore Restaurant</div>
 
 
                     <table class="table table-borderless rounded-3 table-striped">
@@ -127,19 +152,19 @@
 
                         <tbody>
                         <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Biriyani</td>
-                            <td>1000 Rs</td>
+                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
+                            <td>Rs. 1000</td>
                         </tr>
 
                         <tr>
-                            <td><strong>3x</strong> Tehari</td>
-                            <td>1000 Rs</td>
+                            <td><strong>3x</strong> Sweet and sour chicken</td>
+                            <td>Rs. 1000</td>
                         </tr>
 
 
                         <tr>
                             <td><strong>6x</strong> Cold Drinks</td>
-                            <td>1000 Rs</td>
+                            <td>Rs. 1000</td>
                         </tr>
                         </tbody>
 
@@ -148,7 +173,9 @@
                             <td>
                                 <div class="fs-3 fw-bold">Total</div>
                             </td>
-                            <td><div class="fs-3 fw-bold">3000 Rs</div></td>
+                            <td>
+                                <div class="fs-3 fw-bold">Rs. 3000</div>
+                            </td>
                         </tr>
                         </tfoot>
 
@@ -160,8 +187,9 @@
         </div>
 
         <div class="d-grid">
-            <button class="btn btn-warning btn-lg text-white">Place Order</button>
-            <p class="text-muted p-2  fs-6">By making this purchase you agree to our <a href="#" class="link-primary">terms and conditions</a>.<br>
+            <button class="btn btn-warning btn-lg ">Place Order</button>
+            <p class="text-muted p-2  fs-6">By making this purchase you agree to our <a href="#" class="link-primary">terms
+                and conditions</a>.<br>
                 I agree that placing the order places me under an obligation to make a payment in accordance with the
                 <a href="#" class="link-primary">General Terms and Conditions</a>.</p>
         </div>
