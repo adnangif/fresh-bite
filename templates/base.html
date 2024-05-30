@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon512x512.png' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
 
-    <link rel="stylesheet" href={% static 'min.css' %}>
+    <link  rel="stylesheet" href={% static 'min.css' %}>
 
     <script src="{% static 'min.js' %}"></script>
 
@@ -14,8 +14,6 @@
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <style>
-        
-        
         nav {
             z-index: 10;
         }
@@ -31,52 +29,35 @@
             width: 20rem;
         }
 
-        .rounded-btn {
+        .rounded-btn{
             border-radius: 3rem;
             height: 2rem;
             width: 2rem;
 
         }
 
-        .rounded-elem {
-            border-radius: 2rem;
+        .rounded-elem{
+            border-radius: 1rem;
         }
 
         .btn {
-            border-radius: 2rem;
-            transition: all 250ms;
+            transition: all 100ms;
+            border-radius: 1rem;
+            border: solid 4px white;
         }
 
         .btn:hover {
-            transform: scale(1.03);
-            
+            border-color: transparent;
+            {#transform: scale(1.05);#}
         }
 
         .card {
             transition: all 250ms;
-            cursor:default;
-            border-radius: 1rem;
-            overflow: clip;
+            cursor: pointer;
         }
 
         .card:hover {
-            transform: scale(1.03);
-            z-index: 10;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
+            transform: scale(1.05);
         }
 
     </style>
