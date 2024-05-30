@@ -50,3 +50,7 @@ def register(request: HttpRequest):
 
 def edit_profile(request: HttpRequest):
     return render(request, 'user/edit-profile.html')
+
+
+def rate(request: HttpRequest):
+    return render(request, 'user/rate-rider-food.html')
