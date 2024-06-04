@@ -75,7 +75,10 @@
             </div>
             <div style="border-radius: 1rem;padding: .7rem" class="d-flex gap-3 bg-white border border-warning">
                 <input type="text" placeholder="Location" class="form-control rounded-elem p-3 border border-warning"/>
-                <button type="submit" class="btn btn-lg btn-warning text-nowrap rounded-elem px-4">Find Food</button>
+                <a href="{% url 'user:nearby_restaurants' %}" type="submit" class="btn btn-warning d-flex align-items-center">
+{#                    asdf#}
+                    <div class="text-nowrap fs-5">Find Food</div>
+                </a>
             </div>
         </form>
         <img class="img-fluid main-img" src="{% static 'images/restaurant-mural-wallpaper.jpg' %}" alt="background">
@@ -91,7 +94,7 @@
                     <p>Want millions of new fans to savor your amazing food and groceries? So do we!</p>
                     <p>Sound good? Let’s team up today and make magic happen!</p>
                     <div class="d-flex justify-content-start">
-                        <button class="btn btn-warning ">Get Started</button>
+                        <a href="{% url 'restaurant:login' %}" class="btn btn-warning ">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -134,7 +137,7 @@
                         straight to your doorstep. </p>
                     <p>From our kitchen to your home, savor quality time with those who matter most.</p>
                     <div class="d-flex justify-content-start">
-                        <button class="btn btn-warning ">Order Now</button>
+                        <a href="{% url 'user:nearby_restaurants' %}" class="btn btn-warning ">Order Now</a>
                     </div>
                 </div>
             </div>
@@ -151,7 +154,7 @@
                     <p>Indulge in the fiery flavors of our signature spicy dishes, guaranteed to ignite your taste buds
                         and leave you craving more. </p>
                     <div class="d-flex justify-content-start">
-                        <button class="btn btn-warning ">Order Now</button>
+                        <a href="{% url 'user:nearby_restaurants' %}" class="btn btn-warning ">Order Now</a>
                     </div>
                 </div>
             </div>
@@ -168,7 +171,7 @@
                     <h2 class="card-title">Ride With Us!</h2>
                     <p>Earn great pay with flexible hours as a rider. Work independently and enjoy the freedom to choose your shifts. Apply now and start delivering today! </p>
                     <div class="d-flex justify-content-start">
-                        <button class="btn btn-warning ">Join Now</button>
+                        <a href="{% url 'rider:login' %}" class="btn btn-warning ">Join Now</a>
                     </div>
                 </div>
             </div>
