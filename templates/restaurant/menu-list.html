@@ -27,12 +27,12 @@
 
         .menu-item {
             font-size: 1.3rem;
-            border-radius: 1rem;
+            {#border-radius: 1rem;#}
             padding: 0.5rem;
             text-decoration: none;
             color: black;
             transition: all 250ms;
-            border: solid 1px gray;
+            border-bottom: solid 1px gray;
             margin: 1rem 0;
             display: flex;
             justify-content: space-between;
@@ -42,13 +42,13 @@
 
         a:hover {
             color: black;
-            transform: scale(1.05);
+            {#transform: scale(1.05);#}
         }
 
         .item {
             padding: 1rem;
             border-radius: 1rem;
-            border: solid 3px gray;
+            {#border: solid 3px gray;#}
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             transition: all 250ms;
             text-transform: capitalize;
@@ -92,7 +92,7 @@
             </ul>
 
             <div class="d-flex justify-content-end gap-4">
-                <button class="btn btn-warning btn-lg my-3">Edit</button>
+                <a href="{% url 'restaurant:edit_menu' %}" class="btn btn-warning btn-lg my-3">Edit</a>
                 <button class="btn btn-danger btn-lg my-3">Delete</button>
 
             </div>
@@ -128,7 +128,7 @@
             </ul>
 
             <div class="d-flex justify-content-end gap-4">
-                <button class="btn btn-warning btn-lg my-3">Edit</button>
+                <a href="{% url 'restaurant:edit_menu' %}" class="btn btn-warning btn-lg my-3">Edit</a>
                 <button class="btn btn-danger btn-lg my-3">Delete</button>
 
             </div>
@@ -136,7 +136,7 @@
         </div>
 
         <div>
-            <button class="btn btn-warning text-white btn-lg m-3">Add A New Menu</button>
+            <a href="{% url 'restaurant:add_menu' %}" class="btn btn-warning btn-lg m-3">Add A New Menu</a>
 
         </div>
 
