@@ -52,5 +52,5 @@ def edit_profile(request: HttpRequest):
     return render(request, 'user/edit-profile.html')
 
 
-def rate(request: HttpRequest):
+def rate(request: HttpRequest, order_id):
     return render(request, 'user/rate-rider-food.html')
