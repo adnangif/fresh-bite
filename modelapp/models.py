@@ -1,16 +1,22 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
-class Person(User):
+class Person(AbstractUser):
     class Roles(models.TextChoices):
         USER = "user", "User"
         RIDER = "rider", "Rider"
         RESTAURANT_OWNER = "restaurant_owner", "Restaurant Owner"
         NONE = "none", "None"
 
+    username = None
+    email = models.EmailField(_("email address"), unique=True)
     role = models.CharField(max_length=100, choices=Roles.choices, default=Roles.NONE)
-    phone = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=25, null=True, blank=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     class Meta:
         indexes = [
