@@ -25,22 +25,19 @@
 <div style="min-height: 30rem" class="d-flex justify-content-center align-items-center m-lg-5 m-0 p-lg-5 p-0">
     <div class="d-flex justify-content-center align-items-center">
 
-        <form class="px-5  py-3 border rounded-elem bg-white">
+        <form method="POST" action="{% url 'user:login' %}" class="px-5  py-3 border rounded-elem bg-white">
+            {% csrf_token %}
             <h2 class="my-3">User Login</h2>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control " id="exampleInputPassword1">
+                <input type="password" name="password" class="form-control " id="exampleInputPassword1">
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Keep me Logged In</label>
-            </div>
-            <a href="{% url 'landingapp:landing_page' %}" type="submit" class="btn btn-warning text-white btn-lg ">Login</a>
+            <button type="submit" class="btn btn-warning text-white btn-lg ">Login</button>
             <div class="my-2 d-flex">
                 
             <a href="#">Register a New Account</a>

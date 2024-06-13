@@ -14,8 +14,8 @@ urlpatterns = [
     path('track-orders/', views.track_orders, name='track_orders'),
     path('faq/', views.faq, name='faq'),
     path('feedback/', views.feedback, name='feedback'),
-    path('login/', views.login, name='login'),
-    path('register/', views.register, name='register'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('register/', views.RegisterView.as_view(), name='register'),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('rate/<int:order_id>', views.rate, name='rate'),
 
