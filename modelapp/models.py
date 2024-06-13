@@ -1,15 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from .managers import CustomUserManager, UserPersonManager, OwnerPersonManager, RiderPersonManager, Roles
 
 
 class Person(AbstractUser):
-    class Roles(models.TextChoices):
-        USER = "user", "User"
-        RIDER = "rider", "Rider"
-        RESTAURANT_OWNER = "restaurant_owner", "Restaurant Owner"
-        NONE = "none", "None"
-
     username = None
     email = models.EmailField(_("email address"), unique=True)
     role = models.CharField(max_length=100, choices=Roles.choices, default=Roles.NONE)
@@ -18,55 +13,46 @@ class Person(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    objects = CustomUserManager()
+
     class Meta:
         indexes = [
             models.Index(fields=['role']),
         ]
 
     def __str__(self):
-        return self.username + " " + self.email
+        return self.email
 
 
 class User(Person):
     class Meta:
         proxy = True
 
-    class UserPersonManager(models.Manager):
-        def get_queryset(self):
-            return super().get_queryset().filter(role=Person.Roles.USER)
-
     objects = UserPersonManager()
 
     def save(self, *args, **kwargs):
-        kwargs['role'] = Person.Roles.USER
-        super().save(self, *args, **kwargs)
+        self.role = Roles.USER
+
+        super(User, self).save(*args, **kwargs)
 
 
 class Owner(Person):
     class Meta:
         proxy = True
 
-    class OwnerPersonManager(models.Manager):
-        def get_queryset(self):
-            return super().get_queryset().filter(role=Person.Roles.RESTAURANT_OWNER)
-
     objects = OwnerPersonManager()
 
     def save(self, *args, **kwargs):
-        kwargs['role'] = Person.Roles.RESTAURANT_OWNER
-        super().save(self, *args, **kwargs)
+        self.role = Roles.RESTAURANT_OWNER
+        super(Owner, self).save(*args, **kwargs)
 
 
 class Rider(Person):
     class Meta:
         proxy = True
 
-    class RiderPersonManager(models.Manager):
-        def get_queryset(self):
-            return super().get_queryset().filter(role=Person.Roles.RIDER)
-
     objects = RiderPersonManager()
 
     def save(self, *args, **kwargs):
-        kwargs['role'] = Person.Roles.RIDER
-        super().save(self, *args, **kwargs)
+        self.role = Roles.RIDER
+        super(Rider, self).save(*args, **kwargs)
