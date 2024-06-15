@@ -75,9 +75,9 @@
 {% if user.is_authenticated and user.role == "user" %}
     {% include 'user/user-navbar-menu.html' %}
 {% elif user.is_authenticated and user.role == "rider" %}
-    
+    {% include 'rider/rider-navbar-menu.html' %}
 {% elif user.is_authenticated and user.role == "restaurant_owner" %}
-    
+    {% include 'restaurant/owner-navbar-menu.html' %}
 {% else %}
     {% include 'navbar-menu.html' %}
 {% endif %}

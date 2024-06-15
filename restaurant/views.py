@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views import View
@@ -11,6 +11,8 @@ from modelapp.models import Owner
 
 class LoginView(View):
     def get(self, request):
+        logout(request)
+
         return render(request, 'restaurant/login.html')
 
     def post(self, request):

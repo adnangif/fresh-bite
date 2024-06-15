@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -6,12 +6,11 @@ from django.views import View
 from modelapp.models import Rider
 
 
-# def login(request: HttpRequest) -> HttpResponse:
-#
-#     return render(request, 'rider/login.html')
 
 class LoginView(View):
     def get(self, request):
+        logout(request)
+
         return render(request, 'rider/login.html')
 
     def post(self, request):
