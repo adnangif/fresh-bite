@@ -1,6 +1,6 @@
 import json
 
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -47,6 +47,7 @@ def feedback(request: HttpRequest):
 class LoginView(View):
 
     def get(self, request: HttpRequest):
+        logout(request)
         return render(request, 'user/login.html')
 
     def post(self, request: HttpRequest):
@@ -57,10 +58,12 @@ class LoginView(View):
         print(email, password)
 
         user = authenticate(email=email, password=password)
+
         if user is None:
             return HttpResponse("Login failed")
 
-        return HttpResponse("Login successful")
+        login(request, user)
+        return redirect('landingapp:landing_page')
 
 
 
@@ -80,9 +83,15 @@ class RegisterView(View):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
 
-        user = User.objects.create_user(email=email, password=password, first_name=first_name, last_name=last_name)
+        try:
+            user = User.objects.create_user(email=email, password=password, first_name=first_name, last_name=last_name)
+            login(request, user)
+        except Exception as e:
+            print(e)
+            return render(request, 'user/register.html', {'error': str(e)})
 
-        return redirect('user:login')
+
+        return redirect('landingapp:landing_page')
 
 
 def edit_profile(request: HttpRequest):

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
 
-    <link  rel="stylesheet" href={% static 'min.css' %}>
+    <link rel="stylesheet" href={% static 'min.css' %}>
 
     <script src="{% static 'min.js' %}"></script>
 
@@ -29,14 +29,14 @@
             width: 20rem;
         }
 
-        .rounded-btn{
+        .rounded-btn {
             border-radius: 3rem;
             height: 2rem;
             width: 2rem;
 
         }
 
-        .rounded-elem{
+        .rounded-elem {
             border-radius: 1rem;
         }
 
@@ -48,7 +48,7 @@
 
         .btn:hover {
             border-color: transparent;
-            {#transform: scale(1.05);#}
+        {#transform: scale(1.05);#}
         }
 
         .card {
@@ -72,7 +72,15 @@
     </title>
 </head>
 <body class="position-relative" style="overflow-x: clip">
-{% include 'navbar-menu.html' %}
+{% if user.is_authenticated and user.role == "user" %}
+    {% include 'user/user-navbar-menu.html' %}
+{% elif user.is_authenticated and user.role == "rider" %}
+    
+{% elif user.is_authenticated and user.role == "restaurant_owner" %}
+    
+{% else %}
+    {% include 'navbar-menu.html' %}
+{% endif %}
 {% block content %}
 {% endblock %}
 
