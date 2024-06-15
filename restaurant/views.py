@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from modelapp.models import Owner
+from restaurant.decorators import owner_required
 
 
 # Create your views here.
@@ -50,21 +51,22 @@ class RegisterView(View):
             return render(request, 'restaurant/register.html', {'error': "Invalid"})
 
 
+@owner_required
 def edit_restaurant(request: HttpRequest):
     return render(request, 'restaurant/edit-restaurant.html')
 
-
+@owner_required
 def menus(request: HttpRequest):
     return render(request, 'restaurant/menu-list.html')
 
-
+@owner_required
 def add_menu(request: HttpRequest):
     return render(request, 'restaurant/add-menu.html')
 
-
+@owner_required
 def edit_menu(request: HttpRequest):
     return render(request, 'restaurant/edit-menu.html')
 
-
+@owner_required
 def track_orders(request: HttpRequest):
     return render(request, 'restaurant/track-orders.html')
