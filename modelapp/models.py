@@ -23,6 +23,16 @@ class Person(AbstractUser):
     def __str__(self):
         return self.email
 
+    def is_restaurant_owner(self):
+        return self.role == Roles.RESTAURANT_OWNER
+
+    def is_rider(self):
+        return self.role == Roles.RIDER
+
+    def is_user(self):
+        return self.role == Roles.USER
+
+
 
 class User(Person):
     class Meta:

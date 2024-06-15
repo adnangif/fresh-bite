@@ -4,8 +4,8 @@ from . import views
 app_name = 'restaurant'
 
 urlpatterns = [
-    path('login/', views.login, name='login'),
-    path('register/', views.register, name='register'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('register/', views.RegisterView.as_view(), name='register'),
     path('edit-restaurant/', views.edit_restaurant, name='edit_restaurant'),
 
     path('menus/', views.menus, name='menus'),
