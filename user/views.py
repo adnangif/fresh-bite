@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from modelapp.models import User
+from user.decorators import user_required
 
 
 def hello_world(request: HttpRequest):
@@ -22,6 +23,7 @@ def restaurant(request: HttpRequest, restaurant_id: int):
     return render(request, 'user/view-restaurant.html')
 
 
+@user_required
 def review_order(request: HttpRequest, order_id: int):
     print(order_id)
 
@@ -32,6 +34,7 @@ def livechat(request: HttpRequest):
     return render(request, 'user/live-chat.html')
 
 
+@user_required
 def track_orders(request: HttpRequest):
     return render(request, 'user/track-orders.html')
 
@@ -51,7 +54,6 @@ class LoginView(View):
         return render(request, 'user/login.html')
 
     def post(self, request: HttpRequest):
-
         email = request.POST.get('email')
         password = request.POST.get('password')
 
@@ -66,12 +68,9 @@ class LoginView(View):
         return redirect('landingapp:landing_page')
 
 
-
-
-
-
 def register(request: HttpRequest):
     return render(request, 'user/register.html')
+
 
 class RegisterView(View):
     def get(self, request: HttpRequest):
@@ -90,13 +89,14 @@ class RegisterView(View):
             print(e)
             return render(request, 'user/register.html', {'error': str(e)})
 
-
         return redirect('landingapp:landing_page')
 
 
+@user_required
 def edit_profile(request: HttpRequest):
     return render(request, 'user/edit-profile.html')
 
 
+@user_required
 def rate(request: HttpRequest, order_id):
     return render(request, 'user/rate-rider-food.html')

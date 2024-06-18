@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from modelapp.models import Rider
-
+from rider.decorators import rider_required
 
 
 class LoginView(View):
@@ -44,10 +44,10 @@ class RegisterView(View):
             print(e)
             return render(request, 'rider/register.html', {'error': str(e)})
 
-
+@rider_required
 def edit_profile(request: HttpRequest) -> HttpResponse:
     return render(request,'rider/edit-profile.html')
 
-
+@rider_required
 def track_orders(request: HttpRequest) -> HttpResponse:
     return render(request, 'rider/track-orders.html')

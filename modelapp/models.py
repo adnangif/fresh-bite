@@ -23,15 +23,17 @@ class Person(AbstractUser):
     def __str__(self):
         return self.email
 
+    @property
     def is_restaurant_owner(self):
         return self.role == Roles.RESTAURANT_OWNER
 
+    @property
     def is_rider(self):
         return self.role == Roles.RIDER
 
+    @property
     def is_user(self):
         return self.role == Roles.USER
-
 
 
 class User(Person):

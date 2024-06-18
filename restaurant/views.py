@@ -22,7 +22,7 @@ class LoginView(View):
 
         owner = authenticate(email=email, password=password)
 
-        if owner and owner.is_restaurant_owner():
+        if owner and owner.is_restaurant_owner:
             login(request, owner)
             return redirect('landingapp:landing_page')
 
