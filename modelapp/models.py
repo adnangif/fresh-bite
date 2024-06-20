@@ -108,7 +108,7 @@ class Location(models.Model):
 
 
 class Wallet(models.Model):
-    entity = models.ForeignKey(Person, on_delete=models.CASCADE)
+    entity = models.OneToOneField(Person, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True, default=0)
 
     class Meta:
@@ -223,3 +223,26 @@ class QNA(models.Model):
 class Feedback(models.Model):
     email = models.EmailField()
     message = models.TextField()
+
+
+class TransactionStatuses(models.TextChoices):
+    PENDING = 'PENDING', 'Pending'
+    ACCEPTED = 'ACCEPTED', 'Accepted'
+    REJECTED = 'REJECTED', 'Rejected'
+
+
+class PaymentTypes(models.TextChoices):
+    CASH_ON_DELIVERY = 'CASH_ON_DELIVERY', 'Cash on Delivery'
+    STRIPE = 'STRIPE', 'Stripe'
+
+
+class Transaction(models.Model):
+    amount = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    status = models.CharField(max_length=100, choices=TransactionStatuses.choices)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    payment_type = models.CharField(max_length=100, choices=PaymentTypes.choices)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['order']),
+        ]
