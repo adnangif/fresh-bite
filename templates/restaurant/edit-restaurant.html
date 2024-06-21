@@ -89,11 +89,12 @@
             <div class="col-12">
                 <!-- Page title -->
                 <div class="my-5">
-                    <h3 class="fw-bold dark fs-1">Andaz Restaurant</h3>
+                    <h3 class="fw-bold dark fs-1">{{ name }}</h3>
                     <hr>
                 </div>
                 <!-- Form START -->
-                <form class="file-upload">
+                <form method="POST" class="file-upload">
+                    {% csrf_token %}
                     <div class="row mb-5 gx-5">
                         <!-- Contact detail -->
                         <div class="col-xxl-8 mb-5 mb-xxl-0">
@@ -102,39 +103,41 @@
                                     <h4 class="mb-4 mt-0 dark fs-2">Restaurant detail</h4>
                                     <div class="col-md-6">
                                         <label class="form-label">Name of Restaurant*</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="First name"
-                                               value="Andaz Restaurant">
+                                        <input name="name" type="text" class="form-control"
+                                               placeholder="Restaurant Name" aria-label="First name"
+                                               value="{{ name }}">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">Phone number *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Phone number"
-                                               value="+92123421343">
+                                        <label class="form-label">Phone number </label>
+                                        <input name="phone" type="text" class="form-control" placeholder=""
+                                               aria-label="Phone number"
+                                               value="{{ phone }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Mobile number *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Phone number"
-                                               value="+992123421343">
+                                        <label class="form-label">Phone number </label>
+                                        <input name="phone2" type="text" class="form-control" placeholder=""
+                                               aria-label="Phone number"
+                                               value="{{ phone2 }}">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label for="inputEmail4" class="form-label">Email *</label>
-                                        <input type="email" class="form-control" id="inputEmail4"
-                                               value="andaz.restaurant@andaz.com">
-                                    </div>
 
                                     <div class="col-md-6">
                                         <label for="opening_time" class="form-label">Opening Time *</label>
-                                        <input type="time" class="form-control" id="opening_time"
-                                               value="09:00">
+                                        <input name="opens_at" type="time" class="form-control" id="opening_time"
+                                               value="{{ opens_at }}">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="opening_time" class="form-label">Closing Time *</label>
-                                        <input type="time" class="form-control" id="closing_time"
-                                               value="23:00">
+                                        <label for="closing_time" class="form-label">Closing Time *</label>
+                                        <input name="closes_at" type="time" class="form-control" id="closing_time"
+                                               value="{{ closes_at }}">
                                     </div>
-                                </div> <!-- Row END -->
+
+                                    <div class="col-md-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-warning px-4">Save</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -154,7 +157,8 @@
 
 
                                         <li class="m-2 d-flex gap-4">
-                                            <div class="btn btn-success-soft fs-5 flex-fill">Mehersons Estate Talpur Road Sindh,
+                                            <div class="btn btn-success-soft fs-5 flex-fill">Mehersons Estate Talpur
+                                                Road Sindh,
                                                 Lahore,Sindh,Pakistan
                                             </div>
                                             <button class="btn btn-danger-soft p-2 px-4 ">X</button>

@@ -3,8 +3,9 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import Owner
+from modelapp.models import Owner, Restaurant
 from restaurant.decorators import owner_required
+from restaurant.forms import RestaurantForm
 
 
 # Create your views here.
@@ -53,19 +54,42 @@ class RegisterView(View):
 
 @owner_required
 def edit_restaurant(request: HttpRequest):
-    return render(request, 'restaurant/edit-restaurant.html')
+
+    owner = Owner.objects.get(pk=request.user.id)
+    restaurant: Restaurant = Restaurant.objects.get_or_create(owner=owner)[0]
+
+    if request.method == 'POST':
+        restaurant_form = RestaurantForm(request.POST, instance=restaurant)
+        if restaurant_form.is_valid():
+            restaurant_form.save()
+            print("opens at ", restaurant.opens_at)
+
+    context = {
+        'name': restaurant.name,
+        'opens_at': restaurant.opens_at.strftime('%H:%M:%S'),
+        'closes_at': restaurant.closes_at.strftime('%H:%M:%S'),
+        'phone': restaurant.phone,
+        'phone2': restaurant.phone2,
+    }
+
+    return render(request, 'restaurant/edit-restaurant.html', context)
+
+
 
 @owner_required
 def menus(request: HttpRequest):
     return render(request, 'restaurant/menu-list.html')
 
+
 @owner_required
 def add_menu(request: HttpRequest):
     return render(request, 'restaurant/add-menu.html')
 
+
 @owner_required
 def edit_menu(request: HttpRequest):
     return render(request, 'restaurant/edit-menu.html')
+
 
 @owner_required
 def track_orders(request: HttpRequest):

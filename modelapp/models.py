@@ -171,10 +171,20 @@ class OrderedItem(models.Model):
 
 
 class Restaurant(models.Model):
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=True, null=True)
-    opens_at = models.TimeField(blank=True, null=True)
-    closes_at = models.TimeField(blank=True, null=True)
+    owner = models.OneToOneField(Owner, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True, default='')
+    opens_at = models.TimeField(blank=True, default='00:00:00')
+    closes_at = models.TimeField(blank=True, default='00:00:00')
+    phone = models.CharField(max_length=20, blank=True, default='')
+    phone2 = models.CharField(max_length=20, blank=True, default='')
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['owner']),
+        ]
+
+    def __str__(self):
+        return self.name + " owned by " + self.owner.email
 
 
 class Weekdays(models.TextChoices):
