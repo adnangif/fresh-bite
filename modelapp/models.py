@@ -70,27 +70,21 @@ class Rider(Person):
         super(Rider, self).save(*args, **kwargs)
 
 
-class Menu(models.Model):
-    name = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-
-class MenuItem(models.Model):
-    name = models.CharField(max_length=100, blank=True, null=True)
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-    image = models.ImageField(upload_to='menu_items/', blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+class Restaurant(models.Model):
+    owner = models.OneToOneField(Owner, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True, default='')
+    opens_at = models.TimeField(blank=True, default='00:00:00')
+    closes_at = models.TimeField(blank=True, default='00:00:00')
+    phone = models.CharField(max_length=20, blank=True, default='')
+    phone2 = models.CharField(max_length=20, blank=True, default='')
 
     class Meta:
         indexes = [
-            models.Index(fields=['menu']),
+            models.Index(fields=['owner']),
         ]
 
     def __str__(self):
-        return str(self.menu) + " -> " + self.name + " " + str(self.price)
+        return self.name + " owned by " + self.owner.email
 
 
 class Location(models.Model):
@@ -156,6 +150,30 @@ class Order(models.Model):
         )
 
 
+class Menu(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE,null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class MenuItem(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    price = models.IntegerField(default=0)
+    image = models.ImageField(upload_to='menu_items/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['menu']),
+        ]
+
+    def __str__(self):
+        return str(self.menu) + " -> " + self.name + " " + str(self.price)
+
+
 class OrderedItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
@@ -168,23 +186,6 @@ class OrderedItem(models.Model):
 
     def __str__(self):
         return str(self.item.name) + " -> " + str(self.quantity)
-
-
-class Restaurant(models.Model):
-    owner = models.OneToOneField(Owner, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=True, default='')
-    opens_at = models.TimeField(blank=True, default='00:00:00')
-    closes_at = models.TimeField(blank=True, default='00:00:00')
-    phone = models.CharField(max_length=20, blank=True, default='')
-    phone2 = models.CharField(max_length=20, blank=True, default='')
-
-    class Meta:
-        indexes = [
-            models.Index(fields=['owner']),
-        ]
-
-    def __str__(self):
-        return self.name + " owned by " + self.owner.email
 
 
 class Weekdays(models.TextChoices):

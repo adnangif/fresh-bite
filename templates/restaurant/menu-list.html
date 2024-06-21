@@ -27,8 +27,7 @@
 
         .menu-item {
             font-size: 1.3rem;
-            {#border-radius: 1rem;#}
-            padding: 0.5rem;
+        {#border-radius: 1rem;#} padding: 0.5rem;
             text-decoration: none;
             color: black;
             transition: all 250ms;
@@ -42,14 +41,13 @@
 
         a:hover {
             color: black;
-            {#transform: scale(1.05);#}
+        {#transform: scale(1.05);#}
         }
 
         .item {
             padding: 1rem;
             border-radius: 1rem;
-            {#border: solid 3px gray;#}
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        {#border: solid 3px gray;#} box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             transition: all 250ms;
             text-transform: capitalize;
         }
@@ -64,76 +62,28 @@
 {% block content %}
     <div class="main-container rounded-elem">
         <h1>Menus</h1>
-        <div class="item">
-            <h2>chicken handi</h2>
-            <ul>
-                <li class="menu-item">
-                    <div>chicken makhni handi</div>
-                    <div class="fw-bold">Rs. 4000</div>
-                </li>
 
-                <li class="menu-item">
-                    <div>chicken qorma</div>
-                    <div class="fw-bold">Rs. 4000</div>
+        {% for menu in menu_list %}
+            <div class="item">
+                <h2>{{ menu.name }}</h2>
+                <ul>
+                    {% for item in menu.items %}
+                        <li class="menu-item">
+                            <div>{{ item.name }}</div>
+                            <div class="fw-bold">Rs. {{ item.price }}</div>
+                        </li>
+                    {% endfor %}
 
-                </li>
+                </ul>
 
-                <li class="menu-item">
-                    <div>chicken palak</div>
-                    <div class="fw-bold">Rs. 4000</div>
+                <div class="d-flex justify-content-end gap-4">
+                    <a href="{% url 'restaurant:edit_menu' %}" class="btn btn-warning btn-lg my-3">Edit</a>
+                    <button class="btn btn-danger btn-lg my-3">Delete</button>
 
-                </li>
-
-                <li class="menu-item">
-                    <div>CHICKEN HALEEM</div>
-                    <div class="fw-bold">Rs. 4000</div>
-
-                </li>
-            </ul>
-
-            <div class="d-flex justify-content-end gap-4">
-                <a href="{% url 'restaurant:edit_menu' %}" class="btn btn-warning btn-lg my-3">Edit</a>
-                <button class="btn btn-danger btn-lg my-3">Delete</button>
+                </div>
 
             </div>
-
-        </div>
-
-
-        <div class="item">
-            <h2>Chinese Cuisine</h2>
-            <ul>
-                <li class="menu-item">
-                    <div>Chicken Chowmein</div>
-                    <div class="fw-bold">Rs. 4000</div>
-                </li>
-
-                <li class="menu-item">
-                    <div>Momos Steem</div>
-                    <div class="fw-bold">Rs. 4000</div>
-
-                </li>
-
-                <li class="menu-item">
-                    <div>Vegetables Chowmin</div>
-                    <div class="fw-bold">Rs. 4000</div>
-
-                </li>
-
-                <li class="menu-item">
-                    <div>Monglian Chicken</div>
-                    <div class="fw-bold">Rs. 4000</div>
-
-                </li>
-            </ul>
-
-            <div class="d-flex justify-content-end gap-4">
-                <a href="{% url 'restaurant:edit_menu' %}" class="btn btn-warning btn-lg my-3">Edit</a>
-                <button class="btn btn-danger btn-lg my-3">Delete</button>
-
-            </div>
-
-        </div>
+        {% endfor %}
 
         <div>
             <a href="{% url 'restaurant:add_menu' %}" class="btn btn-warning btn-lg m-3">Add A New Menu</a>

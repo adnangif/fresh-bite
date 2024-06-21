@@ -1,9 +1,11 @@
+import json
+
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import Owner, Restaurant
+from modelapp.models import Owner, Restaurant, Menu, MenuItem
 from restaurant.decorators import owner_required
 from restaurant.forms import RestaurantForm
 
@@ -54,7 +56,6 @@ class RegisterView(View):
 
 @owner_required
 def edit_restaurant(request: HttpRequest):
-
     owner = Owner.objects.get(pk=request.user.id)
     restaurant: Restaurant = Restaurant.objects.get_or_create(owner=owner)[0]
 
@@ -75,10 +76,31 @@ def edit_restaurant(request: HttpRequest):
     return render(request, 'restaurant/edit-restaurant.html', context)
 
 
-
 @owner_required
 def menus(request: HttpRequest):
-    return render(request, 'restaurant/menu-list.html')
+    restaurant = Restaurant.objects.get_or_create(owner__pk=request.user.id)[0]
+
+    menu_objects: list[Menu] = Menu.objects.filter(restaurant=restaurant)
+
+    menu_list = []
+
+    for menu_object in menu_objects:
+        menu = {
+            'name': menu_object.name,
+            'items': [
+                item for item in MenuItem.objects.filter(menu=menu_object)
+            ],
+        }
+
+        menu_list.append(menu)
+
+    context = {
+        'menu_list': menu_list,
+    }
+
+    # print(json.dumps(context, indent=4))
+
+    return render(request, 'restaurant/menu-list.html', context)
 
 
 @owner_required
