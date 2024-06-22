@@ -8,7 +8,7 @@ from django.views import View
 
 from modelapp.models import Owner, Restaurant, Menu, MenuItem
 from restaurant.decorators import owner_required
-from restaurant.forms import RestaurantForm
+from restaurant.forms import RestaurantForm, UpdateMenuItemForm
 
 
 # Create your views here.
@@ -85,9 +85,6 @@ def menus(request: HttpRequest):
 
     menu_list = []
 
-    # print("media url is ", settings.MEDIA_URL)
-
-
     for menu_object in menu_objects:
         menu = {
             'name': menu_object.name,
@@ -125,16 +122,65 @@ def add_menu(request: HttpRequest):
 
 @owner_required
 def edit_menu(request: HttpRequest, pk: int):
+    menu: Menu = Menu.objects.filter(pk=pk).last()
 
-    menu: Menu = Menu.objects.get(pk=pk)
+    if menu is None or menu.restaurant.owner.pk != request.user.pk:
+        return redirect('restaurant:menus')
+
     if request.method == 'POST':
-        pass
+        item_pk = request.POST.get('item_pk')
+
+        if item_pk:
+            item = MenuItem.objects.get(pk=item_pk)
+            menu_item_form = UpdateMenuItemForm(request.POST, request.FILES, instance=item)
+            print(request.FILES)
+            if menu_item_form.is_valid():
+                menu_item_form.save()
+            else:
+                print(menu_item_form.errors)
+        else:
+            MenuItem.objects.create(
+                menu_id=pk,
+                description=request.POST.get('description'),
+                name=request.POST.get('name'),
+                price=request.POST.get('price'),
+                image=request.FILES.get('image'),
+            )
 
     context = {
+        'name': menu.name,
+        'menu_pk': menu.pk,
+        'items': [
+            item for item in MenuItem.objects.filter(menu=menu)
+        ],
 
     }
 
-    return render(request, 'restaurant/edit-menu.html')
+    return render(request, 'restaurant/edit-menu.html', context)
+
+
+@owner_required
+def delete_menu(request: HttpRequest):
+    if request.method == 'POST':
+        pk = request.POST.get('pk')
+        menu: Menu = Menu.objects.get(pk=pk)
+
+        if menu.restaurant.owner.pk == request.user.pk:
+            menu.delete()
+
+    return redirect('restaurant:menus')
+
+
+@owner_required
+def delete_item(request: HttpRequest):
+    if request.method == 'POST':
+        pk = request.POST.get('pk')
+        item: MenuItem = MenuItem.objects.get(pk=pk)
+
+        if item.menu.restaurant.owner.pk == request.user.pk:
+            item.delete()
+
+    return redirect('restaurant:menus')
 
 
 @owner_required

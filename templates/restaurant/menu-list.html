@@ -40,8 +40,8 @@
 
 
         }
-        
-        ul{
+
+        ul {
             list-style-type: none;
         }
 
@@ -77,8 +77,8 @@
                         <li class="menu-item">
 
                             <div>{{ item.name }}</div>
-{#                            <div>{{ base }}</div>#}
-                            <img width="100px"  src="{{ base }}{{ item.image.url }}" alt="">
+                            {#                            <div>{{ base }}</div>#}
+                            <img width="100px" src="{{ item.image.url }}" alt="">
                             <div class="fw-bold">Rs. {{ item.price }}</div>
                             <div>{{ item.description }}</div>
                         </li>
@@ -88,7 +88,11 @@
 
                 <div class="d-flex justify-content-end gap-4">
                     <a href="{% url 'restaurant:edit_menu' menu.pk %}" class="btn btn-warning btn-lg my-3">Edit</a>
-                    <button class="btn btn-danger btn-lg my-3">Delete</button>
+                    <form method="POST" action="{% url 'restaurant:delete_menu' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ menu.pk }}">
+                        <button class="btn btn-danger btn-lg my-3">Delete</button>
+                    </form>
 
                 </div>
 

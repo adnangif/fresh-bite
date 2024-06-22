@@ -36,51 +36,111 @@
 
 {% block content %}
     <div class="main-container rounded-elem">
+        <a href="{% url 'restaurant:menus' %}">Menus</a>
 
         <div class="d-flex flex-column gap-5">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Menu Name</span>
                 <input type="text" class="form-control" placeholder="Please Enter Menu Name here"
-                       value="LAHORI DELIGHTS" aria-label="Username"
+                       value="{{ name }}" aria-label="Username"
                        aria-describedby="basic-addon1">
             </div>
 
+            {% for item in items %}
+                <div class="item">
 
-            <form method="POST" class="item">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="item_pk" value="{{ item.pk }}">
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Item Name</span>
+                            <input name="name" type="text" class="form-control"
+                                   placeholder="Please Enter Item Name here"
+                                   aria-label="Username"
+                                   value="{{ item.name }}"
+                                   aria-describedby="basic-addon1">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupFile01">Upload Image</label>
+                            <input name="image" src="{{ item.image.url }}" type="file" class="form-control"
+                                   id="inputGroupFile01">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Item Price</span>
+                            <input name="price" type="number" class="form-control" placeholder="Please Enter Price here"
+                                   aria-label="price"
+                                   value="{{ item.price }}"
+                                   aria-describedby="basic-addon1">
+                        </div>
+
+                        <div class="form-floating">
+                        <textarea name="description" class="form-control" placeholder="Leave a comment here"
+                                  id="floatingTextarea2"
+                                  style="height: 100px">{{ item.description }}</textarea>
+                            <label for="floatingTextarea2">Item Description</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning btn-lg my-3">Save Changes</button>
+
+
+                    </form>
+                    <form method="POST" action="{% url 'restaurant:delete_item' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ item.pk }}">
+                        <button type="submit" class="btn btn-danger btn-lg my-3">Delete</button>
+                    </form>
+
+                </div>
+                
+            {% endfor %}
+
+
+
+            <form method="POST" enctype="multipart/form-data" class="item">
+                {% csrf_token %}
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Item Name</span>
                     <input name="name" type="text" class="form-control" placeholder="Please Enter Item Name here"
                            aria-label="Username"
-                           value="LAHORI TAWA KEEMA"
                            aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="inputGroupFile01">Upload Image</label>
-                    <input type="file" class="form-control" id="inputGroupFile01">
+                    <input name="image" type="file" class="form-control" id="inputGroupFile01">
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Item Price</span>
-                    <input type="number" class="form-control" placeholder="Please Enter Price here"
+                    <input name="price" type="number" class="form-control" placeholder="Please Enter Price here"
                            aria-label="price"
-                           value="5000"
                            aria-describedby="basic-addon1">
                 </div>
 
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                              style="height: 100px">Masalay daar minced chicken glazed on Tawa with fresh tomatoes and onions, garnished with coriander leaves and lemon wedges.</textarea>
+                    <textarea name="description" class="form-control" placeholder="Leave a comment here"
+                              id="floatingTextarea2"
+                              style="height: 100px"></textarea>
                     <label for="floatingTextarea2">Item Description</label>
                 </div>
 
-                <button class="btn btn-warning btn-lg my-3">Save Changes</button>
-                <button class="btn btn-danger btn-lg my-3">Delete</button>
+                <button type="submit" class="btn btn-warning btn-lg my-3">Add</button>
 
             </form>
-            
+
         </div>
 
     </div>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault()
+            location.reload()
+        }
+    </script>
 
 {% endblock %}
