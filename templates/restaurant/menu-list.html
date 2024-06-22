@@ -34,9 +34,15 @@
             border-bottom: solid 1px gray;
             margin: 1rem 0;
             display: flex;
+            flex-direction: column;
+            gap: 1rem;
             justify-content: space-between;
 
 
+        }
+        
+        ul{
+            list-style-type: none;
         }
 
         a:hover {
@@ -69,15 +75,19 @@
                 <ul>
                     {% for item in menu.items %}
                         <li class="menu-item">
+
                             <div>{{ item.name }}</div>
+{#                            <div>{{ base }}</div>#}
+                            <img width="100px"  src="{{ base }}{{ item.image.url }}" alt="">
                             <div class="fw-bold">Rs. {{ item.price }}</div>
+                            <div>{{ item.description }}</div>
                         </li>
                     {% endfor %}
 
                 </ul>
 
                 <div class="d-flex justify-content-end gap-4">
-                    <a href="{% url 'restaurant:edit_menu' %}" class="btn btn-warning btn-lg my-3">Edit</a>
+                    <a href="{% url 'restaurant:edit_menu' menu.pk %}" class="btn btn-warning btn-lg my-3">Edit</a>
                     <button class="btn btn-danger btn-lg my-3">Delete</button>
 
                 </div>

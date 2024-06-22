@@ -152,7 +152,7 @@ class Order(models.Model):
 
 class Menu(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE,null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name

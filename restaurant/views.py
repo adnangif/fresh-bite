@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
@@ -84,12 +85,17 @@ def menus(request: HttpRequest):
 
     menu_list = []
 
+    # print("media url is ", settings.MEDIA_URL)
+
+
     for menu_object in menu_objects:
         menu = {
             'name': menu_object.name,
+            'pk': menu_object.pk,
             'items': [
                 item for item in MenuItem.objects.filter(menu=menu_object)
             ],
+            'base': settings.MEDIA_URL
         }
 
         menu_list.append(menu)
@@ -98,18 +104,36 @@ def menus(request: HttpRequest):
         'menu_list': menu_list,
     }
 
-    # print(json.dumps(context, indent=4))
-
     return render(request, 'restaurant/menu-list.html', context)
 
 
 @owner_required
 def add_menu(request: HttpRequest):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        restaurant = Restaurant.objects.get_or_create(owner__pk=request.user.id)[0]
+
+        menu = Menu.objects.create(
+            restaurant=restaurant,
+            name=name
+        )
+
+        return redirect('restaurant:menus')
+
     return render(request, 'restaurant/add-menu.html')
 
 
 @owner_required
-def edit_menu(request: HttpRequest):
+def edit_menu(request: HttpRequest, pk: int):
+
+    menu: Menu = Menu.objects.get(pk=pk)
+    if request.method == 'POST':
+        pass
+
+    context = {
+
+    }
+
     return render(request, 'restaurant/edit-menu.html')
 
 

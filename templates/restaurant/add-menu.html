@@ -37,43 +37,19 @@
 {% block content %}
     <div class="main-container rounded-elem">
 
-        <div class="d-flex flex-column">
-            <div class="input-group mb-3">
+        <form method="POST" class="d-flex flex-column">
+            {% csrf_token %}
+            <div class="input-group input-group-lg mb-3">
                 <span class="input-group-text" id="basic-addon1">Menu Name</span>
-                <input type="text" class="form-control" placeholder="Please Enter Menu Name here" aria-label="Username"
+                <input name="name" type="text" class="form-control" placeholder="Please Enter Menu Name here" aria-label="Username"
                        aria-describedby="basic-addon1">
             </div>
 
-            <div class="item">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Item Name</span>
-                    <input type="text" class="form-control" placeholder="Please Enter Item Name here"
-                           aria-label="Username"
-                           aria-describedby="basic-addon1">
-                </div>
-
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="inputGroupFile01">Upload Image</label>
-                    <input type="file" class="form-control" id="inputGroupFile01">
-                </div>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Item Price</span>
-                    <input type="number" class="form-control" placeholder="Please Enter Price here"
-                           aria-label="price"
-                           aria-describedby="basic-addon1">
-                </div>
-
-                <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                              style="height: 100px"></textarea>
-                    <label for="floatingTextarea2">Item Description</label>
-                </div>
-
-                <button class="btn btn-warning btn-lg my-3">Add</button>
-
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-warning btn-lg">Save</button>
             </div>
-        </div>
+
+        </form>
 
     </div>
 
