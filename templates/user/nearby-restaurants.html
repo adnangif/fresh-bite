@@ -4,11 +4,11 @@
 
 {% block styles %}
     <style>
-    a{
-        text-decoration: none;
-        color: black;
-    }
-    
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
     </style>
 
 {% endblock %}
@@ -107,286 +107,53 @@
         </div>
 
         <div class="flex-fill">
-            <div class="mb-3 d-flex gap-2">
-                <input type="text" class="form-control rounded-elem" placeholder="Cuisine" aria-label="Search food"
-                       aria-describedby="button-addon2">
-                <button class="btn btn-warning " type="button" id="button-addon2">Search</button>
-            </div>
-
             <div class="mt-5 overflow-hidden">
-                <h2 class="display-5">Top Rated</h2>
+                <h2 class="display-5">Nearest</h2>
 
                 <div class="row overflow-hidden">
 
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="https://media.istockphoto.com/id/1216782625/photo/chilling-out-at-a-coffee-shop.jpg?s=612x612&w=0&k=20&c=3AKnRvK_Skw9ClwGD9yGtDifGiaqQTireIJJPE4B4no=" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
+                    {% for restaurant in restaurants %}
 
-                                <h6>distance: <strong>34</strong> min</h6>
+                        <a href="{% url 'user:restaurant' restaurant_id=restaurant.pk %}" class="col-md-6 col-lg-3 col-12  my-1 ">
+                            <div class="card">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX4C2-owmlNnRbi9Wzovte1q_y12WrcgOvvg&usqp=CAU"
+                                     class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">{{ restaurant.name }}</h5>
+                                    <h6>Rating:
+                                        {% if restaurant.rating > 0 %}
+                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                        {% endif %}
 
+                                        {% if restaurant.rating > 1 %}
+                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if restaurant.rating > 2 %}
+                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if restaurant.rating > 3 %}
+                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if restaurant.rating > 4 %}
+                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                        {% endif %}
+                                    </h6>
+
+                                    <h6>distance: <strong>34</strong> min</h6>
+
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1494zNhgBTnwTOOHgHMrG7cVXGVzs9yNW8w&s" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Veera 5</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://media.istockphoto.com/id/1387024635/photo/portrait-of-smiling-male-owner-or-waiter-in-cafe-with-unrecognizable-blurred-employes-moving.jpg?s=612x612&w=0&k=20&c=ZTGY-Efi2dLOhQ2DfjKyIQu5pJNEd73_CNiFdQroh_o=" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Monal Lahore</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoFNgZa_N7pUrq6o4OzfryIzfrLeMoWe5JpXifSLIaHovu4jJ1MupGmg6QYQ&s" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Pablo's</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRb_lo4FyAIDlvcAH61xQMKphGk1pbj4tSzlqtxIBLjpXusEqQrGXbL9rYcSQ&s" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haveli Restaurant</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwlfhoEo8niF0YrvK-GqlCXfgy2icWkeImug&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Spice Bazar</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1 ">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Igj2XIyyNhdgFajDwTiEvZtacvYE_pYi5g&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Asian Wok Raya Lahore</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
+                    {% endfor %}
 
                 </div>
 
-            </div>
-            
-            
-            
-            <div class="mt-5 overflow-hidden">
-                <h2 class="display-5"></h2>
-
-                <div class="row overflow-hidden">
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwlfhoEo8niF0YrvK-GqlCXfgy2icWkeImug&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Andaaz Restaurant</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV-I0cFTk4HhIln6Dy8HDrjOhcYK9K1EiwNA&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Qabail Tribes</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSlb1oRXJTjlpq2N1HLnoCZsNqDuFBYRqAxA&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">The Brasserie</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTayxnCT4KIKor7VX0Jnzf7GpVAEa9xVUykqA&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Cafe Zouk</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSANAUBwP_3WXfWnZ-bNwXf-e-l67gw7HbM8w&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Salt'n Pepper</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB7aUqT7YajFIbFDfdl0dOaK5fNW3wnpTt0-aOjGiLQ2INFDe0GLw41UX192RbqnKqrh4&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Kim's</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'user:restaurant' restaurant_id=234 %}" class="col-md-6 col-lg-3 col-12  my-1 ">
-                        <div class="card">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX4C2-owmlNnRbi9Wzovte1q_y12WrcgOvvg&usqp=CAU" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Cooco's Den</h5>
-                                <h6>Rating:
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                </h6>
-
-                                <h6>distance: <strong>34</strong> min</h6>
-
-                            </div>
-                        </div>
-                    </a>
-
-
-                </div>
 
             </div>
-            
 
 
         </div>

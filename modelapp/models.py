@@ -8,7 +8,7 @@ class Person(AbstractUser):
     username = None
     email = models.EmailField(_("email address"), unique=True)
     role = models.CharField(max_length=100, choices=Roles.choices, default=Roles.NONE)
-    phone = models.CharField(max_length=25, null=True, blank=True)
+    phone = models.CharField(max_length=25, blank=True, default='')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -77,6 +77,7 @@ class Restaurant(models.Model):
     closes_at = models.TimeField(blank=True, default='00:00:00')
     phone = models.CharField(max_length=20, blank=True, default='')
     phone2 = models.CharField(max_length=20, blank=True, default='')
+    rating = models.DecimalField(default=3, max_digits=5, decimal_places=2)
 
     class Meta:
         indexes = [
@@ -125,7 +126,10 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="User")
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE, related_name="Owner")
     rider = models.ForeignKey(Rider, on_delete=models.CASCADE, related_name="Rider")
-    status = models.CharField(max_length=100, choices=OrderStatus.choices, blank=True, null=True)
+    status = models.CharField(max_length=100, choices=OrderStatus.choices, default=OrderStatus.PREPARING)
+
+    rider_otp = models.IntegerField(blank=True, null=True)
+    user_otp = models.IntegerField(blank=True, null=True)
 
     _total_amount = None
 

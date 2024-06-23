@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import User
+from modelapp.models import User, Restaurant
 from user.decorators import user_required
 
 
@@ -14,7 +14,16 @@ def hello_world(request: HttpRequest):
 
 
 def nearby_restaurants(request: HttpRequest):
-    return render(request, 'user/nearby-restaurants.html')
+    lat = request.GET.get('lat')
+    lng = request.GET.get('lng')
+
+    restaurants: list[Restaurant] = Restaurant.objects.all()
+
+    context = {
+        'restaurants': restaurants,
+    }
+
+    return render(request, 'user/nearby-restaurants.html', context)
 
 
 def restaurant(request: HttpRequest, restaurant_id: int):
@@ -94,7 +103,21 @@ class RegisterView(View):
 
 @user_required
 def edit_profile(request: HttpRequest):
-    return render(request, 'user/edit-profile.html')
+    user: User = User.objects.get(pk=request.user.id)
+
+    if request.method == 'POST':
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+        user.phone = request.POST.get('phone')
+
+        user.save()
+
+    context = {
+        'user': user,
+    }
+
+    return render(request, 'user/edit-profile.html', context)
 
 
 @user_required
