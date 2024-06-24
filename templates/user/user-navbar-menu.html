@@ -14,6 +14,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item m-1">
+                    <a href="{% url 'landingapp:landing_page' %}" class="btn btn-outline-warning text-dark fw-bolder ">Home</a>
+                </li>
+
                 <li class="nav-item m-1">
                     <a href="{% url 'user:track_orders' %}"
                        class="btn btn-outline-warning text-dark fw-bolder ">Orders</a>
@@ -22,7 +27,6 @@
                 <li class="nav-item m-1">
                     <a href="{% url 'user:faq' %}" class="btn btn-outline-warning text-dark fw-bolder ">FAQ</a>
                 </li>
-
                 <li class="nav-item m-1">
                     <a href="{% url 'user:edit_profile' %}"
                        class="btn btn-outline-warning text-dark fw-bolder ">Profile</a>

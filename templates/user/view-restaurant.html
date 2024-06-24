@@ -10,6 +10,7 @@
             font-weight: bold;
             margin: 2rem 0;
             font-size: 4rem;
+            text-transform: capitalize;
         }
     </style>
 {% endblock %}
@@ -30,42 +31,45 @@
 
                 <div class="filter-sidepanel d-flex flex-column  gap-3 p-3 w-100">
 
+                    {% for cart_item in cart_items %}
+                        <div class="card mb-3">
+                            <div class="d-flex gap-5 justify-content-start">
+                                <img style="height: 100px; width: 100px;" src="{{ cart_item.item.image.url }}"
+                                     class="img-fluid rounded-start"
+                                     alt="...">
+                                <div class="d-flex flex-fill flex-column justify-content-around align-items-center flex-nowrap">
+                                    <h6 class="card-title ">{{ cart_item.item.name }}
+                                        <strong>x{{ cart_item.quantity }}</strong>
+                                    </h6>
+                                    <div class="d-flex">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="item_pk" value="{{ cart_item.item.pk }}">
+                                            <input type="hidden" name="cart_pk" value="{{ cart_item.cart.pk }}">
+                                            <input type="hidden" name="increment" value="increment">
 
-                    <div class="card mb-3">
-                        <div class="d-flex gap-5 justify-content-start">
-                            <img style="height: 100px; width: 100px;" src="{% static 'images/squared-img.png' %}"
-                                 class="img-fluid rounded-start"
-                                 alt="...">
-                            <div class="d-flex flex-fill flex-column justify-content-around align-items-center flex-nowrap">
-                                <h6 class="card-title ">Haleem <strong>x3</strong>
-                                </h6>
-                                <div>
-                                    <button class="btn btn-sm btn-warning rounded-btn">+</button>
-                                    <button class="btn btn-sm btn-warning rounded-btn">-</button>
+                                            <button class="btn btn-sm btn-warning rounded-btn">+</button>
+                                        </form>
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="item_pk" value="{{ cart_item.item.pk }}">
+                                            <input type="hidden" name="cart_pk" value="{{ cart_item.cart.pk }}">
+                                            <input type="hidden" name="decrement" value="decrement">
+
+                                            <button class="btn btn-sm btn-warning rounded-btn">-</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
 
-                    <div class="card mb-3">
-                        <div class="d-flex gap-5 justify-content-start">
-                            <img style="height: 100px; width: 100px;" src="{% static 'images/squared-img.png' %}"
-                                 class="img-fluid rounded-start"
-                                 alt="...">
-                            <div class="d-flex flex-fill flex-column justify-content-around align-items-center flex-nowrap">
-                                <h6 class="card-title ">Paya <strong>x3</strong>
-                                </h6>
-                                <div>
-                                    <button class="btn btn-sm btn-warning rounded-btn">+</button>
-                                    <button class="btn btn-sm btn-warning rounded-btn">-</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <a href="{% url 'user:review_order' order_id=232 %}" class="btn btn-warning w-100 my-3">Review
-                        Order</a>
+                    {% if cart_items %}
+                        <a href="{% url 'user:review_order' order_id=232 %}" class="btn btn-warning w-100 my-3">Review
+                            Order</a>
+                    {% else %}
+                        <h2 class="text-danger">No Item in Cart</h2>
+                    {% endif %}
 
                 </div>
 
@@ -80,209 +84,102 @@
             <div class="py-5 sticky-top"></div>
             <h4 class="fw-bold">Your Items</h4>
 
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div style="max-height: 100px;overflow: clip" class="col-md-4">
-                        <img src="https://recipe52.com/wp-content/uploads/2022/08/Nihari-recipe-2.jpg"
-                             class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8 ">
-                        <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
-                            <h6 class="card-title ">Nihari <strong>x3</strong>
-                            </h6>
-                            <div>
-                                <button class="btn btn-sm btn-warning rounded-btn">+</button>
-                                <button class="btn btn-sm btn-warning rounded-btn">-</button>
+            {% for cart_item in cart_items %}
+
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ cart_item.item.image.url }}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8 ">
+                            <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
+                                <h6 class="card-title ">{{ cart_item.item.name }}
+                                    <strong>x{{ cart_item.quantity }}</strong>
+                                </h6>
+                                <div class="d-flex">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="item_pk" value="{{ cart_item.item.pk }}">
+                                        <input type="hidden" name="cart_pk" value="{{ cart_item.cart.pk }}">
+                                        <input type="hidden" name="increment" value="increment">
+
+                                        <button class="btn btn-sm btn-warning rounded-btn">+</button>
+                                    </form>
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="item_pk" value="{{ cart_item.item.pk }}">
+                                        <input type="hidden" name="cart_pk" value="{{ cart_item.cart.pk }}">
+                                        <input type="hidden" name="decrement" value="decrement">
+
+                                        <button class="btn btn-sm btn-warning rounded-btn">-</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div style="max-height: 100px; overflow: clip" class="col-md-4">
-                        <img src="https://media.istockphoto.com/id/495455544/photo/red-lentil-indian-soup-with-flat-bread-masoor-dal.jpg?s=612x612&w=0&k=20&c=9fFtTaToOQlA5MksySTcwj1imV-Siz6zSwX4CW1NBQg="
-                             class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8 ">
-                        <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
-                            <h6 class="card-title ">Tarka daal <strong>x3</strong>
-                            </h6>
-                            <div>
-                                <button class="btn btn-sm btn-warning rounded-btn">+</button>
-                                <button class="btn btn-sm btn-warning rounded-btn">-</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{% static 'images/squared-img.png' %}" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8 ">
-                        <div class="card-body d-flex flex-column justify-content-between align-items-center flex-nowrap">
-                            <h6 class="card-title ">Cold Drinks <strong>x6</strong>
-                            </h6>
-                            <div>
-                                <button class="btn btn-sm btn-warning rounded-btn">+</button>
-                                <button class="btn btn-sm btn-warning rounded-btn">-</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <a href="{% url 'user:review_order' order_id=232 %}" class="btn btn-warning w-100 my-3">Review Order</a>
+            {% if cart_items %}
+                <a href="{% url 'user:review_order' order_id=232 %}" class="btn btn-warning w-100 my-3">Review Order</a>
+            {% else %}
+                <h2 class="text-danger">No Item in Cart</h2>
+            {% endif %}
 
 
         </div>
 
         <div class="flex-fill">
 
-            <h1 class="title">Monal Lahore</h1>
+            <h1 class="title">{{ restaurant.name }}</h1>
             <div class="d-flex gap-3">
                 <input type="text" class="form-control rounded-elem" placeholder="Cuisine" aria-label="Search food"
                        aria-describedby="button-addon2">
                 <button class="btn btn-warning " type="button" id="button-addon2">Search</button>
             </div>
 
-            <div class="mt-5 overflow-hidden">
-                <h2 class="fw-bold">Traditional Pakistani dishes</h2>
-
-                <div class="row overflow-hidden">
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <div style="max-height: 300px;overflow: clip">
+            {% for menu in menu_list %}
 
 
-                                <img src="https://recipe52.com/wp-content/uploads/2022/08/Nihari-recipe-2.jpg"
-                                     class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Nihari</h5>
-                                <h6>Price: <strong>Rs. 500</strong></h6>
 
-                                <button class="btn btn-warning  fw-bold">ADD</button>
+                <div class="mt-5 overflow-hidden">
+                    <h2 class="fw-bold">{{ menu.name }}</h2>
 
-                            </div>
-                        </div>
+                    <div class="row overflow-hidden">
+
+                        {% for item in menu.items %}
+
+                            <form method="post" onsubmit="" class="col-md-6 col-lg-3 col-12 my-1">
+                                {% csrf_token %}
+                                <input type="hidden" name="cart_pk" value="{{ cart.pk }}">
+                                <input type="hidden" name="item_pk" value="{{ item.pk }}">
+                                <input type="hidden" name="increment" value="increment">
+                                <div class="card">
+                                    <div style="height: 200px;overflow: clip">
+
+                                        <img src="{{ item.image.url }}"
+                                             class="card-img-top" alt="{{ item.name }}">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">{{ item.name }}</h5>
+                                        <h6>Price: <strong>Rs. {{ item.price }}</strong></h6>
+
+                                        <button type="submit" class="btn btn-warning  fw-bold">ADD</button>
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        {% endfor %}
+
                     </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <div style="max-height: 300px;overflow: clip">
-
-                                <img src="https://media.istockphoto.com/id/495455544/photo/red-lentil-indian-soup-with-flat-bread-masoor-dal.jpg?s=612x612&w=0&k=20&c=9fFtTaToOQlA5MksySTcwj1imV-Siz6zSwX4CW1NBQg="
-                                     class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Tarka daal</h5>
-                                <h6>Price: <strong>Rs. 500</strong></h6>
-
-                                <button class="btn btn-warning  fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <div style="max-height: 300px;overflow: clip">
-
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJDj-F6051HobeUPF-56oqxL_qauWAHuKm7w&s"
-                                     class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Haleem</h5>
-                                <h6>Price: <strong>Rs. 500</strong></h6>
-
-                                <button class="btn btn-warning  fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
-
-            </div>
-
-
-            <div class="mt-5 overflow-hidden">
-                <h2 class="fw-bold">Chinese Cuisine</h2>
-
-                <div class="row overflow-hidden">
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <div style="max-height: 300px;overflow: clip">
-
-
-                                <img src="https://www.chilitochoc.com/wp-content/uploads/2020/06/ChickenManchurian5-683x1024.jpg"
-                                     class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Chicken Manchurian</h5>
-                                <h6>Price: <strong>Rs. 500</strong></h6>
-
-                                <button class="btn btn-warning  fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <div style="max-height: 300px;overflow: clip">
-
-                                <img src="https://www.flourandspiceblog.com/wp-content/uploads/2018/12/IMG_0205-333x500.jpg"
-                                     class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Beef Chilli Dry</h5>
-                                <h6>Price: <strong>Rs. 500</strong></h6>
-
-                                <button class="btn btn-warning  fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-6 col-lg-3 col-12 my-1">
-                        <div class="card">
-                            <div style="max-height: 300px;overflow: clip">
-
-                                <img src="https://butteroverbae.com/wp-content/uploads/2021/06/sweet-sour-chicken-12-768x1024.jpg"
-                                     class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Sweet and Sour Chicken</h5>
-                                <h6>Price: <strong>Rs. 500</strong></h6>
-
-                                <button class="btn btn-warning  fw-bold">ADD</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
+            {% endfor %}
 
 
         </div>
     </div>
-
-
 
 
 

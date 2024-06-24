@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import User, Restaurant
+from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem
 from user.decorators import user_required
 
 
@@ -26,10 +26,46 @@ def nearby_restaurants(request: HttpRequest):
     return render(request, 'user/nearby-restaurants.html', context)
 
 
+@user_required
 def restaurant(request: HttpRequest, restaurant_id: int):
-    print(restaurant_id)
+    if request.method == 'POST':
+        cart_pk = request.POST.get('cart_pk')
+        item_pk = request.POST.get('item_pk')
+        increment = request.POST.get('increment')
+        decrement = request.POST.get('decrement')
 
-    return render(request, 'user/view-restaurant.html')
+        cart_item: CartItem = CartItem.objects.filter(cart=cart_pk, item=item_pk).last()
+        if cart_item is None:
+            CartItem.objects.create(cart_id=cart_pk, item_id=item_pk)
+        elif increment:
+            cart_item.increment()
+        elif decrement:
+            cart_item.decrement()
+
+    menu_objects: list[Menu] = Menu.objects.filter(restaurant=restaurant_id)
+
+    menu_list = []
+    for menu_object in menu_objects:
+        menu = {
+            'name': menu_object.name,
+            'pk': menu_object.pk,
+            'items': [
+                item for item in MenuItem.objects.filter(menu=menu_object)
+            ],
+        }
+        menu_list.append(menu)
+
+    cart = Cart.objects.get_or_create(restaurant=restaurant_id, user=request.user)[0]
+    cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
+
+    context = {
+        'menu_list': menu_list,
+        'restaurant': restaurant,
+        'cart_items': cart_items,
+        'cart': cart,
+    }
+
+    return render(request, 'user/view-restaurant.html', context)
 
 
 @user_required
@@ -71,7 +107,7 @@ class LoginView(View):
         user = authenticate(email=email, password=password)
 
         if user is None:
-            return HttpResponse("Login failed")
+            return render(request, 'user/login.html', {"error": "Invalid email or password"})
 
         login(request, user)
         return redirect('landingapp:landing_page')

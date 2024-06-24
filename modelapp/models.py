@@ -266,3 +266,39 @@ class Transaction(models.Model):
         indexes = [
             models.Index(fields=['order']),
         ]
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['user', 'restaurant'])
+        ]
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def increment(self):
+        self.quantity += 1
+        self.save()
+        return self.quantity
+
+    def decrement(self):
+        self.quantity -= 1
+        self.save()
+
+        if self.quantity == 0:
+            self.delete()
+            return None
+        
+        return self.quantity
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['cart', 'item']),
+        ]
