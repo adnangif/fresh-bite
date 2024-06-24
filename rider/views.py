@@ -5,6 +5,7 @@ from django.views import View
 
 from modelapp.models import Rider
 from rider.decorators import rider_required
+from rider.forms import UpdateRiderForm
 
 
 class LoginView(View):
@@ -37,16 +38,30 @@ class RegisterView(View):
         password = request.POST.get('password')
 
         try:
-            rider = Rider.objects.create_user(first_name=first_name, last_name=last_name, email=email, password=password)
+            rider = Rider.objects.create_user(first_name=first_name, last_name=last_name, email=email,
+                                              password=password)
             login(request, rider)
             return redirect('landingapp:landing_page')
         except Exception as e:
             print(e)
             return render(request, 'rider/register.html', {'error': str(e)})
 
+
 @rider_required
 def edit_profile(request: HttpRequest) -> HttpResponse:
-    return render(request,'rider/edit-profile.html')
+    rider = Rider.objects.get(pk=request.user.id)
+    if request.method == 'POST':
+        rider_form = UpdateRiderForm(request.POST, instance=rider)
+        if rider_form.is_valid():
+            rider_form.save()
+        else:
+            print(rider_form.errors)
+
+    context = {
+        'rider': rider,
+    }
+    return render(request, 'rider/edit-profile.html', context)
+
 
 @rider_required
 def track_orders(request: HttpRequest) -> HttpResponse:
