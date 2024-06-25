@@ -38,66 +38,40 @@
                 <div class="card-header">
                     <div class=" fw-bolder">Personal Details</div>
                 </div>
-                <div class="card-body">
+                <form method="POST" action="{% url 'user:change_personal_info' %}" class="card-body">
+
+                    {% csrf_token %}
+                    <input type="hidden" name="next_destination" value="{{ request.path }}">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">First Name</span>
-                        <input type="text" class="form-control" placeholder="Muhammad" aria-label="Username"
+                        <input name="first_name" type="text" class="form-control" value="{{ user.first_name }}"
+                               aria-label="Username"
                                aria-describedby="basic-addon1">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Last Name</span>
-                        <input type="text" class="form-control" placeholder="Ali" aria-label="Username"
+                        <input name="last_name" type="text" class="form-control" value="{{ user.last_name }}"
+                               aria-label="Username"
                                aria-describedby="basic-addon1">
                     </div>
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Mobile Phone</span>
-                        <input type="text" class="form-control" placeholder="012345678" aria-label="Username"
+                        <span class="input-group-text" id="basic-addon1">Email</span>
+                        <input name="email" type="email" class="form-control" value="{{ user.email }}"
+                               aria-label="Username"
                                aria-describedby="basic-addon1">
                     </div>
-                    <a href="#" class="btn btn-warning  m-1">Change</a>
-                </div>
-            </div>
-        </div>
 
-        <div class="my-3">
-
-            <div class="card">
-                <div class="card-header">
-                    <div class=" fw-bolder">Tip Your Rider</div>
-                </div>
-                <div class="card-body">
-
-                    <p>Your Rider receives the 100% of the tip</p>
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                                   checked>
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Not Now
-                            </label>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Rs. 100
-                            </label>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Rs. 200
-                            </label>
-                        </div>
-
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Phone</span>
+                        <input name="phone" type="number" class="form-control" value="{{ user.phone }}"
+                               aria-label="Username"
+                               aria-describedby="basic-addon1">
                     </div>
-                    <button class="btn btn-warning ">Save</button>
-                </div>
-
+                    <button type="submit" class="btn btn-warning  m-1">Save Changes</button>
+                </form>
             </div>
         </div>
 
@@ -108,27 +82,28 @@
                 <div class="card-header">
                     <div class=" fw-bolder">Payment type</div>
                 </div>
-                <div class="card-body">
+                <form method="POST" action="{% url 'user:change_cart_payment_type' %}" class="card-body">
+                    {% csrf_token %}
+                    <input type="hidden" name="next_destination" value="{{ request.path }}">
+                    <input type="hidden" name="cart_id" value="{{ cart.pk }}">
 
                     <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                                   checked>
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Stripe
-                            </label>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Cash On delivery
-                            </label>
-                        </div>
+                        {% for payment_type in payment_types %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment_type"
+                                       id="{{ payment_type.0 }}"
+                                       value="{{ payment_type.0 }}"
+                                       {% if cart.payment_type == payment_type.0 %}checked {% endif %}
+                                >
+                                <label class="form-check-label" for="{{ payment_type.0 }}">
+                                    {{ payment_type.1 }}
+                                </label>
+                            </div>
+                        {% endfor %}
 
                     </div>
-                    <button class="btn btn-warning ">Save</button>
-                </div>
+                    <button type="submit" class="btn btn-warning ">Save</button>
+                </form>
 
             </div>
         </div>
@@ -139,7 +114,7 @@
                     <div class=" fw-bolder">Your Order From</div>
                 </div>
                 <div class="card-body">
-                    <div class="card-title fw-bold">Lahore Restaurant</div>
+                    <div class="card-title fw-bold">{{ restaurant.name }}</div>
 
 
                     <table class="table table-borderless rounded-3 table-striped">
@@ -151,21 +126,13 @@
                         </thead>
 
                         <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Sweet and sour chicken</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
+                        {% for cart_item in cart_items %}
+                            <tr>
+                                <td class="text-start">
+                                    <strong>{{ cart_item.quantity }}x </strong>{{ cart_item.item.name }}</td>
+                                <td>Rs. {{ cart_item.get_item_total }}</td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
 
                         <tfoot>
@@ -174,7 +141,7 @@
                                 <div class="fs-3 fw-bold">Total</div>
                             </td>
                             <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
+                                <div class="fs-3 fw-bold">Rs. {{ cart.get_cart_total }}</div>
                             </td>
                         </tr>
                         </tfoot>

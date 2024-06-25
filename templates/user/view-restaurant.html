@@ -65,8 +65,7 @@
                     {% endfor %}
 
                     {% if cart_items %}
-                        <a href="{% url 'user:review_order' order_id=232 %}" class="btn btn-warning w-100 my-3">Review
-                            Order</a>
+                        <a href="{% url 'user:review_order' cart_id=cart.pk %}" class="btn btn-warning w-100 my-3">Checkout</a>
                     {% else %}
                         <h2 class="text-danger">No Item in Cart</h2>
                     {% endif %}
@@ -122,7 +121,7 @@
             {% endfor %}
 
             {% if cart_items %}
-                <a href="{% url 'user:review_order' order_id=232 %}" class="btn btn-warning w-100 my-3">Review Order</a>
+                <a href="{% url 'user:review_order' cart_id=cart.pk %}" class="btn btn-warning w-100 my-3">Checkout</a>
             {% else %}
                 <h2 class="text-danger">No Item in Cart</h2>
             {% endif %}

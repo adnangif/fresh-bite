@@ -271,11 +271,25 @@ class Transaction(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    payment_type = models.CharField(max_length=100, choices=PaymentTypes.choices, default=PaymentTypes.CASH_ON_DELIVERY)
 
     class Meta:
         indexes = [
             models.Index(fields=['user', 'restaurant'])
         ]
+
+    def get_cart_total(self):
+        cart_items = CartItem.objects.filter(cart=self)
+
+        total = 0
+
+        for cart_item in cart_items:
+            total += cart_item.get_item_total()
+
+        return total
+
+    def __str__(self):
+        return self.user.email + ' ' + self.payment_type + ' ' + str(self.get_cart_total())
 
 
 class CartItem(models.Model):
@@ -295,10 +309,14 @@ class CartItem(models.Model):
         if self.quantity == 0:
             self.delete()
             return None
-        
+
         return self.quantity
+
+    def get_item_total(self):
+        return self.quantity * self.item.price
 
     class Meta:
         indexes = [
             models.Index(fields=['cart', 'item']),
+            models.Index(fields=['cart'])
         ]

@@ -5,8 +5,9 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem
+from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes
 from user.decorators import user_required
+from user.forms import UpdateUserForm
 
 
 def hello_world(request: HttpRequest):
@@ -69,10 +70,24 @@ def restaurant(request: HttpRequest, restaurant_id: int):
 
 
 @user_required
-def review_order(request: HttpRequest, order_id: int):
-    print(order_id)
+def review_order(request: HttpRequest, cart_id: int):
+    cart = Cart.objects.filter(pk=cart_id, user=request.user.id).last()
+    user = User.objects.get(id=request.user.id)
 
-    return render(request, 'user/review-order.html')
+    if cart is None:
+        return redirect('landingapp:landing_page')
+
+    cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
+
+    context = {
+        'cart_items': cart_items,
+        'restaurant': cart.restaurant,
+        'cart': cart,
+        'user': user,
+        'payment_types': PaymentTypes.choices
+    }
+
+    return render(request, 'user/review-order.html', context)
 
 
 def livechat(request: HttpRequest):
@@ -159,3 +174,39 @@ def edit_profile(request: HttpRequest):
 @user_required
 def rate(request: HttpRequest, order_id):
     return render(request, 'user/rate-rider-food.html')
+
+
+@user_required
+def change_personal_info(request: HttpRequest):
+    user: User = User.objects.get(pk=request.user.id)
+
+    if request.method == 'POST':
+        next_destination = request.POST.get('next_destination')
+
+        update_user_form = UpdateUserForm(request.POST, instance=user)
+        if update_user_form.is_valid():
+            update_user_form.save()
+
+        return redirect(next_destination)
+
+    else:
+        return HttpResponse(status=400, content="Invalid method type")
+
+
+@user_required
+def change_cart_payment_type(request: HttpRequest):
+    user: User = User.objects.get(pk=request.user.id)
+
+    if request.method == 'POST':
+        next_destination = request.POST.get('next_destination')
+        cart_id = request.POST.get('cart_id')
+        payment_type = request.POST.get('payment_type')
+
+        cart = Cart.objects.get(pk=cart_id)
+        cart.payment_type = payment_type
+        cart.save()
+
+        return redirect(next_destination)
+
+    else:
+        return HttpResponse(status=400, content="Invalid method type")
