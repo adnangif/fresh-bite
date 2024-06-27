@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from .managers import CustomUserManager, UserPersonManager, OwnerPersonManager, RiderPersonManager, Roles
+from .managers import CustomUserManager, UserPersonManager, OwnerPersonManager, RiderPersonManager, Roles, OrderManager
 
 
 class Person(AbstractUser):
@@ -132,6 +132,7 @@ class Order(models.Model):
     user_otp = models.IntegerField(blank=True, null=True)
 
     _total_amount = None
+    objects = OrderManager()
 
     def total_amount(self):
         if self._total_amount is None:
@@ -315,8 +316,15 @@ class CartItem(models.Model):
     def get_item_total(self):
         return self.quantity * self.item.price
 
+    def add_to_order(self, order):
+        OrderedItem.objects.create(order=order, item=self.item, quantity=self.quantity)
+        self.delete()
+
     class Meta:
         indexes = [
             models.Index(fields=['cart', 'item']),
             models.Index(fields=['cart'])
         ]
+
+    def __str__(self):
+        return str(self.item.name) + " -> " + str(self.quantity)

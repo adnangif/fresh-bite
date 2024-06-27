@@ -153,13 +153,14 @@
             </div>
         </div>
 
-        <div class="d-grid">
-            <a href="{% url 'user:track_orders' %}" class="btn btn-warning btn-lg ">Place Order</a>
+        <form method="POST" class="d-grid">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning btn-lg ">Place Order</button>
             <p class="text-muted p-2  fs-6">By making this purchase you agree to our <a href="#" class="link-primary">terms
                 and conditions</a>.<br>
                 I agree that placing the order places me under an obligation to make a payment in accordance with the
                 <a href="#" class="link-primary">General Terms and Conditions</a>.</p>
-        </div>
+        </form>
 
     </div>
 

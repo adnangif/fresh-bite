@@ -1,3 +1,5 @@
+import random
+
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -15,6 +17,7 @@ class CustomUserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
+
     def create_user(self, email, password, **extra_fields):
         """
         Create and save a user with the given email and password.
@@ -56,3 +59,15 @@ class RiderPersonManager(CustomUserManager):
     def get_queryset(self):
         return super().get_queryset().filter(role=Roles.RIDER)
 
+
+class OrderManager(models.Manager):
+    def create_order(self, user, restaurant, rider):
+        order = self.model(
+            user=user,
+            owner=restaurant,
+            rider=rider,
+            rider_otp=random.randint(1000, 9999),
+            user_otp=random.randint(1000, 9999),
+        )
+        order.save()
+        return order

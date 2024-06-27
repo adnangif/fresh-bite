@@ -1,13 +1,15 @@
 import json
+import random
 
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes
+from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider
 from user.decorators import user_required
 from user.forms import UpdateUserForm
+import secrets
 
 
 def hello_world(request: HttpRequest):
@@ -73,9 +75,22 @@ def restaurant(request: HttpRequest, restaurant_id: int):
 def review_order(request: HttpRequest, cart_id: int):
     cart = Cart.objects.filter(pk=cart_id, user=request.user.id).last()
     user = User.objects.get(id=request.user.id)
+    cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
+    cart_items_exist = CartItem.objects.filter(cart=cart).exists()
 
     if cart is None:
         return redirect('landingapp:landing_page')
+
+    if request.method == 'POST' and cart_items_exist:
+        order = Order.objects.create_order(
+            user=user,
+            owner=cart.restaurant,
+            rider=Rider.objects.all().last(),
+        )
+        for item in cart_items:
+            item.add_to_order(order=order)
+
+        return redirect('user:track_orders')
 
     cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
 
