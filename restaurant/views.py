@@ -6,7 +6,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import Owner, Restaurant, Menu, MenuItem
+from modelapp.models import Owner, Restaurant, Menu, MenuItem, Order, OrderedItem
 from restaurant.decorators import owner_required
 from restaurant.forms import RestaurantForm, UpdateMenuItemForm
 
@@ -185,4 +185,19 @@ def delete_item(request: HttpRequest):
 
 @owner_required
 def track_orders(request: HttpRequest):
-    return render(request, 'restaurant/track-orders.html')
+    restaurant = Restaurant.objects.get_or_create(owner=request.user)[0]
+    orders: list[Order] = Order.objects.filter(restaurant=restaurant).order_by('-pk')
+    order_list = []
+
+    for order in orders:
+        order_list.append({
+            'order': order,
+            'items': OrderedItem.objects.filter(order=order),
+        })
+
+    context = {
+        'order_list': order_list,
+        'restaurant': restaurant,
+    }
+
+    return render(request, 'restaurant/track-orders.html', context)
