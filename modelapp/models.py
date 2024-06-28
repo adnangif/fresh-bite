@@ -124,7 +124,7 @@ class OrderStatus(models.TextChoices):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="User")
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE, related_name="Owner")
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, blank=True)
     rider = models.ForeignKey(Rider, on_delete=models.CASCADE, related_name="Rider")
     status = models.CharField(max_length=100, choices=OrderStatus.choices, default=OrderStatus.PREPARING)
 
@@ -134,13 +134,16 @@ class Order(models.Model):
     _total_amount = None
     objects = OrderManager()
 
+    def get_status(self):
+        return OrderStatus(self.status).label
+
     def total_amount(self):
         if self._total_amount is None:
             items = OrderedItem.objects.filter(order=self)
-            amount = 0.0
+            amount = 0
 
             for item in items:
-                amount += item.price * item.quantity
+                amount += item.item.price * item.quantity
 
             self._total_amount = amount
 
@@ -148,7 +151,7 @@ class Order(models.Model):
 
     def __str__(self):
         return (
-                str(self.owner.email) + " -> "
+                str(self.restaurant.owner.email) + " -> "
                 + str(self.rider.email) + " "
                 + str(self.user.email) + " "
                 + str(self.status)
@@ -193,6 +196,9 @@ class OrderedItem(models.Model):
         indexes = [
             models.Index(fields=['order'])
         ]
+
+    def get_item_total(self):
+        return self.quantity * self.item.price
 
     def __str__(self):
         return str(self.item.name) + " -> " + str(self.quantity)
@@ -258,8 +264,8 @@ class PaymentTypes(models.TextChoices):
 
 
 class Transaction(models.Model):
-    amount = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
-    status = models.CharField(max_length=100, choices=TransactionStatuses.choices)
+    amount = models.IntegerField(default=0)
+    status = models.CharField(max_length=100, choices=TransactionStatuses.choices,default=TransactionStatuses.PENDING)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     payment_type = models.CharField(max_length=100, choices=PaymentTypes.choices)
 

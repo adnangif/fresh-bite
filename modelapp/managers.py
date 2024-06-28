@@ -64,7 +64,7 @@ class OrderManager(models.Manager):
     def create_order(self, user, restaurant, rider):
         order = self.model(
             user=user,
-            owner=restaurant,
+            restaurant=restaurant,
             rider=rider,
             rider_otp=random.randint(1000, 9999),
             user_otp=random.randint(1000, 9999),

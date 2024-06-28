@@ -2,11 +2,13 @@ import json
 import random
 
 from django.contrib.auth import login, authenticate, logout
+from django.db.transaction import atomic
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider
+from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider, Transaction, \
+    TransactionStatuses, OrderedItem
 from user.decorators import user_required
 from user.forms import UpdateUserForm
 import secrets
@@ -72,8 +74,9 @@ def restaurant(request: HttpRequest, restaurant_id: int):
 
 
 @user_required
+@atomic
 def review_order(request: HttpRequest, cart_id: int):
-    cart = Cart.objects.filter(pk=cart_id, user=request.user.id).last()
+    cart: Cart = Cart.objects.filter(pk=cart_id, user=request.user.id).last()
     user = User.objects.get(id=request.user.id)
     cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
     cart_items_exist = CartItem.objects.filter(cart=cart).exists()
@@ -84,11 +87,20 @@ def review_order(request: HttpRequest, cart_id: int):
     if request.method == 'POST' and cart_items_exist:
         order = Order.objects.create_order(
             user=user,
-            owner=cart.restaurant,
+            restaurant=cart.restaurant,
             rider=Rider.objects.all().last(),
         )
+        transaction = Transaction.objects.create(
+            order=order,
+            payment_type=cart.payment_type,
+            amount=cart.get_cart_total(),
+            status=TransactionStatuses.PENDING,
+        )
+
         for item in cart_items:
             item.add_to_order(order=order)
+
+
 
         return redirect('user:track_orders')
 
@@ -111,7 +123,19 @@ def livechat(request: HttpRequest):
 
 @user_required
 def track_orders(request: HttpRequest):
-    return render(request, 'user/track-orders.html')
+    orders: list[Order] = Order.objects.filter(user=request.user).order_by('-pk')
+    order_list = []
+
+    for order in orders:
+        order_list.append({
+            'order': order,
+            'items': OrderedItem.objects.filter(order=order),
+        })
+
+    context = {
+        'order_list': order_list,
+    }
+    return render(request, 'user/track-orders.html', context)
 
 
 def faq(request: HttpRequest):

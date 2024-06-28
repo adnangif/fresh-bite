@@ -7,356 +7,71 @@
 {% block content %}
     <div class="m-3 row" style="min-height: 100dvh;">
 
+        {% for order_item in order_list %}
 
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
+            <div class="col-lg-6 col-md-12 p-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-capitalize">{{ order_item.order.restaurant.name }}</h5>
 
 
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
+                        <table class="table table-borderless rounded-3 table-striped">
+                            <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Price</th>
+                            </tr>
+                            </thead>
 
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold ">234234</div>
-                            </td>
-                        </tr>
+                            <tbody>
+                            {% for item in order_item.items %}
+                                <tr>
+                                    <td class="text-start"><strong>{{ item.quantity }}x</strong> {{ item.item.name }}</td>
+                                    <td>Rs.{% widthratio item.quantity 1 item.item.price %}</td>
+                                </tr>
+                            {% endfor %}
 
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-primary">Preparing</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
 
-                    <div class="d-grid">
+                            </tbody>
 
-                        <a href="#" class="btn btn-danger">Cancel</a>
+                            <tfoot>
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Total</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold">Rs. {{ order_item.order.total_amount }}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">User OTP</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold ">{{ order_item.order.user_otp }}</div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Status</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold text-primary">{{ order_item.order.get_status }}</div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class="d-grid">
+
+                            <a href="#" class="btn btn-danger">Cancel</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold ">234234</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-success">Delivered</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-
-                    <div class="d-grid">
-
-                        <a href="{% url 'user:rate' order_id=232 %}" class="btn btn-primary  ">Write A Review</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold ">234234</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-warning">Rider On Way</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-
-                    <div class="d-grid">
-
-                        <a href="#" class="btn btn-warning disabled ">Cannot be cancelled</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold ">234234</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-success">Delivered</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-
-                    <div class="d-grid">
-
-                        <a  href="{% url 'user:rate' order_id=232 %}" class="btn btn-primary ">Write a Review</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold ">234234</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-success">Delivered</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-
-                    <div class="d-grid">
-
-                        <a  href="{% url 'user:rate' order_id=232 %}" class="btn btn-primary ">Write a Review</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
 
 
     </div>
