@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider, Transaction, \
-    TransactionStatuses, OrderedItem, OrderStatus
+    TransactionStatuses, OrderedItem, OrderStatus, Review, ReviewTypes
 from user.decorators import user_required
 from user.forms import UpdateUserForm
 import secrets
@@ -100,8 +100,6 @@ def review_order(request: HttpRequest, cart_id: int):
         for item in cart_items:
             item.add_to_order(order=order)
 
-
-
         return redirect('user:track_orders')
 
     cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
@@ -133,7 +131,6 @@ def track_orders(request: HttpRequest):
         order = Order.objects.get(pk=order_pk, user=request.user)
         if order and order_status == OrderStatus.CANCELLED:
             order.mark_as_cancelled()
-
 
     for order in orders:
         order_list.append({
@@ -222,6 +219,34 @@ def edit_profile(request: HttpRequest):
 
 @user_required
 def rate(request: HttpRequest, order_id):
+    order = Order.objects.get(pk=order_id)
+
+    if request.method == 'POST':
+        food_rating = request.POST.get('food_rating')
+        food_review = request.POST.get('food_review')
+
+        rider_rating = request.POST.get('rider_rating')
+        rider_review = request.POST.get('rider_review')
+
+        food = Review.objects.get_or_create(
+            order=order,
+            review_type=ReviewTypes.FOOD
+        )[0]
+
+        food.rating = food_rating
+        food.message = food_review
+        food.save()
+
+        rider = Review.objects.get_or_create(
+            order=order,
+            review_type=ReviewTypes.RIDER,
+        )[0]
+
+        rider.rating = rider_rating
+        rider.message = rider_review
+        rider.review_type = ReviewTypes.RIDER
+        rider.save()
+
     return render(request, 'user/rate-rider-food.html')
 
 

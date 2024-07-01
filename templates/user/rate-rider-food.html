@@ -25,7 +25,7 @@
             gap: 1rem;
             flex-direction: column;
             border-radius: 1rem;
-            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
         }
 
         h1 {
@@ -38,16 +38,16 @@
             font-weight: bold;
         }
 
-        textarea.form-control{
+        textarea.form-control {
             min-height: 150px;
             border-radius: 1rem;
         }
 
-        body{
+        body {
             background-color: #f9f9f9;
         }
-        
-        select.form-select{
+
+        select.form-select {
             border-radius: 1rem;
         }
     </style>
@@ -56,47 +56,40 @@
     <div class="main-container">
         <h1>Rating</h1>
 
-        <form class="sub">
+        <form method="POST" class="sub">
+            {% csrf_token %}
             <h2>Rate Food</h2>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>select</option>
+            <select name="food_rating" required class="form-select" aria-label="Default select example">
                 <option value="1">very bad</option>
                 <option value="2">bad</option>
                 <option value="3">average</option>
-                <option value="4">good</option>
+                <option selected value="4">good</option>
                 <option value="5">very good</option>
             </select>
 
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <textarea name="food_review" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                 <label for="floatingTextarea">Write a Review</label>
             </div>
-            <div class="d-flex justify-content-end">
+            
+            <br>
 
-                <button class="btn btn-primary">Submit</button>
-            </div>
-
-        </form>
-
-
-        <form class="sub">
             <h2>Rate Rider</h2>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>select</option>
+            <select name="rider_rating" class="form-select" aria-label="Default select example">
                 <option value="1">very bad</option>
                 <option value="2">bad</option>
                 <option value="3">average</option>
-                <option value="4">good</option>
+                <option selected value="4">good</option>
                 <option value="5">very good</option>
             </select>
 
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <textarea name="rider_review" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                 <label for="floatingTextarea">Write a Review</label>
             </div>
             <div class="d-flex justify-content-end">
 
-                <button class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
 
         </form>

@@ -163,7 +163,6 @@ class Order(models.Model):
         if self.status == OrderStatus.CANCELLED:
             return 'danger'
 
-
     def total_amount(self):
         if self._total_amount is None:
             items = OrderedItem.objects.filter(order=self)
@@ -179,8 +178,8 @@ class Order(models.Model):
     def __str__(self):
         return (
                 str(self.restaurant.owner.email) + " -> "
-                + str(self.rider.email) + " "
-                + str(self.user.email) + " "
+                + str(self.rider.email) + " -> "
+                + str(self.user.email) + " -> "
                 + str(self.status)
         )
 
@@ -265,8 +264,12 @@ class Review(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['order']),
+            models.Index(fields=['order', 'review_type']),
+
         ]
+
+    def __str__(self):
+        return str(self.order) + " -> " + str(self.review_type)
 
 
 class QNA(models.Model):
@@ -292,7 +295,7 @@ class PaymentTypes(models.TextChoices):
 
 class Transaction(models.Model):
     amount = models.IntegerField(default=0)
-    status = models.CharField(max_length=100, choices=TransactionStatuses.choices,default=TransactionStatuses.PENDING)
+    status = models.CharField(max_length=100, choices=TransactionStatuses.choices, default=TransactionStatuses.PENDING)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     payment_type = models.CharField(max_length=100, choices=PaymentTypes.choices)
 

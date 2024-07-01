@@ -35,7 +35,6 @@
                                 </tr>
                             {% endfor %}
 
-
                             </tbody>
 
                             <tfoot>
@@ -64,6 +63,18 @@
                                     <div class="fs-3 fw-bold text-{{ order_instance.order.get_status_color }}">{{ order_instance.order.get_status }}</div>
                                 </td>
                             </tr>
+
+
+                            {% if order_instance.order.status == order_status.DELIVERED %}
+                                <tr class="fs-4">
+                                    <td></td>
+                                    <td>
+
+                                        <a href="{% url 'user:rate' order_id=order_instance.order.pk %}" class="btn btn-primary">Write a review</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+
                             </tfoot>
                         </table>
 
