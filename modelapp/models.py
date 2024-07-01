@@ -138,6 +138,30 @@ class Order(models.Model):
     def get_status(self):
         return OrderStatus(self.status).label
 
+    def mark_as_rider_on_way(self):
+        self.status = OrderStatus.RIDER_ON_WAY
+        self.save()
+
+    def mark_as_delivered(self):
+        self.status = OrderStatus.DELIVERED
+        self.save()
+
+    def mark_as_cancelled(self):
+        self.status = OrderStatus.CANCELLED
+        self.save()
+
+    def get_status_color(self):
+        if self.status == OrderStatus.PREPARING:
+            return 'primary'
+
+        if self.status == OrderStatus.RIDER_ON_WAY:
+            return 'warning'
+
+        if self.status == OrderStatus.DELIVERED:
+            return 'success'
+
+        if self.status == OrderStatus.CANCELLED:
+            return 'danger'
 
 
     def total_amount(self):

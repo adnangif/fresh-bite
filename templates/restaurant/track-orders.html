@@ -95,7 +95,7 @@
                                     <div class="fs-3 fw-bold">Status</div>
                                 </td>
                                 <td>
-                                    <div class="fs-3 fw-bold text-primary">{{ order_instance.order.get_status }}</div>
+                                    <div class="fs-3 fw-bold text-{{ order_instance.order.get_status_color }}">{{ order_instance.order.get_status }}</div>
                                 </td>
                             </tr>
                             </tfoot>

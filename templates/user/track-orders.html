@@ -7,12 +7,15 @@
 {% block content %}
     <div class="m-3 row" style="min-height: 100dvh;">
 
-        {% for order_item in order_list %}
+        {% for order_instance in order_list %}
 
             <div class="col-lg-6 col-md-12 p-2">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold text-capitalize">{{ order_item.order.restaurant.name }}</h5>
+                        <div class="fw-normal fs-3 my-5">
+                            <div>Order created at: {{ order_instance.order.created_at }}</div>
+                        </div>
+                        <h5 class="card-title fw-bold text-capitalize">{{ order_instance.order.restaurant.name }}</h5>
 
 
                         <table class="table table-borderless rounded-3 table-striped">
@@ -24,9 +27,10 @@
                             </thead>
 
                             <tbody>
-                            {% for item in order_item.items %}
+                            {% for item in order_instance.items %}
                                 <tr>
-                                    <td class="text-start"><strong>{{ item.quantity }}x</strong> {{ item.item.name }}</td>
+                                    <td class="text-start"><strong>{{ item.quantity }}x</strong> {{ item.item.name }}
+                                    </td>
                                     <td>Rs.{% widthratio item.quantity 1 item.item.price %}</td>
                                 </tr>
                             {% endfor %}
@@ -40,7 +44,7 @@
                                     <div class="fs-3 fw-bold">Total</div>
                                 </td>
                                 <td>
-                                    <div class="fs-3 fw-bold">Rs. {{ order_item.order.total_amount }}</div>
+                                    <div class="fs-3 fw-bold">Rs. {{ order_instance.order.total_amount }}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -48,7 +52,7 @@
                                     <div class="fs-3 fw-bold">User OTP</div>
                                 </td>
                                 <td>
-                                    <div class="fs-3 fw-bold ">{{ order_item.order.user_otp }}</div>
+                                    <div class="fs-3 fw-bold ">{{ order_instance.order.user_otp }}</div>
                                 </td>
                             </tr>
 
@@ -57,16 +61,20 @@
                                     <div class="fs-3 fw-bold">Status</div>
                                 </td>
                                 <td>
-                                    <div class="fs-3 fw-bold text-primary">{{ order_item.order.get_status }}</div>
+                                    <div class="fs-3 fw-bold text-{{ order_instance.order.get_status_color }}">{{ order_instance.order.get_status }}</div>
                                 </td>
                             </tr>
                             </tfoot>
                         </table>
 
-                        <div class="d-grid">
-
-                            <a href="#" class="btn btn-danger">Cancel</a>
-                        </div>
+                        <form method="POST" class="d-grid">
+                            {% csrf_token %}
+                            <input type="hidden" name="order_pk" value="{{ order_instance.order.pk }}">
+                            <input type="hidden" name="order_status" value="{{ order_status.CANCELLED }}">
+                            {% if order_instance.order.status == order_status.PREPARING %}
+                                <button type="submit" class="btn btn-danger">Cancel</button>
+                            {% endif %}
+                        </form>
                     </div>
                 </div>
             </div>

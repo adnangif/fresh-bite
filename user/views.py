@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider, Transaction, \
-    TransactionStatuses, OrderedItem
+    TransactionStatuses, OrderedItem, OrderStatus
 from user.decorators import user_required
 from user.forms import UpdateUserForm
 import secrets
@@ -126,6 +126,15 @@ def track_orders(request: HttpRequest):
     orders: list[Order] = Order.objects.filter(user=request.user).order_by('-pk')
     order_list = []
 
+    if request.method == 'POST':
+        order_status = request.POST.get('order_status')
+        order_pk = request.POST.get('order_pk')
+
+        order = Order.objects.get(pk=order_pk, user=request.user)
+        if order and order_status == OrderStatus.CANCELLED:
+            order.mark_as_cancelled()
+
+
     for order in orders:
         order_list.append({
             'order': order,
@@ -134,6 +143,7 @@ def track_orders(request: HttpRequest):
 
     context = {
         'order_list': order_list,
+        'order_status': OrderStatus,
     }
     return render(request, 'user/track-orders.html', context)
 

@@ -23,6 +23,9 @@
             <div class="col-lg-6 col-md-12 p-2">
                 <div class="card">
                     <div class="card-body">
+                        <div class="fw-normal fs-3 my-5">
+                            <div>Order created at: {{ order_instance.order.created_at }}</div>
+                        </div>
                         <h5 class="card-title fw-bold">{{ order_instance.order.restaurant.name }}</h5>
 
 
@@ -108,7 +111,7 @@
                                     <div class="fs-3 fw-bold">Status</div>
                                 </td>
                                 <td>
-                                    <div class="fs-3 fw-bold text-warning">{{ order_instance.order.get_status }}</div>
+                                    <div class="fs-3 fw-bold text-{{ order_instance.order.get_status_color }}">{{ order_instance.order.get_status }}</div>
                                 </td>
                             </tr>
 
