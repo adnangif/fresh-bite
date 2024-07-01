@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import Rider
+from modelapp.models import Rider, Restaurant, Order, OrderedItem, OrderStatus
 from rider.decorators import rider_required
 from rider.forms import UpdateRiderForm
 
@@ -65,4 +65,28 @@ def edit_profile(request: HttpRequest) -> HttpResponse:
 
 @rider_required
 def track_orders(request: HttpRequest) -> HttpResponse:
-    return render(request, 'rider/track-orders.html')
+    rider = Rider.objects.get(pk=request.user.id)
+    orders: list[Order] = Order.objects.filter(rider=rider).order_by('-pk')
+    order_list = []
+
+    if request.method == 'POST':
+        order_pk = request.POST.get('order_pk')
+        order_status = request.POST.get('order_status')
+
+        order = Order.objects.get(pk=order_pk, rider=rider)
+        order.status = order_status
+        order.save()
+
+    for order in orders:
+        order_list.append({
+            'order': order,
+            'items': OrderedItem.objects.filter(order=order),
+        })
+
+    context = {
+        'order_list': order_list,
+        'rider': rider,
+        'empty_list': len(order_list) == 0,
+        'order_status': OrderStatus,
+    }
+    return render(request, 'rider/track-orders.html', context)

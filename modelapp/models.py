@@ -138,6 +138,8 @@ class Order(models.Model):
     def get_status(self):
         return OrderStatus(self.status).label
 
+
+
     def total_amount(self):
         if self._total_amount is None:
             items = OrderedItem.objects.filter(order=self)

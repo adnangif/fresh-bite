@@ -19,429 +19,120 @@
     <div class="m-3 row" style="min-height: 100dvh;">
         <h1 class="header">Rider Pickup/Delivers</h1>
 
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
+        {% for order_instance in order_list %}
+            <div class="col-lg-6 col-md-12 p-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">{{ order_instance.order.restaurant.name }}</h5>
 
 
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
+                        <table class="table table-borderless rounded-3 table-striped">
+                            <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Price</th>
+                            </tr>
+                            </thead>
 
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
+                            <tbody>
+                            {% for item in order_instance.items %}
+                                <tr>
+                                    <td class="text-start"><strong>{{ item.quantity }}x</strong>{{ item.item.name }}
+                                    </td>
+                                    <td>Rs. {{ item.item.price }}</td>
+                                </tr>
+                            {% endfor %}
 
 
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
+                            </tbody>
 
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
+                            <tfoot>
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Total</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold">Rs. {{ order_instance.order.total_amount }}</div>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Order ID</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">2342</div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Order ID</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold">{{ order_instance.order.pk }}</div>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Restaurant Location</div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary">See In Map</button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Restaurant Location</div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary">See In Map</button>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Customer Location</div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary">See In Map</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP for Restaurant</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">2342</div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Customer Location</div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary">See In Map</button>
+                                </td>
+                            </tr>
 
 
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Customer Phone No</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">+92342323453</div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Customer Phone No</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold">{{ order_instance.order.user.phone }}</div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Restaurant Phone No</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold">{{ order_instance.order.restaurant.phone }}</div>
+                                </td>
+                            </tr>
 
 
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-warning">Rider On Way</div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Status</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold text-warning">{{ order_instance.order.get_status }}</div>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td colspan="2">
-                                <div class="input-group input-group-lg mb-3">
-                                    <input type="text" class="form-control" placeholder="OTP From Customer"
-                                           aria-label="Username"
-                                           aria-describedby="basic-addon1">
-                                </div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                            </tfoot>
+                        </table>
 
-                    <div class="d-grid">
+                        <form method="POST" class="d-grid">
+                            {% csrf_token %}
+                            <input type="hidden" name="order_pk" value="{{ order_instance.order.pk }}">
+                            {% if order_instance.order.status == order_status.PREPARING %}
+                                <input type="hidden" name="order_status" value="{{ order_status.RIDER_ON_WAY }}">
+                                <button type="submit" class="btn btn-success">Mark as RIDER ON WAY</button>
+                            {% endif %}
 
-                        <a href="#" class="btn btn-success">Mark as Delivered</a>
+                            {% if order_instance.order.status == order_status.RIDER_ON_WAY %}
+                                <input type="hidden" name="order_status" value="{{ order_status.DELIVERED }}">
+                                <button type="submit" class="btn btn-success">Mark as DELIVERED</button>
+                            {% endif %}
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Order ID</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">2342</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Restaurant Location</div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary">See In Map</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Customer Location</div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary">See In Map</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP for Restaurant</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">2342</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Customer Phone No</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">+92342323453</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-success">Delivered</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Order ID</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">2342</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Restaurant Location</div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary">See In Map</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Customer Location</div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary">See In Map</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP for Restaurant</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">2342</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Customer Phone No</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">+92342323453</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-success">Delivered</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-6 col-md-12 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Lahore Restaurant</h5>
-
-
-                    <table class="table table-borderless rounded-3 table-striped">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr class="">
-                            <td class="text-start"><strong>3x</strong> Chicken Manchurian</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>3x</strong> Chicken Fried Rice</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><strong>6x</strong> Cold Drinks</td>
-                            <td>Rs. 1000</td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Total</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">Rs. 3000</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Order ID</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">2342</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Restaurant Location</div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary">See In Map</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Customer Location</div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary">See In Map</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">OTP for Restaurant</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">2342</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Customer Phone No</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold">+92342323453</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="fs-3 fw-bold">Status</div>
-                            </td>
-                            <td>
-                                <div class="fs-3 fw-bold text-success">Delivered</div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    
-                </div>
-            </div>
-        </div>
+        {% endfor %}
 
 
     </div>
