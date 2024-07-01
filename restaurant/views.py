@@ -2,6 +2,7 @@ import json
 
 from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
+from django.db.transaction import atomic
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views import View
@@ -32,7 +33,6 @@ class LoginView(View):
 
         return render(request, 'restaurant/login.html', {'error': 'Invalid Credentials'})
 
-
 class RegisterView(View):
     def get(self, request):
         return render(request, 'restaurant/register.html')
@@ -46,6 +46,9 @@ class RegisterView(View):
         try:
             owner = Owner.objects.create_user(email=email, password=password, first_name=first_name,
                                               last_name=last_name)
+            restaurant = Restaurant.objects.create(
+                owner=owner,
+            )
 
             login(request, owner)
             return redirect('landingapp:landing_page')
@@ -58,13 +61,12 @@ class RegisterView(View):
 @owner_required
 def edit_restaurant(request: HttpRequest):
     owner = Owner.objects.get(pk=request.user.id)
-    restaurant: Restaurant = Restaurant.objects.get_or_create(owner=owner)[0]
+    restaurant: Restaurant = Restaurant.objects.get(owner=owner)
 
     if request.method == 'POST':
         restaurant_form = RestaurantForm(request.POST, instance=restaurant)
         if restaurant_form.is_valid():
-            restaurant_form.save()
-            print("opens at ", restaurant.opens_at)
+            restaurant = restaurant_form.save()
 
     context = {
         'name': restaurant.name,

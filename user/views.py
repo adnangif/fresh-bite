@@ -33,21 +33,23 @@ def nearby_restaurants(request: HttpRequest):
 
 @user_required
 def restaurant(request: HttpRequest, restaurant_id: int):
+
     if request.method == 'POST':
         cart_pk = request.POST.get('cart_pk')
         item_pk = request.POST.get('item_pk')
         increment = request.POST.get('increment')
         decrement = request.POST.get('decrement')
+        cart = Cart.objects.get(pk=cart_pk)
 
-        cart_item: CartItem = CartItem.objects.filter(cart=cart_pk, item=item_pk).last()
+        cart_item: CartItem = CartItem.objects.filter(cart=cart, item=item_pk).last()
         if cart_item is None:
-            CartItem.objects.create(cart_id=cart_pk, item_id=item_pk)
+            CartItem.objects.create(cart=cart, item_id=item_pk)
         elif increment:
             cart_item.increment()
         elif decrement:
             cart_item.decrement()
 
-    menu_objects: list[Menu] = Menu.objects.filter(restaurant=restaurant_id)
+    menu_objects: list[Menu] = Menu.objects.filter(restaurant_id=restaurant_id)
 
     menu_list = []
     for menu_object in menu_objects:
@@ -60,7 +62,7 @@ def restaurant(request: HttpRequest, restaurant_id: int):
         }
         menu_list.append(menu)
 
-    cart = Cart.objects.get_or_create(restaurant=restaurant_id, user=request.user)[0]
+    cart = Cart.objects.get_or_create(restaurant_id=restaurant_id, user=request.user)[0]
     cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
 
     context = {

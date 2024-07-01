@@ -73,8 +73,8 @@ class Rider(Person):
 class Restaurant(models.Model):
     owner = models.OneToOneField(Owner, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=True, default='')
-    opens_at = models.TimeField(blank=True, default='00:00:00')
-    closes_at = models.TimeField(blank=True, default='00:00:00')
+    opens_at = models.TimeField(default='00:00:00')
+    closes_at = models.TimeField(default='00:00:00')
     phone = models.CharField(max_length=20, blank=True, default='')
     phone2 = models.CharField(max_length=20, blank=True, default='')
     rating = models.DecimalField(default=3, max_digits=5, decimal_places=2)

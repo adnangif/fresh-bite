@@ -12,6 +12,10 @@
             font-size: 4rem;
             text-transform: capitalize;
         }
+        
+        .main-container{
+            min-height: 70vh;
+        }
     </style>
 {% endblock %}
 
@@ -67,7 +71,7 @@
                     {% if cart_items %}
                         <a href="{% url 'user:review_order' cart_id=cart.pk %}" class="btn btn-warning w-100 my-3">Checkout</a>
                     {% else %}
-                        <h2 class="text-danger">No Item in Cart</h2>
+                        <h5 class="text-danger fw-bold">No Item in Cart</h5>
                     {% endif %}
 
                 </div>
@@ -78,7 +82,7 @@
     </div>
 
 
-    <div class="m-5 d-flex gap-5 position-relative ">
+    <div class="m-5 d-flex gap-5 position-relative main-container">
         <div class="filter-sidepanel d-flex flex-column gap-3 h-75 border rounded p-2 sticky-top d-none d-lg-block  col-md-6 ">
             <div class="py-5 sticky-top"></div>
             <h4 class="fw-bold">Your Items</h4>
@@ -123,7 +127,7 @@
             {% if cart_items %}
                 <a href="{% url 'user:review_order' cart_id=cart.pk %}" class="btn btn-warning w-100 my-3">Checkout</a>
             {% else %}
-                <h2 class="text-danger">No Item in Cart</h2>
+                <h5 class="text-danger fw-bold">No Item in Cart</h5>
             {% endif %}
 
 
