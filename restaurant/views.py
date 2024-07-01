@@ -198,6 +198,7 @@ def track_orders(request: HttpRequest):
     context = {
         'order_list': order_list,
         'restaurant': restaurant,
+        'empty_list': len(order_list) == 0,
     }
 
     return render(request, 'restaurant/track-orders.html', context)

@@ -127,6 +127,7 @@ class Order(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, blank=True)
     rider = models.ForeignKey(Rider, on_delete=models.CASCADE, related_name="Rider")
     status = models.CharField(max_length=100, choices=OrderStatus.choices, default=OrderStatus.PREPARING)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     rider_otp = models.IntegerField(blank=True, null=True)
     user_otp = models.IntegerField(blank=True, null=True)
