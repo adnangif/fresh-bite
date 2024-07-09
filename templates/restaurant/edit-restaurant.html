@@ -77,6 +77,11 @@
         .dark {
             color: #000000;
         }
+        
+        img{
+            border:solid 2px blue;
+            padding: 1rem;
+        }
 
     </style>
 {% endblock %}
@@ -93,7 +98,7 @@
                     <hr>
                 </div>
                 <!-- Form START -->
-                <form method="POST" class="file-upload">
+                <form method="POST" class="file-upload" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row mb-5 gx-5">
                         <!-- Contact detail -->
@@ -101,6 +106,11 @@
                             <div class="bg-secondary-soft px-4 py-5 rounded">
                                 <div class="row g-3">
                                     <h4 class="mb-4 mt-0 dark fs-2">Restaurant detail</h4>
+                                    {% if image_src %}
+                                        <div class="col-md-12">
+                                            <img width="350px" src="{{ image_src }}" alt="restaurant cover image">
+                                        </div>
+                                    {% endif %}
                                     <div class="col-md-6">
                                         <label class="form-label">Name of Restaurant*</label>
                                         <input name="name" type="text" class="form-control"
@@ -132,6 +142,12 @@
                                         <label for="closing_time" class="form-label">Closing Time *</label>
                                         <input name="closes_at" type="time" class="form-control" id="closing_time"
                                                value="{{ closes_at }}">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="restaurant_image" class="form-label">Restaurant Image</label>
+                                        <input name="restaurant_image" type="file" class="form-control"
+                                               id="restaurant_image">
                                     </div>
 
                                     <div class="col-md-12 d-flex justify-content-end">

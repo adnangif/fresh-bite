@@ -78,6 +78,7 @@ class Restaurant(models.Model):
     phone = models.CharField(max_length=20, blank=True, default='')
     phone2 = models.CharField(max_length=20, blank=True, default='')
     rating = models.DecimalField(default=3, max_digits=5, decimal_places=2)
+    restaurant_image = models.ImageField(upload_to='restaurant_images/', null=True, blank=True)
 
     class Meta:
         indexes = [

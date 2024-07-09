@@ -33,6 +33,7 @@ class LoginView(View):
 
         return render(request, 'restaurant/login.html', {'error': 'Invalid Credentials'})
 
+
 class RegisterView(View):
     def get(self, request):
         return render(request, 'restaurant/register.html')
@@ -63,7 +64,7 @@ def edit_restaurant(request: HttpRequest):
     restaurant: Restaurant = Restaurant.objects.get(owner=owner)
 
     if request.method == 'POST':
-        restaurant_form = RestaurantForm(request.POST, instance=restaurant)
+        restaurant_form = RestaurantForm(request.POST, request.FILES, instance=restaurant)
         if restaurant_form.is_valid():
             restaurant = restaurant_form.save()
 
@@ -73,7 +74,10 @@ def edit_restaurant(request: HttpRequest):
         'closes_at': restaurant.closes_at.strftime('%H:%M:%S'),
         'phone': restaurant.phone,
         'phone2': restaurant.phone2,
+        'image_src': restaurant.restaurant_image.url if restaurant.restaurant_image else None,
     }
+
+    print(json.dumps(context, indent=4))
 
     return render(request, 'restaurant/edit-restaurant.html', context)
 
