@@ -192,12 +192,11 @@ class RegisterView(View):
 
         try:
             user = User.objects.create_user(email=email, password=password, first_name=first_name, last_name=last_name)
-            login(request, user)
+            return redirect('user:login')
         except Exception as e:
             print(e)
             return render(request, 'user/register.html', {'error': str(e)})
 
-        return redirect('landingapp:landing_page')
 
 
 @user_required

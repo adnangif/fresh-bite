@@ -50,8 +50,7 @@ class RegisterView(View):
                 owner=owner,
             )
 
-            login(request, owner)
-            return redirect('landingapp:landing_page')
+            return redirect('restaurant:login')
 
         except Exception as e:
             print(e)

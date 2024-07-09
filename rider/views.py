@@ -40,8 +40,7 @@ class RegisterView(View):
         try:
             rider = Rider.objects.create_user(first_name=first_name, last_name=last_name, email=email,
                                               password=password)
-            login(request, rider)
-            return redirect('landingapp:landing_page')
+            return redirect('rider:login')
         except Exception as e:
             print(e)
             return render(request, 'rider/register.html', {'error': str(e)})
