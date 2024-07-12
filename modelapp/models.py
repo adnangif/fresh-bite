@@ -284,7 +284,7 @@ class Feedback(models.Model):
     message = models.TextField()
 
 
-class TransactionStatuses(models.TextChoices):
+class TransactionStatus(models.TextChoices):
     PENDING = 'PENDING', 'Pending'
     ACCEPTED = 'ACCEPTED', 'Accepted'
     REJECTED = 'REJECTED', 'Rejected'
@@ -297,8 +297,8 @@ class PaymentTypes(models.TextChoices):
 
 class Transaction(models.Model):
     amount = models.IntegerField(default=0)
-    status = models.CharField(max_length=100, choices=TransactionStatuses.choices, default=TransactionStatuses.PENDING)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    status = models.CharField(max_length=100, choices=TransactionStatus.choices, default=TransactionStatus.PENDING)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
     payment_type = models.CharField(max_length=100, choices=PaymentTypes.choices)
 
     class Meta:

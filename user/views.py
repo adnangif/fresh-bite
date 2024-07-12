@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider, Transaction, \
-    TransactionStatuses, OrderedItem, OrderStatus, Review, ReviewTypes
+    TransactionStatus, OrderedItem, OrderStatus, Review, ReviewTypes
 from user.decorators import user_required
 from user.forms import UpdateUserForm
 import secrets
@@ -96,13 +96,16 @@ def review_order(request: HttpRequest, cart_id: int):
             order=order,
             payment_type=cart.payment_type,
             amount=cart.get_cart_total(),
-            status=TransactionStatuses.PENDING,
+            status=TransactionStatus.PENDING,
         )
 
         for item in cart_items:
             item.add_to_order(order=order)
 
-        return redirect('user:track_orders')
+        if transaction.payment_type == PaymentTypes.STRIPE:
+            return HttpResponse("Stripe payment here")
+        else:
+            return redirect('user:track_orders')
 
     cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
 
