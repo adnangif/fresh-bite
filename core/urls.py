@@ -24,5 +24,6 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('restaurant/', include('restaurant.urls')),
     path('rider/', include('rider.urls')),
-    path('', include('landingapp.urls'))
+    path('', include('landingapp.urls')),
+    path('payment/', include('paymentapp.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,8 @@
+import stripe
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.transaction import atomic
 from django.utils.translation import gettext_lazy as _
 from .managers import CustomUserManager, UserPersonManager, OwnerPersonManager, RiderPersonManager, Roles, OrderManager
 
@@ -145,12 +148,29 @@ class Order(models.Model):
         self.save()
 
     def mark_as_delivered(self):
-        self.status = OrderStatus.DELIVERED
-        self.save()
+        with atomic():
+            transaction = Transaction.objects.get(order=self)
+            transaction.status = TransactionStatus.ACCEPTED
+            transaction.save()
+            self.status = OrderStatus.DELIVERED
+            self.save()
 
     def mark_as_cancelled(self):
-        self.status = OrderStatus.CANCELLED
-        self.save()
+        with atomic():
+            transaction = Transaction.objects.get(order=self)
+            transaction.status = TransactionStatus.REJECTED
+            transaction.save()
+            self.status = OrderStatus.CANCELLED
+            self.save()
+
+    def get_ordered_items(self):
+        items = OrderedItem.objects.filter(order=self)
+        return items
+
+    def handle_stripe_dependency(self):
+        items = self.get_ordered_items()
+        for item in items:
+            item.item.get_stripe_price_id()
 
     def get_status_color(self):
         if self.status == OrderStatus.PREPARING:
@@ -205,6 +225,7 @@ class MenuItem(models.Model):
     price = models.IntegerField(default=0)
     image = models.ImageField(upload_to='menu_items/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    stripe_price = models.CharField(max_length=100, default='')
 
     class Meta:
         indexes = [
@@ -213,6 +234,27 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return str(self.menu) + " -> " + self.name + " " + str(self.price)
+
+    def get_stripe_price_id(self):
+        if self.stripe_price == '':
+            try:
+                stripe.api_key = settings.STRIPE_SECRET_KEY
+                response = stripe.Price.create(
+                    currency="pkr",
+                    unit_amount=self.price * 100,
+                    product_data={"name": self.name},
+                )
+
+                self.stripe_price = response['id']
+                self.save()
+
+                # print(json.dumps(response, indent=4))
+
+            except Exception as e:
+                print("could not create stripe price")
+                print(e)
+
+        return self.stripe_price
 
 
 class OrderedItem(models.Model):
