@@ -14,12 +14,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item m-1">
-                    <a href="{% url 'user:login' %}" class="btn btn-outline-warning text-dark fw-bolder">Login</a>
-                </li>
-                <li class="nav-item m-1">
-                    <a href="{% url 'user:register' %}" class="btn btn-outline-warning text-dark fw-bolder">Sign Up</a>
-                </li>
+
                 <li class="nav-item m-1">
                     <a href="{% url 'user:faq' %}" class="btn btn-outline-warning text-dark fw-bolder ">FAQ</a>
                 </li>
@@ -28,6 +23,12 @@
                 <li class="nav-item m-1">
                     <a href="{% url 'user:livechat' %}"
                        class="btn btn-outline-warning text-dark fw-bolder ">Live Chat</a>
+                </li>
+                <li class="nav-item m-1">
+                    <a href="{% url 'user:login' %}" class="btn btn-outline-warning text-dark fw-bolder">Login</a>
+                </li>
+                <li class="nav-item m-1">
+                    <a href="{% url 'user:register' %}" class="btn btn-outline-warning text-dark fw-bolder">Sign Up</a>
                 </li>
 
             </ul>
