@@ -62,6 +62,17 @@
             transform: scale(1.02);
         }
 
+        .modal {
+            background-color: rgba(0, 0, 0, 0.73);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content{
+            padding: 1rem;
+            max-width: 20rem;
+        }
+
     </style>
 {% endblock %}
 
@@ -88,15 +99,58 @@
 
                 <div class="d-flex justify-content-end gap-4">
                     <a href="{% url 'restaurant:edit_menu' menu.pk %}" class="btn btn-warning btn-lg my-3">Edit</a>
-                    <form method="POST" action="{% url 'restaurant:delete_menu' %}">
+                    <form id="delete-form-{{ menu.pk }}" method="POST" action="{% url 'restaurant:delete_menu' %}">
                         {% csrf_token %}
                         <input type="hidden" name="pk" value="{{ menu.pk }}">
-                        <button class="btn btn-danger btn-lg my-3">Delete</button>
+                        <button id="delete-form-btn-{{ menu.pk }}" type="button" class="btn btn-danger btn-lg my-3">Delete</button>
                     </form>
 
                 </div>
 
             </div>
+
+            <div class="modal" id="modal-{{ menu.pk }}">
+                <div class="modal-content">
+                    <p>Are you Sure?</p>
+                    <div class="d-flex justify-content-end">
+                        <button id="yes-{{ menu.pk }}" class="btn btn-danger">Yes</button>
+                        <button id="no-{{ menu.pk }}" class="btn btn-success">No</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <script>
+                delete_form_btn = document.getElementById('delete-form-btn-{{ menu.pk }}')
+                delete_form = document.getElementById('delete-form-{{ menu.pk }}')
+                current_modal = document.getElementById('modal-{{ menu.pk }}')
+                yes_btn = document.getElementById('yes-{{ menu.pk }}')
+                no_btn = document.getElementById(('no-{{ menu.pk }}'))
+                
+                
+                
+                
+                delete_form_btn.addEventListener('click', ()=>{
+                    current_modal.style.display = 'flex'
+                })
+
+                document.addEventListener('click', e => {
+                    if(e.target === current_modal){
+                        current_modal.style.display = 'none'
+
+                    }
+                })
+                
+                yes_btn.addEventListener('click', ()=> {
+                    delete_form.submit()
+                })
+                
+                no_btn.addEventListener('click', () => {
+                    current_modal.style.display = 'none'
+                })
+
+
+            </script>
         {% endfor %}
 
         <div>
