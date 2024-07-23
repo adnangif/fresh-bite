@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
 from django.db.transaction import atomic
 from django.http import HttpRequest
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.views import View
 
 from modelapp.models import Owner, Restaurant, Menu, MenuItem, Order, OrderedItem
@@ -85,6 +85,7 @@ def edit_restaurant(request: HttpRequest):
 @owner_required
 def menus(request: HttpRequest):
     restaurant = Restaurant.objects.get_or_create(owner__pk=request.user.id)[0]
+    menu_created = request.GET.get('menu_created')
 
     menu_objects: list[Menu] = Menu.objects.filter(restaurant=restaurant)
 
@@ -104,6 +105,7 @@ def menus(request: HttpRequest):
 
     context = {
         'menu_list': menu_list,
+        'show_menu_created_notification': menu_created,
     }
 
     return render(request, 'restaurant/menu-list.html', context)
@@ -120,7 +122,7 @@ def add_menu(request: HttpRequest):
             name=name
         )
 
-        return redirect('restaurant:menus')
+        return redirect(resolve_url('restaurant:menus') + '?menu_created=' + menu.name)
 
     return render(request, 'restaurant/add-menu.html')
 

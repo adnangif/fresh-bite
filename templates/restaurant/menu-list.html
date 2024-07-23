@@ -73,10 +73,61 @@
             max-width: 20rem;
         }
 
+        .notification{
+            position: fixed;
+            z-index: 10000;
+            right: 0;
+            background-color: #0c4128;
+            padding: 0.7rem;
+            margin: 1rem;
+            border: solid 2px #0c4128;
+            border-radius: 1rem;
+            display: flex;
+            gap: 2rem;
+            color: white;
+            cursor: default;
+        }
+
+        #notification > .btn {
+            background-color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+
+        }
+
+        #notification > .btn:hover{
+            background-color: #0c4128;
+            color: white;
+            border-color: white;
+        }
+
     </style>
 {% endblock %}
 
 {% block content %}
+
+    {% if show_menu_created_notification %}
+        <div class="notification" id="notification">
+        <div class="d-grid justify-content-start">
+
+            <div>Successfully created menu! </div>
+
+            <div> Please Add items to the menu.</div>
+        </div>
+            <button id="notification-close-btn" class="btn btn-outline-success">Close</button>
+        </div>
+
+        <script>
+            message_close_btn = document.getElementById('notification-close-btn')
+            notification = document.getElementById('notification')
+
+            message_close_btn.addEventListener('click',e => {
+                notification.style.display = 'none'
+            })
+
+        </script>
+    {% endif %}
     <div class="main-container rounded-elem">
         <h1>Menus</h1>
 
@@ -126,10 +177,10 @@
                 current_modal = document.getElementById('modal-{{ menu.pk }}')
                 yes_btn = document.getElementById('yes-{{ menu.pk }}')
                 no_btn = document.getElementById(('no-{{ menu.pk }}'))
-                
-                
-                
-                
+
+
+
+
                 delete_form_btn.addEventListener('click', ()=>{
                     current_modal.style.display = 'flex'
                 })
@@ -140,11 +191,11 @@
 
                     }
                 })
-                
+
                 yes_btn.addEventListener('click', ()=> {
                     delete_form.submit()
                 })
-                
+
                 no_btn.addEventListener('click', () => {
                     current_modal.style.display = 'none'
                 })
