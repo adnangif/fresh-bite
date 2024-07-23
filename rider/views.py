@@ -73,8 +73,11 @@ def track_orders(request: HttpRequest) -> HttpResponse:
         order_status = request.POST.get('order_status')
 
         order = Order.objects.get(pk=order_pk, rider=rider)
-        order.status = order_status
-        order.save()
+
+        if order_status == OrderStatus.RIDER_ON_WAY:
+            order.mark_as_rider_on_way()
+        if order_status == OrderStatus.DELIVERED:
+            order.mark_as_delivered()
 
     for order in orders:
         order_list.append({

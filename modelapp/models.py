@@ -133,6 +133,7 @@ class Order(models.Model):
     rider = models.ForeignKey(Rider, on_delete=models.CASCADE, related_name="Rider")
     status = models.CharField(max_length=100, choices=OrderStatus.choices, default=OrderStatus.PREPARING)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    is_rated = models.BooleanField(default=False)
 
     rider_otp = models.IntegerField(blank=True, null=True)
     user_otp = models.IntegerField(blank=True, null=True)
@@ -166,6 +167,16 @@ class Order(models.Model):
     def get_ordered_items(self):
         items = OrderedItem.objects.filter(order=self)
         return items
+
+    def rate_items(self, rating: int):
+        if self.is_rated:
+            return False
+
+        items = self.get_ordered_items()
+        self.is_rated = True
+        self.save()
+        for ordered_item in items:
+            ordered_item.item.save_rating(rating)
 
     def handle_stripe_dependency(self):
         items = self.get_ordered_items()
@@ -226,6 +237,9 @@ class MenuItem(models.Model):
     image = models.ImageField(upload_to='menu_items/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     stripe_price = models.CharField(max_length=100, default='')
+    total_rating = models.IntegerField(default=0)
+    total_rating_population = models.IntegerField(default=0)
+    average_rating = models.FloatField(default=0)
 
     class Meta:
         indexes = [
@@ -255,6 +269,14 @@ class MenuItem(models.Model):
                 print(e)
 
         return self.stripe_price
+
+    def save_rating(self, new_rating: int):
+        self.total_rating += new_rating
+        self.total_rating_population += 1
+        self.save()
+        if new_rating:
+            self.average_rating = round(self.total_rating / self.total_rating_population, 1)
+        self.save()
 
 
 class OrderedItem(models.Model):

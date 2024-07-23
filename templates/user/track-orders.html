@@ -65,7 +65,7 @@
                             </tr>
 
 
-                            {% if order_instance.order.status == order_status.DELIVERED %}
+                            {% if order_instance.order.status == order_status.DELIVERED  and order_instance.order.is_rated == False %}
                                 <tr class="fs-4">
                                     <td></td>
                                     <td>

@@ -239,6 +239,13 @@ def rate(request: HttpRequest, order_id):
             review_type=ReviewTypes.FOOD
         )[0]
 
+        if food_rating:
+            try:
+                order.rate_items(int(food_rating))
+            except Exception as e:
+                print("Rating Not Saved.")
+                print(e)
+
         food.rating = food_rating
         food.message = food_review
         food.save()
@@ -252,6 +259,8 @@ def rate(request: HttpRequest, order_id):
         rider.message = rider_review
         rider.review_type = ReviewTypes.RIDER
         rider.save()
+
+        return redirect('user:track_orders')
 
     return render(request, 'user/rate-rider-food.html')
 
