@@ -33,7 +33,6 @@ def nearby_restaurants(request: HttpRequest):
 
 @user_required
 def restaurant(request: HttpRequest, restaurant_id: int):
-
     if request.method == 'POST':
         cart_pk = request.POST.get('cart_pk')
         item_pk = request.POST.get('item_pk')
@@ -201,7 +200,6 @@ class RegisterView(View):
         except Exception as e:
             print(e)
             return render(request, 'user/register.html', {'error': str(e)})
-
 
 
 @user_required
