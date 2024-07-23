@@ -232,35 +232,56 @@ def rate(request: HttpRequest, order_id):
         rider_rating = request.POST.get('rider_rating')
         rider_review = request.POST.get('rider_review')
 
+        restaurant_rating = request.POST.get('restaurant_rating')
+        restaurant_review = request.POST.get('restaurant_review')
+
         food = Review.objects.get_or_create(
             order=order,
             review_type=ReviewTypes.FOOD
         )[0]
-
-        if food_rating:
-            try:
-                order.rate_items(int(food_rating))
-            except Exception as e:
-                print("Rating Not Saved.")
-                print(e)
-
-        food.rating = food_rating
-        food.message = food_review
-        food.save()
 
         rider = Review.objects.get_or_create(
             order=order,
             review_type=ReviewTypes.RIDER,
         )[0]
 
+        restaurant_review_obj = Review.objects.get_or_create(
+            order=order,
+            review_type=ReviewTypes.RESTAURANT
+        )[0]
+
+        if food_rating:
+            try:
+                order.rate_items(int(food_rating))
+            except Exception as e:
+                print("Food Rating Not Saved.")
+                print(e)
+
+        if restaurant_rating:
+            try:
+                order.restaurant.set_rating(int(restaurant_rating))
+            except Exception as e:
+                print("Restaurant Rating Not Saved.")
+                print(e)
+
+        food.rating = food_rating
+        food.message = food_review
+        food.review_type = ReviewTypes.FOOD
+        food.save()
+
         rider.rating = rider_rating
         rider.message = rider_review
         rider.review_type = ReviewTypes.RIDER
         rider.save()
 
+        restaurant_review_obj.rating = restaurant_rating
+        restaurant_review_obj.message = restaurant_review
+        restaurant_review_obj.review_type = ReviewTypes.RESTAURANT
+        restaurant_review_obj.save()
+
         return redirect('user:track_orders')
 
-    return render(request, 'user/rate-rider-food.html')
+    return render(request, 'user/rate-rider-food-restaurant.html')
 
 
 @user_required

@@ -58,6 +58,25 @@
 
         <form method="POST" class="sub">
             {% csrf_token %}
+
+            <h2>Rate Restaurant</h2>
+            <select name="restaurant_rating" required class="form-select" aria-label="Default select example">
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option selected value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+            </select>
+
+            <div class="form-floating">
+                <textarea name="restaurant_review" class="form-control" placeholder="Leave a comment here"
+                          id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">Write a Review</label>
+            </div>
+
+            <br>
+
+
             <h2>Rate Food</h2>
             <select name="food_rating" required class="form-select" aria-label="Default select example">
                 <option value="1">⭐</option>
@@ -68,10 +87,11 @@
             </select>
 
             <div class="form-floating">
-                <textarea name="food_review" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <textarea name="food_review" class="form-control" placeholder="Leave a comment here"
+                          id="floatingTextarea"></textarea>
                 <label for="floatingTextarea">Write a Review</label>
             </div>
-            
+
             <br>
 
             <h2>Rate Rider</h2>
@@ -84,7 +104,8 @@
             </select>
 
             <div class="form-floating">
-                <textarea name="rider_review" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <textarea name="rider_review" class="form-control" placeholder="Leave a comment here"
+                          id="floatingTextarea"></textarea>
                 <label for="floatingTextarea">Write a Review</label>
             </div>
             <div class="d-flex justify-content-end">

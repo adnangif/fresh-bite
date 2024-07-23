@@ -80,7 +80,9 @@ class Restaurant(models.Model):
     closes_at = models.TimeField(default='00:00:00')
     phone = models.CharField(max_length=20, blank=True, default='')
     phone2 = models.CharField(max_length=20, blank=True, default='')
-    rating = models.DecimalField(default=3, max_digits=5, decimal_places=2)
+    total_rating = models.IntegerField(default=0)
+    total_rating_population = models.IntegerField(default=0)
+    avg_rating = models.FloatField(default=0)
     restaurant_image = models.ImageField(upload_to='restaurant_images/', null=True, blank=True)
     is_published = models.BooleanField(default=False)
 
@@ -91,6 +93,15 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name + " owned by " + self.owner.email
+
+    def set_rating(self, rating: int):
+        self.total_rating += rating
+        self.total_rating_population += 1
+        self.save()
+
+        if self.total_rating and self.total_rating_population:
+            self.avg_rating = round(self.total_rating / self.total_rating_population, 1)
+            self.save()
 
 
 class Location(models.Model):
@@ -320,6 +331,7 @@ class ReviewTypes(models.TextChoices):
     RIDER = 'RIDER', 'Rider'
     FOOD = 'FOOD', 'Food'
     PLATFORM = 'PLATFORM', 'Platform'
+    RESTAURANT = 'RESTAURANT', 'Restaurant'
 
 
 class Review(models.Model):
