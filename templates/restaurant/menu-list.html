@@ -162,7 +162,7 @@
 
             <div class="modal" id="modal-{{ menu.pk }}">
                 <div class="modal-content">
-                    <p>Are you Sure?</p>
+                    <p>Are you Sure you want to delete menu "{{ menu.name }}"?</p>
                     <div class="d-flex justify-content-end">
                         <button id="yes-{{ menu.pk }}" class="btn btn-danger">Yes</button>
                         <button id="no-{{ menu.pk }}" class="btn btn-success">No</button>
@@ -172,32 +172,32 @@
             </div>
 
             <script>
-                delete_form_btn = document.getElementById('delete-form-btn-{{ menu.pk }}')
-                delete_form = document.getElementById('delete-form-{{ menu.pk }}')
-                current_modal = document.getElementById('modal-{{ menu.pk }}')
-                yes_btn = document.getElementById('yes-{{ menu.pk }}')
-                no_btn = document.getElementById(('no-{{ menu.pk }}'))
+                delete_form_btn_{{ menu.pk }} = document.getElementById('delete-form-btn-{{ menu.pk }}')
+                delete_form_{{ menu.pk }} = document.getElementById('delete-form-{{ menu.pk }}')
+                current_modal_{{ menu.pk }} = document.getElementById('modal-{{ menu.pk }}')
+                yes_btn_{{ menu.pk }} = document.getElementById('yes-{{ menu.pk }}')
+                no_btn_{{ menu.pk }} = document.getElementById(('no-{{ menu.pk }}'))
 
 
 
 
-                delete_form_btn.addEventListener('click', ()=>{
-                    current_modal.style.display = 'flex'
+                delete_form_btn_{{ menu.pk }}.addEventListener('click', ()=>{
+                    current_modal_{{ menu.pk }}.style.display = 'flex'
                 })
 
                 document.addEventListener('click', e => {
-                    if(e.target === current_modal){
-                        current_modal.style.display = 'none'
+                    if(e.target === current_modal_{{ menu.pk }}){
+                        current_modal_{{ menu.pk }}.style.display = 'none'
 
                     }
                 })
 
-                yes_btn.addEventListener('click', ()=> {
-                    delete_form.submit()
+                yes_btn_{{ menu.pk }}.addEventListener('click', ()=> {
+                    delete_form_{{ menu.pk }}.submit()
                 })
 
-                no_btn.addEventListener('click', () => {
-                    current_modal.style.display = 'none'
+                no_btn_{{ menu.pk }}.addEventListener('click', () => {
+                    current_modal_{{ menu.pk }}.style.display = 'none'
                 })
 
 
