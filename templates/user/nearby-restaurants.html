@@ -125,23 +125,23 @@
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">{{ restaurant.name }}</h5>
                                     <h6>Rating:
-                                        {% if restaurant.rating > 0 %}
+                                        {% if restaurant.average_rating > 0 %}
                                             <i class="fa fa-star text-warning" aria-hidden="true"></i>
                                         {% endif %}
 
-                                        {% if restaurant.rating > 1 %}
+                                        {% if restaurant.average_rating > 1 %}
                                             <i class="fa fa-star text-warning" aria-hidden="true"></i>
                                         {% endif %}
 
-                                        {% if restaurant.rating > 2 %}
+                                        {% if restaurant.average_rating > 2 %}
                                             <i class="fa fa-star text-warning" aria-hidden="true"></i>
                                         {% endif %}
 
-                                        {% if restaurant.rating > 3 %}
+                                        {% if restaurant.average_rating > 3 %}
                                             <i class="fa fa-star text-warning" aria-hidden="true"></i>
                                         {% endif %}
 
-                                        {% if restaurant.rating > 4 %}
+                                        {% if restaurant.average_rating > 4 %}
                                             <i class="fa fa-star text-warning" aria-hidden="true"></i>
                                         {% endif %}
                                     </h6>

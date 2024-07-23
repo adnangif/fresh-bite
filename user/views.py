@@ -22,7 +22,7 @@ def nearby_restaurants(request: HttpRequest):
     lat = request.GET.get('lat')
     lng = request.GET.get('lng')
 
-    restaurants: list[Restaurant] = Restaurant.objects.all()
+    restaurants: list[Restaurant] = Restaurant.objects.filter(is_published=True)
 
     context = {
         'restaurants': restaurants,

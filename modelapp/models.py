@@ -82,7 +82,7 @@ class Restaurant(models.Model):
     phone2 = models.CharField(max_length=20, blank=True, default='')
     total_rating = models.IntegerField(default=0)
     total_rating_population = models.IntegerField(default=0)
-    avg_rating = models.FloatField(default=0)
+    average_rating = models.FloatField(default=0)
     restaurant_image = models.ImageField(upload_to='restaurant_images/', null=True, blank=True)
     is_published = models.BooleanField(default=False)
 
