@@ -56,7 +56,7 @@ def restaurant(request: HttpRequest, restaurant_id: int):
             'name': menu_object.name,
             'pk': menu_object.pk,
             'items': [
-                item for item in MenuItem.objects.filter(menu=menu_object)
+                item for item in MenuItem.objects.filter(menu=menu_object).order_by('-average_rating')
             ],
         }
         menu_list.append(menu)
