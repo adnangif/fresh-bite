@@ -19,7 +19,7 @@ class LoginView(View):
         password = request.POST.get('password')
 
         rider = authenticate(email=email, password=password)
-        if rider and rider.role == 'rider':
+        if rider and rider.is_rider:
             login(request, rider)
 
             return redirect('landingapp:landing_page')

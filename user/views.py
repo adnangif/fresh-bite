@@ -173,11 +173,12 @@ class LoginView(View):
 
         user = authenticate(email=email, password=password)
 
-        if user is None:
-            return render(request, 'user/login.html', {"error": "Invalid email or password"})
+        if user and user.is_user:
+            login(request, user)
 
-        login(request, user)
-        return redirect('landingapp:landing_page')
+            return redirect('landingapp:landing_page')
+
+        return render(request, 'user/login.html', {"error": "Invalid email or password"})
 
 
 def register(request: HttpRequest):
