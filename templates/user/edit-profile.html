@@ -7,6 +7,12 @@
 {% endblock %}
 
 {% block styles %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
     <style>
         body {
             background-color: #f2f6fc;
@@ -68,12 +74,14 @@
             border-bottom-width: 0.125rem;
             border-bottom-style: solid;
             border-bottom-color: transparent;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            padding-left: 0;
-            padding-right: 0;
+            padding: 0.5rem 0;
             margin-left: 1rem;
             margin-right: 1rem;
+        }
+
+        #map {
+            height: 180px;
+            margin: 0.5rem
         }
     </style>
 {% endblock %}
@@ -108,8 +116,12 @@
 
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLocation">Location</label>
+                                    <input type="hidden" name="latitude" value="{{ user.get_latitude }}">
+                                    <input type="hidden" name="longitude" value="{{ user.get_longitude }}">
+
                                     <input name="location" class="form-control" id="inputLocation" type="text"
-                                           placeholder="Enter your location" value="Lahore">
+                                           placeholder="Enter your location" value="{{ user.get_location }}">
+                                    <div id="map"></div>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -131,6 +143,54 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const map = L.map('map', {
+            {% if user.get_location != '' %}
+                center: [{{ user.get_latitude }}, {{ user.get_longitude }}],
+            {% else %}
+                center: [31.5204, 74.3587],
+            {% endif %}
+            zoom: 13
+        });
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        let marker;
+        {% if user.get_latitude != '' and user.get_longitude != '' %}
+            marker = L.marker([
+                {{ user.get_latitude }},
+                {{ user.get_longitude }},
+            ]).addTo(map);
+        {% endif %}
+
+        let latlng;
+        map.on('click', function (e) {
+            if (marker)
+                map.removeLayer(marker);
+            console.log(e.latlng); // e is an event object (MouseEvent in this case)
+            latlng = e.latlng
+            marker = L.marker(e.latlng).addTo(map);
+
+            document.querySelector('input[name="latitude"]').value = e.latlng.lat
+            document.querySelector('input[name="longitude"]').value = e.latlng.lng
+
+
+            fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${latlng.lat}&lon=${latlng.lng}&apiKey=c9743ce533884c64a9f4b465359d181f`)
+                .then(response => response.json())
+                .then(result => {
+                    const location_string = result.features[0].properties.formatted
+                    const location_input_element = document.getElementById('inputLocation')
+
+                    location_input_element.value = location_string
+                })
+                .catch(error => console.log('error', error));
+        });
+
+    </script>
 {% endblock %}
 
 

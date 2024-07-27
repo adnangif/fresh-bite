@@ -203,6 +203,7 @@ class RegisterView(View):
             return render(request, 'user/register.html', {'error': str(e)})
 
 
+@atomic
 @user_required
 def edit_profile(request: HttpRequest):
     user: User = User.objects.get(pk=request.user.id)
@@ -212,6 +213,14 @@ def edit_profile(request: HttpRequest):
         user.last_name = request.POST.get('last_name')
         user.email = request.POST.get('email')
         user.phone = request.POST.get('phone')
+
+        location_object = user.get_location_object()
+
+        location_object.latitude = request.POST.get('latitude')
+        location_object.longitude = request.POST.get('longitude')
+        location_object.location_in_string = request.POST.get('location')
+
+        location_object.save()
 
         user.save()
 

@@ -38,6 +38,31 @@ class Person(AbstractUser):
     def is_user(self):
         return self.role == Roles.USER
 
+    def get_location(self):
+        location: Location = Location.objects.filter(entity=self).last()
+        if location:
+            return location.location_in_string
+        else:
+            return ''
+
+    def get_latitude(self):
+        location: Location = Location.objects.filter(entity=self).last()
+        if location:
+            return location.latitude
+        else:
+            return ''
+
+    def get_longitude(self):
+        location: Location = Location.objects.filter(entity=self).last()
+        if location:
+            return location.longitude
+        else:
+            return ''
+
+    def get_location_object(self):
+        location: Location = Location.objects.get_or_create(entity=self)[0]
+        return location
+
 
 class User(Person):
     class Meta:
@@ -94,6 +119,9 @@ class Restaurant(models.Model):
     def __str__(self):
         return self.name + " owned by " + self.owner.email
 
+    def get_locations(self):
+        return RestaurantLocation.objects.filter(restaurant=self)
+
     def set_rating(self, rating: int):
         self.total_rating += rating
         self.total_rating_population += 1
@@ -104,10 +132,26 @@ class Restaurant(models.Model):
             self.save()
 
 
+class RestaurantLocation(models.Model):
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, default=0)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, default=0)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    location_in_string = models.CharField(max_length=500, blank=True, default='')
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['restaurant'])
+        ]
+
+    def __str__(self):
+        return str(self.restaurant.name) + ' -> ' + self.location_in_string + f'[{self.latitude}, {self.longitude}]'
+
+
 class Location(models.Model):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
     entity = models.ForeignKey(Person, on_delete=models.CASCADE)
+    location_in_string = models.CharField(max_length=500, blank=True, default='')
 
     class Meta:
         indexes = [
