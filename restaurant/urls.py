@@ -17,4 +17,6 @@ urlpatterns = [
     path('delete-item/', views.delete_item, name='delete_item'),
 
     path('change-restaurant-location/', views.change_restaurant_location, name='change_restaurant_location'),
+    path('add-delivery-zone/', views.add_delivery_zone, name='add_delivery_zone'),
+    path('remove-delivery-zone/', views.remove_delivery_zone, name='remove_delivery_zone'),
 ]

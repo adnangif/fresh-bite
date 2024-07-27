@@ -7,7 +7,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect, resolve_url
 from django.views import View
 
-from modelapp.models import Owner, Restaurant, Menu, MenuItem, Order, OrderedItem, Location
+from modelapp.models import Owner, Restaurant, Menu, MenuItem, Order, OrderedItem, Location, DeliveryZone
 from restaurant.decorators import owner_required
 from restaurant.forms import RestaurantForm, UpdateMenuItemForm
 
@@ -229,3 +229,34 @@ def track_orders(request: HttpRequest):
     }
 
     return render(request, 'restaurant/track-orders.html', context)
+
+
+@owner_required
+def add_delivery_zone(request: HttpRequest):
+    restaurant = Restaurant.objects.get(owner_id=request.user.id)
+
+    if request.method == 'POST':
+        latitude = request.POST.get('latitude2')
+        longitude = request.POST.get('longitude2')
+        location_in_string = request.POST.get('location_in_string2')
+
+        DeliveryZone.objects.create(
+            restaurant=restaurant,
+            longitude=longitude,
+            latitude=latitude,
+            location_in_string=location_in_string,
+        )
+
+    return redirect('restaurant:edit_restaurant')
+
+
+@owner_required
+def remove_delivery_zone(request: HttpRequest):
+
+    if request.method == 'POST':
+        delivery_zone_id = request.POST.get('delivery_zone_id')
+        if delivery_zone_id:
+            delivery_zone = DeliveryZone.objects.get(pk=delivery_zone_id)
+            delivery_zone.delete()
+
+    return redirect('restaurant:edit_restaurant')

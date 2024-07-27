@@ -85,7 +85,7 @@
             color: #000000;
         }
 
-        #map {
+        #map, #map2 {
             height: 250px;
             margin: 0.5rem;
         }
@@ -119,11 +119,11 @@
                 </form>
 
                 <!-- Form START -->
-                <form method="POST" class="file-upload" enctype="multipart/form-data">
-                    {% csrf_token %}
+                <div>
                     <div class="row mb-5 gx-5">
                         <!-- Contact detail -->
-                        <div class="col-xxl-8 mb-5 mb-xxl-0">
+                        <form method="POST" enctype="multipart/form-data" class="col-xxl-8 mb-5 mb-xxl-0">
+                            {% csrf_token %}
                             <div class="bg-secondary-soft px-4 py-5 rounded">
                                 <div class="row g-3">
                                     <h4 class="mb-4 mt-0 dark fs-2">Restaurant detail</h4>
@@ -176,7 +176,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
 
 
                         <div class="col-xxl-8 mb-5 mb-xxl-0">
@@ -211,30 +211,27 @@
                                 <div class="row g-3">
                                     <h4 class="mb-4 mt-0 dark fs-2">Delivery Zones</h4>
                                     <ul class="dark ">
+                                        {% for delivery_zone in restaurant.get_delivery_zones %}
 
-                                        <li class="m-2 d-flex gap-4">
-                                            <div class="btn btn-success-soft fs-5 flex-fill">B-19 S.I.T.E Super
-                                                Highway.Karachi.Pakistan, Lahore,Karachi,Pakistan
-                                            </div>
-                                            <button class="btn btn-danger-soft p-2 px-4 ">X</button>
-                                        </li>
+                                            <form method="POST" action="{% url 'restaurant:remove_delivery_zone' %}" class="m-2 d-flex gap-4">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="delivery_zone_id" value="{{ delivery_zone.id }}">
+                                                <div class="btn btn-success-soft fs-5 flex-fill">{{ delivery_zone.location_in_string }}</div>
+                                                <button type="submit" class="btn btn-danger-soft p-2 px-4 ">X</button>
+                                            </form>
+                                        {% endfor %}
 
-
-                                        <li class="m-2 d-flex gap-4">
-                                            <div class="btn btn-success-soft fs-5 flex-fill">Mehersons Estate Talpur
-                                                Road Sindh,
-                                                Lahore,Sindh,Pakistan
-                                            </div>
-                                            <button class="btn btn-danger-soft p-2 px-4 ">X</button>
-                                        </li>
                                     </ul>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Add Delivery Zone*</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="First name"
-                                               value="Plot No.1 & 2 North Karachi Township Sindh, Lahore,Sindh,Pakistan">
+                                    <form method="POST" action="{% url 'restaurant:add_delivery_zone' %}" class="col-md-6">
+                                        {% csrf_token %}
+                                        <label id="editing-location" class="small mb-1">Delivery Zone</label>
+                                        <input type="hidden" name="latitude2" value="">
+                                        <input type="hidden" name="longitude2" value="">
+                                        <input type="hidden" name="location_in_string2" value="">
+                                        <div id="map2"></div>
 
-                                        <button class="btn-warning text-white m-3 btn">Add Delivery Zone</button>
-                                    </div>
+                                        <button disabled id="delivery-location-save" type="submit" class="btn-warning m-3 btn">Add Delivery Zone</button>
+                                    </form>
 
 
                                 </div> <!-- Row END -->
@@ -244,7 +241,7 @@
 
                     </div> <!-- Row END -->
 
-                </form> <!-- Form END -->
+                </div> <!-- Form END -->
             </div>
         </div>
     </div>
@@ -254,12 +251,9 @@
             document.getElementById('location_form').submit()
         })
 
-    </script>
 
-
-    <script>
         const map = L.map('map', {
-            {% if user.get_location != '' %}
+            {% if restaurant.get_location != '' %}
                 center: [{{ restaurant.get_latitude }}, {{ restaurant.get_longitude }}],
             {% else %}
                 center: [31.5204, 74.3587],
@@ -273,7 +267,7 @@
         }).addTo(map);
 
         let marker;
-        {% if user.get_latitude != '' and user.get_longitude != '' %}
+        {% if restaurant.get_latitude != '' and restaurant.get_longitude != '' %}
             marker = L.marker([
                 {{ restaurant.get_latitude }},
                 {{ restaurant.get_longitude }},
@@ -307,6 +301,58 @@
                 })
                 .catch(error => console.log('error', error));
         });
+
+    </script>
+
+    <script>
+
+        const map2 = L.map('map2', {
+            {% if restaurant.get_location != '' %}
+                center: [{{ restaurant.get_latitude }}, {{ restaurant.get_longitude }}],
+            {% else %}
+                center: [31.5204, 74.3587],
+            {% endif %}
+            zoom: 13
+        });
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map2);
+
+        let marker2;
+
+
+        let latlng2;
+        map2.on('click', function (e) {
+            document.getElementById('delivery-location-save').setAttribute('disabled', 'true')
+
+            if (marker2)
+                map2.removeLayer(marker2);
+            console.log(e.latlng); // e is an event object (MouseEvent in this case)
+            latlng2 = e.latlng
+            marker2 = L.marker(e.latlng).addTo(map2);
+
+            document.querySelector('input[name="latitude2"]').value = e.latlng.lat
+            document.querySelector('input[name="longitude2"]').value = e.latlng.lng
+
+
+            fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${latlng2.lat}&lon=${latlng2.lng}&apiKey=c9743ce533884c64a9f4b465359d181f`)
+                .then(response => response.json())
+                .then(result => {
+                    const location_string = result.features[0].properties.formatted
+                    const location_input_element = document.getElementById('editing-location')
+
+                    document.getElementById('editing-location').innerText = result.features[0].properties.formatted
+                    document.querySelector('input[name="location_in_string2"]').value = result.features[0].properties.formatted
+                    
+
+                    location_input_element.value = location_string
+                    document.getElementById('delivery-location-save').removeAttribute('disabled')
+                })
+                .catch(error => console.log('error', error));
+        });
+
 
     </script>
 
