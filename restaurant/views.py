@@ -7,7 +7,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect, resolve_url
 from django.views import View
 
-from modelapp.models import Owner, Restaurant, Menu, MenuItem, Order, OrderedItem
+from modelapp.models import Owner, Restaurant, Menu, MenuItem, Order, OrderedItem, Location
 from restaurant.decorators import owner_required
 from restaurant.forms import RestaurantForm, UpdateMenuItemForm
 
@@ -69,6 +69,7 @@ def edit_restaurant(request: HttpRequest):
             restaurant = restaurant_form.save()
 
     context = {
+        'restaurant': restaurant,
         'name': restaurant.name,
         'opens_at': restaurant.opens_at.strftime('%H:%M:%S'),
         'closes_at': restaurant.closes_at.strftime('%H:%M:%S'),
@@ -77,9 +78,28 @@ def edit_restaurant(request: HttpRequest):
         'image_src': restaurant.restaurant_image.url if restaurant.restaurant_image else None,
     }
 
-    print(json.dumps(context, indent=4))
-
     return render(request, 'restaurant/edit-restaurant.html', context)
+
+
+@owner_required
+def change_restaurant_location(request: HttpRequest):
+    if request.method == 'POST':
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
+        location_in_string = request.POST.get('location_in_string')
+        owner = Owner.objects.get(pk=request.user.id)
+
+        restaurant_location = Location.objects.get_or_create(
+            entity=owner
+        )[0]
+        restaurant_location.latitude = latitude
+        restaurant_location.longitude = longitude
+        restaurant_location.location_in_string = location_in_string
+        restaurant_location.save()
+
+    return redirect('restaurant:edit_restaurant')
+
+
 
 
 @owner_required

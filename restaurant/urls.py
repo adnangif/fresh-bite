@@ -15,4 +15,6 @@ urlpatterns = [
     path('track-orders/', views.track_orders, name='track_orders'),
 
     path('delete-item/', views.delete_item, name='delete_item'),
+
+    path('change-restaurant-location/', views.change_restaurant_location, name='change_restaurant_location'),
 ]

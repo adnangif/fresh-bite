@@ -119,8 +119,20 @@ class Restaurant(models.Model):
     def __str__(self):
         return self.name + " owned by " + self.owner.email
 
-    def get_locations(self):
-        return RestaurantLocation.objects.filter(restaurant=self)
+    def get_location(self):
+        return self.owner.get_location()
+
+    def get_latitude(self):
+        return self.owner.get_latitude()
+
+    def get_longitude(self):
+        return self.owner.get_longitude()
+
+    def get_location_object(self):
+        return self.owner.get_location_object()
+
+    def get_delivery_zones(self):
+        return DeliveryZone.objects.filter(restaurant=self)
 
     def set_rating(self, rating: int):
         self.total_rating += rating
@@ -132,7 +144,7 @@ class Restaurant(models.Model):
             self.save()
 
 
-class RestaurantLocation(models.Model):
+class DeliveryZone(models.Model):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, default=0)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, default=0)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
