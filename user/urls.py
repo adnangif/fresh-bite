@@ -19,6 +19,7 @@ urlpatterns = [
 
     path('change-personal-info/', views.change_personal_info, name='change_personal_info'),
     path('change-cart-payment-type/', views.change_cart_payment_type, name='change_cart_payment_type'),
+    path('change-location/', views.change_location, name='change_location'),
 
     path('faq/', views.faq, name='faq'),
     path('feedback/', views.feedback, name='feedback'),

@@ -4,7 +4,7 @@ import random
 from django.contrib.auth import login, authenticate, logout
 from django.db.transaction import atomic
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.views import View
 
 from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider, Transaction, \
@@ -115,10 +115,33 @@ def review_order(request: HttpRequest, cart_id: int):
         'restaurant': cart.restaurant,
         'cart': cart,
         'user': user,
-        'payment_types': PaymentTypes.choices
+        'payment_types': PaymentTypes.choices,
+        'next_url': resolve_url('user:review_order', cart_id=cart_id),
     }
 
     return render(request, 'user/review-order.html', context)
+
+
+@user_required
+def change_location(request: HttpRequest):
+    user = User.objects.get(id=request.user.id)
+    location_object = user.get_location_object()
+
+    if request.method == 'POST':
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
+        location = request.POST.get('location')
+        next_url = request.POST.get('next_url')
+
+        location_object.latitude = latitude
+        location_object.longitude = longitude
+        location_object.location_in_string = location
+
+        location_object.save()
+        if next_url:
+            return redirect(next_url)
+
+    return HttpResponse("Not Allowed")
 
 
 def livechat(request: HttpRequest):

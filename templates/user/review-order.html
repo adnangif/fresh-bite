@@ -5,6 +5,21 @@
 
 {% block title %}Review Order{% endblock %}
 
+{% block styles %}
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <style>
+        #map {
+            height: 250px;
+            margin: 0.5rem;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
     <div class="row p-5">
@@ -15,20 +30,23 @@
                 <div class="card-header">
                     <div class=" fw-bolder">Delivery Address</div>
                 </div>
-                <img height="200px" width="" src="{% static 'images/map-demo1.png' %}" class="card-img-top" alt="...">
+                <div id="map"></div>
 
                 <div class="card-body">
 
                     <p class="card-text align-items-center d-flex ">
                         <img class="text-warning" src="{% static 'icons/location-marker.svg' %}">
-                        <span>Uni Centre I.I.Chundrigar Road, Karachi</span>
+                        <span id="inputLocation">{{ user.get_location }}</span>
                     </p>
-                    <p class="card-text align-text-top">
-                        <img src="{% static 'icons/note-text.svg' %}">
-                        <span class="text-secondary"> Note to rider:</span> <span> None </span>
-                    </p>
-                    <a href="#" class="btn btn-warning  m-1">Change Address</a>
-                    <a href="#" class="btn btn-warning  m-1">Add A note</a>
+                    <form method="POST" action="{% url 'user:change_location' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="latitude" value="{{ user.get_latitude }}">
+                        <input type="hidden" name="longitude" value="{{ user.get_longitude }}">
+                        <input type="hidden" name="location" value="{{ user.get_location }}">
+                        <input type="hidden" name="next_url"  value="{{ next_url }}">
+
+                        <button type="submit" class="btn btn-warning  m-1">Save Address</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -164,5 +182,50 @@
 
     </div>
 
+    <script>
+        const map = L.map('map', {
+            {% if user.get_location != '' %}
+                center: [{{ user.get_latitude }}, {{ user.get_longitude }}],
+            {% else %}
+                center: [31.5204, 74.3587],
+            {% endif %}
+            zoom: 13
+        });
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        let marker;
+        {% if user.get_latitude != '' and user.get_longitude != '' %}
+            marker = L.marker([
+                {{ user.get_latitude }},
+                {{ user.get_longitude }},
+            ]).addTo(map);
+        {% endif %}
+
+        let latlng;
+        map.on('click', function (e) {
+            if (marker)
+                map.removeLayer(marker);
+            console.log(e.latlng); // e is an event object (MouseEvent in this case)
+            latlng = e.latlng
+            marker = L.marker(e.latlng).addTo(map);
+
+            document.querySelector('input[name="latitude"]').value = e.latlng.lat
+            document.querySelector('input[name="longitude"]').value = e.latlng.lng
+
+
+            fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${latlng.lat}&lon=${latlng.lng}&apiKey=c9743ce533884c64a9f4b465359d181f`)
+                .then(response => response.json())
+                .then(result => {
+                    document.getElementById('inputLocation').innerText = result.features[0].properties.formatted;
+                    document.querySelector('input[name="location"]').value = result.features[0].properties.formatted;
+                })
+                .catch(error => console.log('error', error));
+        });
+
+    </script>
 
 {% endblock %}
