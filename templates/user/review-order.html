@@ -18,10 +18,61 @@
             height: 250px;
             margin: 0.5rem;
         }
+
+
+        .notification {
+            position: fixed;
+            z-index: 10000;
+            right: 0;
+            background-color: darkred;
+            padding: 0.7rem;
+            margin: 1rem;
+            border-radius: 1rem;
+            display: flex;
+            gap: 2rem;
+            color: white;
+            cursor: default;
+            font-weight: bold;
+        }
+
+        #notification > .btn {
+            background-color: white;
+            color: darkred;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+
+        }
+
+        #notification > .btn:hover {
+            background-color: darkred;
+            color: white;
+            border-color: white;
+        }
     </style>
 {% endblock %}
 
 {% block content %}
+    {% if not user.okay_for_first_order %}
+        <div class="notification" id="notification">
+            <div class="d-grid justify-content-start">
+                <div> Please Add your location and phone number.</div>
+            </div>
+            <button id="notification-close-btn" class="btn btn-outline-success">Close</button>
+        </div>
+
+        <script>
+            message_close_btn = document.getElementById('notification-close-btn')
+            notification = document.getElementById('notification')
+
+            message_close_btn.addEventListener('click', e => {
+                notification.style.display = 'none'
+            })
+
+        </script>
+    {% endif %}
+
+
     <div class="row p-5">
 
         <div class="col-lg-6 col-md-12 my-3">
@@ -43,7 +94,7 @@
                         <input type="hidden" name="latitude" value="{{ user.get_latitude }}">
                         <input type="hidden" name="longitude" value="{{ user.get_longitude }}">
                         <input type="hidden" name="location" value="{{ user.get_location }}">
-                        <input type="hidden" name="next_url"  value="{{ next_url }}">
+                        <input type="hidden" name="next_url" value="{{ next_url }}">
 
                         <button type="submit" class="btn btn-warning  m-1">Save Address</button>
                     </form>

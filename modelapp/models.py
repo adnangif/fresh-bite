@@ -75,6 +75,16 @@ class User(Person):
 
         super(User, self).save(*args, **kwargs)
 
+    def okay_for_first_order(self):
+        if self.phone == '':
+            return False
+
+        if self.get_location() == '':
+            return False
+
+        return True
+
+
 
 class Owner(Person):
     class Meta:

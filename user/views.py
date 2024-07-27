@@ -85,7 +85,8 @@ def review_order(request: HttpRequest, cart_id: int):
     if cart is None:
         return redirect('landingapp:landing_page')
 
-    if request.method == 'POST' and cart_items_exist:
+    if request.method == 'POST' and cart_items_exist and user.okay_for_first_order():
+
         order = Order.objects.create_order(
             user=user,
             restaurant=cart.restaurant,

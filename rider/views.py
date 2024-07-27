@@ -102,6 +102,8 @@ def track_orders(request: HttpRequest) -> HttpResponse:
     for order in orders:
         order_list.append({
             'order': order,
+            'restaurant': order.restaurant,
+            'user': order.user,
             'items': OrderedItem.objects.filter(order=order),
         })
 
