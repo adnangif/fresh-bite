@@ -213,16 +213,19 @@
                                     <ul class="dark ">
                                         {% for delivery_zone in restaurant.get_delivery_zones %}
 
-                                            <form method="POST" action="{% url 'restaurant:remove_delivery_zone' %}" class="m-2 d-flex gap-4">
+                                            <form method="POST" action="{% url 'restaurant:remove_delivery_zone' %}"
+                                                  class="m-2 d-flex gap-4">
                                                 {% csrf_token %}
-                                                <input type="hidden" name="delivery_zone_id" value="{{ delivery_zone.id }}">
+                                                <input type="hidden" name="delivery_zone_id"
+                                                       value="{{ delivery_zone.id }}">
                                                 <div class="btn btn-success-soft fs-5 flex-fill">{{ delivery_zone.location_in_string }}</div>
                                                 <button type="submit" class="btn btn-danger-soft p-2 px-4 ">X</button>
                                             </form>
                                         {% endfor %}
 
                                     </ul>
-                                    <form method="POST" action="{% url 'restaurant:add_delivery_zone' %}" class="col-md-6">
+                                    <form method="POST" action="{% url 'restaurant:add_delivery_zone' %}"
+                                          class="col-md-6">
                                         {% csrf_token %}
                                         <label id="editing-location" class="small mb-1">Delivery Zone</label>
                                         <input type="hidden" name="latitude2" value="">
@@ -230,7 +233,9 @@
                                         <input type="hidden" name="location_in_string2" value="">
                                         <div id="map2"></div>
 
-                                        <button disabled id="delivery-location-save" type="submit" class="btn-warning m-3 btn">Add Delivery Zone</button>
+                                        <button disabled id="delivery-location-save" type="submit"
+                                                class="btn-warning m-3 btn">Add Delivery Zone
+                                        </button>
                                     </form>
 
 
@@ -321,8 +326,6 @@
         }).addTo(map2);
 
         let marker2;
-
-
         let latlng2;
         map2.on('click', function (e) {
             document.getElementById('delivery-location-save').setAttribute('disabled', 'true')
@@ -345,13 +348,23 @@
 
                     document.getElementById('editing-location').innerText = result.features[0].properties.formatted
                     document.querySelector('input[name="location_in_string2"]').value = result.features[0].properties.formatted
-                    
+
 
                     location_input_element.value = location_string
                     document.getElementById('delivery-location-save').removeAttribute('disabled')
                 })
                 .catch(error => console.log('error', error));
         });
+
+
+        {% for delivery_zone in restaurant.get_delivery_zones %}
+            L.circle([{{ delivery_zone.latitude }}, {{ delivery_zone.longitude }}], {
+                color: 'green',
+                fillColor: '#56964a',
+                fillOpacity: 0.3,
+                radius: 1000,
+            }).addTo(map2);
+        {% endfor %}
 
 
     </script>
