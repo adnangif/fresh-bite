@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate, logout
+from django.db.transaction import atomic
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -46,13 +47,32 @@ class RegisterView(View):
             return render(request, 'rider/register.html', {'error': str(e)})
 
 
+@atomic
 @rider_required
 def edit_profile(request: HttpRequest) -> HttpResponse:
     rider = Rider.objects.get(pk=request.user.id)
+    location_object = rider.get_location_object()
+
     if request.method == 'POST':
         rider_form = UpdateRiderForm(request.POST, instance=rider)
         if rider_form.is_valid():
             rider_form.save()
+
+            latitude = request.POST.get('latitude')
+            longitude = request.POST.get('longitude')
+            location_in_string = request.POST.get('location')
+
+
+            print('latitude ', latitude)
+            print('longitude ', longitude)
+            print('location_in_string ', location_in_string)
+
+            print(request.POST)
+
+            location_object.latitude = latitude
+            location_object.longitude = longitude
+            location_object.location_in_string = location_in_string
+            location_object.save()
         else:
             print(rider_form.errors)
 

@@ -7,6 +7,14 @@
 {% endblock %}
 
 {% block styles %}
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
     <style>
         body {
             background-color: #f2f6fc;
@@ -75,6 +83,11 @@
             margin-left: 1rem;
             margin-right: 1rem;
         }
+
+        #map {
+            height: 180px;
+            margin: 0.5rem
+        }
     </style>
 {% endblock %}
 
@@ -109,10 +122,15 @@
 
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLocation">Location</label>
-                                    <input class="form-control" id="inputLocation" type="text"
-                                           placeholder="Enter your location" value="Lahore">
+                                    <input type="hidden" name="latitude" value="{{ user.get_latitude }}">
+                                    <input type="hidden" name="longitude" value="{{ user.get_longitude }}">
+
+                                    <input name="location" class="form-control" id="inputLocation" type="text"
+                                          placeholder="Enter your location" value="{{ user.get_location }}">
+                                    <div id="map"></div>
                                 </div>
                             </div>
+                            
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputEmailAddress">Email address</label>
                                 <input name="email" class="form-control" id="inputEmailAddress" type="email"
@@ -123,19 +141,69 @@
                                 <!-- Form Group (phone number)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputPhone">Phone number</label>
-                                    <input name="phone"  class="form-control" id="inputPhone" type="tel"
+                                    <input name="phone" class="form-control" id="inputPhone" type="tel"
                                            placeholder="Enter your phone number" value="{{ rider.phone }}">
                                 </div>
 
                             </div>
                             <!-- Save changes button-->
-                            <button class="btn btn-warning text-white" type="submit">Save changes</button>
+                            <button id="save-btn" class="btn btn-warning" type="submit">Save changes</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script>
+        const map = L.map('map', {
+            {% if user.get_location != '' %}
+                center: [{{ user.get_latitude }}, {{ user.get_longitude }}],
+            {% else %}
+                center: [31.5204, 74.3587],
+            {% endif %}
+            zoom: 13
+        });
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        let marker;
+        {% if user.get_latitude  and user.get_longitude %}
+            marker = L.marker([
+                {{ user.get_latitude }},
+                {{ user.get_longitude }},
+            ]).addTo(map);
+        {% endif %}
+
+        let latlng;
+        map.on('click', function (e) {
+            document.getElementById('save-btn').setAttribute('disabled', 'true')
+            if (marker)
+                map.removeLayer(marker);
+            console.log(e.latlng); // e is an event object (MouseEvent in this case)
+            latlng = e.latlng
+            marker = L.marker(e.latlng).addTo(map);
+
+            document.querySelector('input[name="latitude"]').value = e.latlng.lat
+            document.querySelector('input[name="longitude"]').value = e.latlng.lng
+
+
+            fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${latlng.lat}&lon=${latlng.lng}&apiKey=c9743ce533884c64a9f4b465359d181f`)
+                .then(response => response.json())
+                .then(result => {
+                    document.getElementById('inputLocation').value = result.features[0].properties.formatted
+                    
+                    document.getElementById('save-btn').removeAttribute('disabled')
+
+                })
+                .catch(error => console.log('error', error));
+        });
+
+    </script>
 {% endblock %}
 
 
