@@ -3,11 +3,11 @@ import json
 import stripe
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from modelapp.models import Order, StripeCheckoutSession
+from modelapp.models import Order, StripeCheckoutSession, StripeSuccessfulPaymentIntent
 from user.decorators import user_required
 
 
@@ -36,6 +36,10 @@ def handle_stripe_payment(request, order_id):
             },
 
         )
+        order.send_email_to_user_notifying_of_order(
+            payment_url=checkout_session.url,
+        )
+
         # print("------------checkout session------------")
         # print(checkout_session)
         # print('------------checkout session------------')
@@ -46,11 +50,11 @@ def handle_stripe_payment(request, order_id):
 
 
 def success(request):
-    return HttpResponse('Successful!')
+    return render(request, 'payment/payment-successful.html')
 
 
 def failure(request):
-    return HttpResponse('Failed!')
+    return render(request, 'payment/payment-failure.html')
 
 
 @csrf_exempt
@@ -75,19 +79,26 @@ def stripe_webhook(request):
     # Handle the event
     if event.type == 'payment_intent.succeeded':
         payment_intent = event.data.object
-        stripe_session_checkout = StripeCheckoutSession.objects.get(payment_intent=payment_intent.id)
-        order = stripe_session_checkout.order
-        order.mark_as_stripe_payment_succeeded()
+        stripe_payment_succeeded = StripeSuccessfulPaymentIntent.objects.create(
+            payment_intent=payment_intent.id,
+        )
+
+        stripe_payment_succeeded.mark_as_paid_if_possible()
+
         # print(json.dumps(payment_intent, indent=4))
         print('PaymentIntent was successful!')
+
     elif event.type == 'checkout.session.completed':
         session_object = event.data.object
-        StripeCheckoutSession.objects.create(
-            order_id=session_object['metadata']['order_id'],
+        stripe_session_checkout: StripeCheckoutSession = StripeCheckoutSession.objects.create(
             payment_intent=session_object['payment_intent'],
+            order_id=session_object['metadata']['order_id']
         )
-        print("Successfully created a checkout session")
 
+        stripe_session_checkout.mark_as_paid_if_possible()
+
+        print(stripe_session_checkout)
+        print("checkout session Created!")
     else:
         print('Unhandled event type {}'.format(event.type))
 

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Failure{% endblock %}
+{% block styles %}
+    <style>
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkred;
+        }
+
+        p {
+            font-size: large;
+            color: darkred;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="main-container">
+
+        <h1>Payment failure!</h1>
+        <p>
+            We regret to inform you that there was an issue processing your payment for your recent order with Freshbite
+            via Stripe.
+
+            Please try again or use an alternative payment method. If the problem persists, do not hesitate to contact
+            our support team, and we'll assist you promptly.
+        </p>
+        <a class="btn btn-danger" href="{% url 'user:track_orders' %}">Goto Your Orders</a>
+    </div>
+
+{% endblock %}

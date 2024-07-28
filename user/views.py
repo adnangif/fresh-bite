@@ -109,8 +109,6 @@ def review_order(request: HttpRequest, cart_id: int):
 
         cart.delete()
 
-        order.send_email_to_user_notifying_of_order()
-
         if transaction.payment_type == PaymentTypes.STRIPE:
             return redirect('paymentapp:handle_stripe_payment', order_id=order.id)
         else:

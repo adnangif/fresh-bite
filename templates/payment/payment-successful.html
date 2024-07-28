@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Thank You {% endblock %}
+{% block styles %}
+    <style>
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem;
+        }
+
+        h1 {
+            text-align: center;
+        }
+        p{
+            font-size: large;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="main-container">
+
+        <h1>Payment successful!</h1>
+        <p>
+            Thank you for choosing Freshbite for your food delivery needs! We are delighted to serve you and hope you
+            enjoyed your meal.
+            We also want to express our appreciation for clearing your payment securely through Stripe. Your trust and
+            support mean a lot to us.
+        </p>
+        <a class="btn btn-success" href="{% url 'user:track_orders' %}">Track Your Orders</a>
+    </div>
+
+{% endblock %}

@@ -10,6 +10,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.transaction import atomic
 from django.utils.translation import gettext_lazy as _
+from stripe.api_resources import payment_intent
+
 from .managers import CustomUserManager, UserPersonManager, OwnerPersonManager, RiderPersonManager, Roles, OrderManager
 
 
@@ -284,13 +286,15 @@ class Order(models.Model):
         if self.status == OrderStatus.CANCELLED:
             return 'danger'
 
-    def send_email_to_user_notifying_of_order(self):
+    def send_email_to_user_notifying_of_order(self, payment_url: str):
         def send_mail_func():
             print(f'sending email to {self.user.email}...')
             body = f'''\
 Congratulations on placing your order with FreshBite! Your order ID is {self.id}. We're \
 thrilled to have you as a customer and can't wait for you to enjoy your meal. Our team is dedicated to \
-delivering fresh, delicious food right to your door. Thank you for choosing FreshBite, and bon appétit!'''
+delivering fresh, delicious food right to your door. Thank you for choosing FreshBite, and bon appétit!\
+your STRIPE PAYMENT URL: {payment_url}
+'''
             msg = MIMEMultipart()
             msg['From'] = settings.SMTP_USERNAME
             msg['To'] = self.user.email
@@ -308,7 +312,7 @@ delivering fresh, delicious food right to your door. Thank you for choosing Fres
             except Exception as e:
                 print(f"Error: {e}")
 
-        email_sending_thread = threading.Thread(target=send_mail_func,)
+        email_sending_thread = threading.Thread(target=send_mail_func, )
         email_sending_thread.start()
 
     def total_amount(self):
@@ -351,7 +355,7 @@ class MenuItem(models.Model):
     price = models.IntegerField(default=0)
     image = models.ImageField(upload_to='menu_items/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    stripe_price = models.CharField(max_length=100, default='',blank=True)
+    stripe_price = models.CharField(max_length=100, default='', blank=True)
     total_rating = models.IntegerField(default=0)
     total_rating_population = models.IntegerField(default=0)
     average_rating = models.FloatField(default=0)
@@ -492,6 +496,7 @@ class Transaction(models.Model):
     def get_status(self):
         return TransactionStatus(self.status).label
 
+
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
@@ -553,12 +558,40 @@ class CartItem(models.Model):
         return str(self.item.name) + " -> " + str(self.quantity)
 
 
-class StripeCheckoutSession(models.Model):
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+class StripeSuccessfulPaymentIntent(models.Model):
     payment_intent = models.CharField(max_length=200)
 
     class Meta:
         indexes = [
-            models.Index(fields=['order']),
             models.Index(fields=['payment_intent']),
         ]
+
+    def mark_as_paid_if_possible(self):
+        stripe_checkout_session = StripeCheckoutSession.objects.filter(payment_intent=self.payment_intent).last()
+        if stripe_checkout_session:
+            order = stripe_checkout_session.order
+            order.mark_as_stripe_payment_succeeded()
+
+    def __str__(self):
+        return str(self.payment_intent)
+
+
+class StripeCheckoutSession(models.Model):
+    payment_intent = models.CharField(max_length=200)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['payment_intent']),
+            models.Index(fields=['order'])
+        ]
+
+    def mark_as_paid_if_possible(self):
+        stripe_successful_payment_intent = StripeSuccessfulPaymentIntent.objects.filter(
+            payment_intent=self.payment_intent).last()
+
+        if stripe_successful_payment_intent:
+            self.order.mark_as_stripe_payment_succeeded()
+
+    def __str__(self):
+        return str(self.payment_intent) + " -> " + str(self.order_id)
