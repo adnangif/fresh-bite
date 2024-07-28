@@ -1,4 +1,10 @@
+import ssl
+import threading
+
 import stripe
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -83,7 +89,6 @@ class User(Person):
             return False
 
         return True
-
 
 
 class Owner(Person):
@@ -272,6 +277,33 @@ class Order(models.Model):
 
         if self.status == OrderStatus.CANCELLED:
             return 'danger'
+
+    def send_email_to_user_notifying_of_order(self):
+        def send_mail_func():
+            print(f'sending email to {self.user.email}...')
+            body = f'''\
+Congratulations on placing your order with FreshBite! Your order ID is {self.id}. We're \
+thrilled to have you as a customer and can't wait for you to enjoy your meal. Our team is dedicated to \
+delivering fresh, delicious food right to your door. Thank you for choosing FreshBite, and bon appétit!'''
+            msg = MIMEMultipart()
+            msg['From'] = settings.SMTP_USERNAME
+            msg['To'] = self.user.email
+            msg['Subject'] = "Successfully placed your order"
+            msg.attach(MIMEText(body, 'plain'))
+            try:
+                context = ssl.create_default_context()
+                with smtplib.SMTP(settings.SMTP_SERVER, settings.SMTP_PORT) as server:
+                    server.ehlo()  # Can be omitted
+                    server.starttls(context=context)
+                    server.ehlo()  # Can be omitted
+                    server.login(settings.SMTP_USERNAME, settings.SMTP_PASSWORD)
+                    server.sendmail(settings.SMTP_USERNAME, self.user.email, msg.as_string())
+
+            except Exception as e:
+                print(f"Error: {e}")
+
+        email_sending_thread = threading.Thread(target=send_mail_func,)
+        email_sending_thread.start()
 
     def total_amount(self):
         if self._total_amount is None:
