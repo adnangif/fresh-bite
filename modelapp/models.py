@@ -230,6 +230,12 @@ class Order(models.Model):
         self.status = OrderStatus.RIDER_ON_WAY
         self.save()
 
+    def mark_as_stripe_payment_succeeded(self):
+        with atomic():
+            transaction = Transaction.objects.get(order=self)
+            transaction.status = TransactionStatus.ACCEPTED
+            transaction.save()
+
     def mark_as_delivered(self):
         with atomic():
             transaction = Transaction.objects.get(order=self)
@@ -345,7 +351,7 @@ class MenuItem(models.Model):
     price = models.IntegerField(default=0)
     image = models.ImageField(upload_to='menu_items/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    stripe_price = models.CharField(max_length=100, default='')
+    stripe_price = models.CharField(max_length=100, default='',blank=True)
     total_rating = models.IntegerField(default=0)
     total_rating_population = models.IntegerField(default=0)
     average_rating = models.FloatField(default=0)
@@ -480,6 +486,11 @@ class Transaction(models.Model):
             models.Index(fields=['order']),
         ]
 
+    def __str__(self):
+        return str(self.id) + " -> " + str(self.amount) + " -> " + str(self.status)
+
+    def get_status(self):
+        return TransactionStatus(self.status).label
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -540,3 +551,14 @@ class CartItem(models.Model):
 
     def __str__(self):
         return str(self.item.name) + " -> " + str(self.quantity)
+
+
+class StripeCheckoutSession(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    payment_intent = models.CharField(max_length=200)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['order']),
+            models.Index(fields=['payment_intent']),
+        ]

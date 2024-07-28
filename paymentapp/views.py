@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from modelapp.models import Order
+from modelapp.models import Order, StripeCheckoutSession
 from user.decorators import user_required
 
 
@@ -29,13 +29,16 @@ def handle_stripe_payment(request, order_id):
         checkout_session = stripe.checkout.Session.create(
             line_items=line_items,
             mode='payment',
-            success_url=settings.SERVER_DOMAIN + "payment/success",
-            cancel_url=settings.SERVER_DOMAIN + "payment/failure",
-        )
+            success_url=settings.SERVER_DOMAIN + "payment/success/",
+            cancel_url=settings.SERVER_DOMAIN + "payment/failure/",
+            metadata={
+                'order_id': order_id,
+            },
 
-        print("------------checkout session------------")
-        print(checkout_session)
-        print('------------checkout session------------')
+        )
+        # print("------------checkout session------------")
+        # print(checkout_session)
+        # print('------------checkout session------------')
     except Exception as e:
         return str(e)
 
@@ -71,13 +74,20 @@ def stripe_webhook(request):
 
     # Handle the event
     if event.type == 'payment_intent.succeeded':
-        payment_intent = event.data.object  # contains a stripe.PaymentIntent
-        print(json.dumps(payment_intent, indent=4))
+        payment_intent = event.data.object
+        stripe_session_checkout = StripeCheckoutSession.objects.get(payment_intent=payment_intent.id)
+        order = stripe_session_checkout.order
+        order.mark_as_stripe_payment_succeeded()
+        # print(json.dumps(payment_intent, indent=4))
         print('PaymentIntent was successful!')
-    elif event.type == 'payment_method.attached':
-        payment_method = event.data.object  # contains a stripe.PaymentMethod
-        print('PaymentMethod was attached to a Customer!')
-    # ... handle other event types
+    elif event.type == 'checkout.session.completed':
+        session_object = event.data.object
+        StripeCheckoutSession.objects.create(
+            order_id=session_object['metadata']['order_id'],
+            payment_intent=session_object['payment_intent'],
+        )
+        print("Successfully created a checkout session")
+
     else:
         print('Unhandled event type {}'.format(event.type))
 

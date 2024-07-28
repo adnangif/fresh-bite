@@ -64,13 +64,23 @@
                                 </td>
                             </tr>
 
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Payment</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold">{{ order_instance.transaction.get_status }}</div>
+                                </td>
+                            </tr>
+
 
                             {% if order_instance.order.status == order_status.DELIVERED  and order_instance.order.is_rated == False %}
                                 <tr class="fs-4">
                                     <td></td>
                                     <td>
 
-                                        <a href="{% url 'user:rate' order_id=order_instance.order.pk %}" class="btn btn-primary">Write a review</a>
+                                        <a href="{% url 'user:rate' order_id=order_instance.order.pk %}"
+                                           class="btn btn-primary">Write a review</a>
                                     </td>
                                 </tr>
                             {% endif %}

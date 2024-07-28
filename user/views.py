@@ -172,6 +172,7 @@ def track_orders(request: HttpRequest):
     for order in orders:
         order_list.append({
             'order': order,
+            'transaction': Transaction.objects.get(order=order),
             'items': OrderedItem.objects.filter(order=order),
         })
 
