@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Monal Lahore{% endblock %}
+{% block title %}{{ restaurant.name }}{% endblock %}
 
 
 {% block styles %}
@@ -12,8 +12,8 @@
             font-size: 4rem;
             text-transform: capitalize;
         }
-        
-        .main-container{
+
+        .main-container {
             min-height: 70vh;
         }
     </style>
@@ -135,51 +135,54 @@
 
         <div class="flex-fill">
 
-            <h1 class="title">{{ restaurant.name }}</h1>
-            <div class="d-flex gap-3">
-                <input type="text" class="form-control rounded-elem" placeholder="Cuisine" aria-label="Search food"
+            <h1 class="title fs-3">{{ restaurant.name }}</h1>
+            <form class="d-flex gap-3">
+                <input name="q" type="text" class="form-control rounded-elem" placeholder="Cuisine"
+                       aria-label="Search food"
                        aria-describedby="button-addon2">
-                <button class="btn btn-warning " type="button" id="button-addon2">Search</button>
-            </div>
+                <button class="btn btn-warning" type="submit" id="button-addon2">Search</button>
+                <a class="btn btn-warning" href="{% url 'user:restaurant' restaurant_id=restaurant.id %}" type="button">reset</a>
+            </form>
 
             {% for menu in menu_list %}
+                {% if menu.items|length %}
 
+                    <div class="mt-5 overflow-hidden">
+                        <h2 class="fw-bold">{{ menu.name }}</h2>
 
+                        <div class="row overflow-hidden">
 
-                <div class="mt-5 overflow-hidden">
-                    <h2 class="fw-bold">{{ menu.name }}</h2>
+                            {% for item in menu.items %}
 
-                    <div class="row overflow-hidden">
+                                <form method="post" onsubmit="" class="col-md-6 col-lg-3 col-12 my-1">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="cart_pk" value="{{ cart.pk }}">
+                                    <input type="hidden" name="item_pk" value="{{ item.pk }}">
+                                    <input type="hidden" name="increment" value="increment">
+                                    <div class="card">
+                                        <div style="height: 200px;overflow: clip">
 
-                        {% for item in menu.items %}
+                                            <img src="{{ item.image.url }}"
+                                                 class="card-img-top" alt="{{ item.name }}">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold">{{ item.name }}</h5>
 
-                            <form method="post" onsubmit="" class="col-md-6 col-lg-3 col-12 my-1">
-                                {% csrf_token %}
-                                <input type="hidden" name="cart_pk" value="{{ cart.pk }}">
-                                <input type="hidden" name="item_pk" value="{{ item.pk }}">
-                                <input type="hidden" name="increment" value="increment">
-                                <div class="card">
-                                    <div style="height: 200px;overflow: clip">
+                                            <h6>⭐ {{ item.average_rating }}</h6>
+                                            <h6>Price: <strong>Rs. {{ item.price }}</strong></h6>
 
-                                        <img src="{{ item.image.url }}"
-                                             class="card-img-top" alt="{{ item.name }}">
+                                            <button type="submit" class="btn btn-warning  fw-bold">ADD</button>
+
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">{{ item.name }}</h5>
-                                        
-                                        <h6>⭐ {{ item.average_rating }}</h6>
-                                        <h6>Price: <strong>Rs. {{ item.price }}</strong></h6>
+                                </form>
 
-                                        <button type="submit" class="btn btn-warning  fw-bold">ADD</button>
+                            {% endfor %}
 
-                                    </div>
-                                </div>
-                            </form>
-
-                        {% endfor %}
-
+                        </div>
                     </div>
-                </div>
+                    
+                {% endif %}
             {% endfor %}
 
 

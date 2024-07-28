@@ -32,7 +32,10 @@ def nearby_restaurants(request: HttpRequest):
 
 
 @user_required
-def restaurant(request: HttpRequest, restaurant_id: int):
+def view_restaurant(request: HttpRequest, restaurant_id: int):
+    search_query: str = request.GET.get('q') or ''
+    restaurant = Restaurant.objects.get(id=restaurant_id)
+
     if request.method == 'POST':
         cart_pk = request.POST.get('cart_pk')
         item_pk = request.POST.get('item_pk')
@@ -56,8 +59,10 @@ def restaurant(request: HttpRequest, restaurant_id: int):
             'name': menu_object.name,
             'pk': menu_object.pk,
             'items': [
-                item for item in MenuItem.objects.filter(menu=menu_object).order_by('-average_rating')
+                item for item in MenuItem.objects.filter(menu=menu_object,
+                                                         name__icontains=search_query).order_by('-average_rating')
             ],
+
         }
         menu_list.append(menu)
 
@@ -295,7 +300,7 @@ def rate(request: HttpRequest, order_id):
 
         if restaurant_rating:
             try:
-                order.restaurant.set_rating(int(restaurant_rating))
+                order.view_restaurant.set_rating(int(restaurant_rating))
             except Exception as e:
                 print("Restaurant Rating Not Saved.")
                 print(e)

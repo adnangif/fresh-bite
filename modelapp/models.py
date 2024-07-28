@@ -352,7 +352,7 @@ class MenuItem(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['menu']),
+            models.Index(fields=['menu', 'name']),
         ]
 
     def __str__(self):

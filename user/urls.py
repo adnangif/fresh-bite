@@ -11,7 +11,7 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='register'),
 
     path('nearby/', views.nearby_restaurants, name='nearby_restaurants'),
-    path('restaurants/<int:restaurant_id>/', views.restaurant, name='restaurant'),
+    path('restaurants/<int:restaurant_id>/', views.view_restaurant, name='restaurant'),
     path('review-order/<int:cart_id>/', views.review_order, name='review_order'),
     path('track-orders/', views.track_orders, name='track_orders'),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
