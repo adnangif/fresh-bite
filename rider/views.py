@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import Rider, Restaurant, Order, OrderedItem, OrderStatus
+from modelapp.models import Rider, Restaurant, Order, OrderedItem, OrderStatus, Transaction
 from rider.decorators import rider_required
 from rider.forms import UpdateRiderForm
 
@@ -102,6 +102,7 @@ def track_orders(request: HttpRequest) -> HttpResponse:
     for order in orders:
         order_list.append({
             'order': order,
+            'transaction': Transaction.objects.get(order=order),
             'restaurant': order.restaurant,
             'user': order.user,
             'items': OrderedItem.objects.filter(order=order),

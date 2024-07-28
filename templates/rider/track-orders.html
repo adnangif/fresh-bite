@@ -80,6 +80,15 @@
                                 </td>
                             </tr>
 
+                            <tr>
+                                <td>
+                                    <div class="fs-3 fw-bold">Payment</div>
+                                </td>
+                                <td>
+                                    <div class="fs-3 fw-bold">{{ order_instance.transaction.get_status }}</div>
+                                </td>
+                            </tr>
+
 
                             {% if order_instance.order.status == order_status.PREPARING or order_instance.order.status == order_status.RIDER_ON_WAY %}
                                 <tr>
