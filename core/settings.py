@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rider",
     "landingapp",
     "modelapp",
+    "paymentapp",
 ]
 
 MIDDLEWARE = [
@@ -78,13 +79,26 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+#
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": 'FreshBiteDB',
+#         "USER": 'root',
+#         "PASSWORD": 'password',
+#         "HOST": '127.0.0.1',
+#         "PORT": '3306',
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -132,3 +146,13 @@ AUTH_USER_MODEL = "modelapp.Person"
 
 
 GOOGLE_MAPS_API_KEY = "AIzaSyBDTKCFj4lBwQoGrG4VbzaGIxQpCRXzOqs"
+STRIPE_PUBLISHABLE_KEY = "pk_test_51PbgJKH3geCYyWafjYheOz2ZdT5Ng5teCa81DYGnW6wrphrHsewJ3FFXqbhovCjOSNCfzubKWBkmElSlNnxMBkiS00IPfIh9ye"
+STRIPE_SECRET_KEY = "sk_test_51PbgJKH3geCYyWaf46ck61SvWZIaCmf0Trcl52yq04T7L4RZEJPr7QG7nwIT0gjHl4w6A5nuRy97UfSjk2dgNTUn006JOjdYAf"
+ENDPOINT_SECRET = 'whsec_23fb92a362197d88adc4f06b9a43ecb92b8d4af49c367d75cf11a24c7b051e1c'
+
+SERVER_DOMAIN = "http://127.0.0.1:8000/"
+
+SMTP_SERVER = 'smtp.mailersend.net'
+SMTP_PORT = 587
+SMTP_USERNAME = 'MS_UUbVe5@trial-z3m5jgr0ykmgdpyo.mlsender.net'
+SMTP_PASSWORD = 'MPqknV2VO7Zg7nBw'
