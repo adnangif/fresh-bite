@@ -19,8 +19,11 @@ def hello_world(request: HttpRequest):
 
 
 def nearby_restaurants(request: HttpRequest):
-    lat = request.GET.get('lat')
-    lng = request.GET.get('lng')
+    latitude = request.GET.get('latitude')
+    longitude = request.GET.get('longitude')
+
+    print('latitude', latitude)
+    print('longitude', longitude)
 
     restaurants: list[Restaurant] = Restaurant.objects.filter(is_published=True)
 
