@@ -130,7 +130,8 @@
         <button id="map-select-location" class="bg-primary">Select</button>
     </div>
     <div class="container1">
-        <form action="{% url 'user:nearby_restaurants' %}" class="position-absolute top-0 mt-lg-5 p-lg-5 p-sm-4 mt-sm-0 search-form d-flex flex-column gap-3">
+        <form action="{% url 'user:nearby_restaurants' %}"
+              class="position-absolute top-0 mt-lg-5 p-lg-5 p-sm-4 mt-sm-0 search-form d-flex flex-column gap-3">
             <div>
                 <h1 class=" display-4 fw-bolder text-white">Quality food, right where you want it.</h1>
             </div>
@@ -364,11 +365,12 @@
             map_container.style.visibility = 'visible'
         })
 
+
         map_container.addEventListener('click', e => {
             if (e.target === map_container) {
                 map_container.style.visibility = 'hidden'
-                
-                if(location_input_box.value.trim() !== '')
+
+                if (location_input_box.value.trim() !== '')
                     btn_find_food.removeAttribute('disabled')
             }
         })
@@ -421,6 +423,8 @@
                     const location_input_element = document.getElementById('location-input-box')
 
                     location_input_element.value = location_string
+                    btn_find_food.removeAttribute('disabled')
+                    
                 })
                 .catch(error => console.log('error', error));
         });
