@@ -595,3 +595,17 @@ class StripeCheckoutSession(models.Model):
 
     def __str__(self):
         return str(self.payment_intent) + " -> " + str(self.order_id)
+
+
+class ChatHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    query = models.TextField()
+    reply = models.TextField()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['user']),
+        ]
+
+    def __str__(self):
+        return str(self.user) + " -> " + str(self.query) + " -> " + str(self.reply)

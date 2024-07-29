@@ -7,8 +7,9 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, resolve_url
 from django.views import View
 
+from chatbot_backend import generate_response
 from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider, Transaction, \
-    TransactionStatus, OrderedItem, OrderStatus, Review, ReviewTypes
+    TransactionStatus, OrderedItem, OrderStatus, Review, ReviewTypes, ChatHistory
 from user.decorators import user_required
 from user.forms import UpdateUserForm
 import secrets
@@ -153,8 +154,25 @@ def change_location(request: HttpRequest):
     return HttpResponse("Not Allowed")
 
 
+@user_required
 def livechat(request: HttpRequest):
-    return render(request, 'user/live-chat.html')
+    user = User.objects.get(id=request.user.id)
+
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        reply = generate_response(query)
+
+        ChatHistory.objects.create(
+            user=user,
+            query=query,
+            reply=reply,
+        )
+
+    context = {
+        'user': user,
+        'chat_history': ChatHistory.objects.filter(user=user),
+    }
+    return render(request, 'user/live-chat.html', context)
 
 
 @user_required
