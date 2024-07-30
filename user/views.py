@@ -26,7 +26,18 @@ def nearby_restaurants(request: HttpRequest):
     print('latitude', latitude)
     print('longitude', longitude)
 
-    restaurants: list[Restaurant] = Restaurant.objects.filter(is_published=True)
+    restaurants: list[Restaurant] = Restaurant.objects.raw(
+        '''
+        SELECT *
+        FROM ((`modelapp_restaurant`
+        INNER JOIN  `modelapp_person`  ON `modelapp_restaurant`.`owner_id`=`modelapp_person`.`id`)
+        INNER JOIN `modelapp_location` ON  `modelapp_person`.`id`=`modelapp_location`.`entity_id`)
+        WHERE `modelapp_restaurant`.`is_published`=1
+        ORDER BY ((`latitude`-%s)*(`latitude`-%s)+(`longitude`-%s)*(`longitude`-%s))
+        LIMIT 10
+        ''', [latitude, latitude, longitude, longitude]
+    )
+
 
     context = {
         'restaurants': restaurants,
