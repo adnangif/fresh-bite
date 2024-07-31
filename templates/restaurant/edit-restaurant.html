@@ -106,17 +106,17 @@
                     <hr>
                 </div>
 
-                <form id="location_form" method="POST" action="{% url 'restaurant:change_restaurant_location' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="latitude" value="{{ restaurant.get_latitude }}">
-                    <input type="hidden" name="longitude"
-                           value="{{ restaurant.get_longitude }}">
-
-                    <input name="location_in_string" class="form-control" id="inputLocation"
-                           type="hidden"
-                           value="{{ restaurant.get_location }}">
-
-                </form>
+                {#                <form id="location_form" method="POST" action="{% url 'restaurant:change_restaurant_location' %}">#}
+                {#                    {% csrf_token %}#}
+                {#                    <input type="hidden" name="latitude" value="{{ restaurant.get_latitude }}">#}
+                {#                    <input type="hidden" name="longitude"#}
+                {#                           value="{{ restaurant.get_longitude }}">#}
+                {##}
+                {#                    <input name="location_in_string" class="form-control" id="inputLocation"#}
+                {#                           type="hidden"#}
+                {#                           value="{{ restaurant.get_location }}">#}
+                {##}
+                {#                </form>#}
 
                 <!-- Form START -->
                 <div>
@@ -134,7 +134,7 @@
                                     {% endif %}
                                     <div class="col-md-6">
                                         <label class="form-label">Name of Restaurant*</label>
-                                        <input name="name" type="text" class="form-control"
+                                        <input required name="name" type="text" class="form-control"
                                                placeholder="Restaurant Name" aria-label="First name"
                                                value="{{ name }}">
                                     </div>
@@ -149,20 +149,20 @@
                                                    checked{% endif %}>
                                             <label class="form-check-label fw-bold text-black-50"
                                                    for="flexCheckChecked">
-                                                Is The Restaurant Shown on Search Results?
+                                                Is The Restaurant Shown on Search Results?[also set location]
                                             </label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label">Phone number </label>
-                                        <input name="phone" type="text" class="form-control" placeholder=""
+                                        <input required name="phone" type="text" class="form-control" placeholder=""
                                                aria-label="Phone number"
                                                value="{{ phone }}">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">Phone number </label>
+                                        <label class="form-label">Phone number2 </label>
                                         <input name="phone2" type="text" class="form-control" placeholder=""
                                                aria-label="Phone number"
                                                value="{{ phone2 }}">
@@ -171,19 +171,22 @@
 
                                     <div class="col-md-6">
                                         <label for="opening_time" class="form-label">Opening Time *</label>
-                                        <input name="opens_at" type="time" class="form-control" id="opening_time"
+                                        <input required name="opens_at" type="time" class="form-control"
+                                               id="opening_time"
                                                value="{{ opens_at }}">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="closing_time" class="form-label">Closing Time *</label>
-                                        <input name="closes_at" type="time" class="form-control" id="closing_time"
+                                        <input required name="closes_at" type="time" class="form-control"
+                                               id="closing_time"
                                                value="{{ closes_at }}">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="restaurant_image" class="form-label">Restaurant Image</label>
-                                        <input name="restaurant_image" type="file" class="form-control"
+                                        <input {% if not restaurant.restaurant_image %}required{% endif %}
+                                               name="restaurant_image" type="file" class="form-control"
                                                id="restaurant_image">
                                     </div>
 
@@ -197,15 +200,23 @@
 
                         <div class="col-xxl-8 mb-5 mb-xxl-0">
                             <div class="bg-secondary-soft px-4 py-5 rounded">
-                                <div class="row g-3">
+                                <form id="location_form" method="POST"
+                                      action="{% url 'restaurant:change_restaurant_location' %}" class="row g-3">
+                                    {% csrf_token %}
+
                                     <h4 class="mb-4 mt-0 dark fs-2">Restaurant Location</h4>
 
                                     <div class="row gx-3 mb-3">
 
                                         <div class="col-md-6">
-                                            <label id="location-title" class="small mb-1"
-                                                   for="inputLocation">{{ restaurant.get_location }}</label>
+                                            <input type="hidden" name="latitude" value="{{ restaurant.get_latitude }}">
+                                            <input type="hidden" name="longitude"
+                                                   value="{{ restaurant.get_longitude }}">
 
+                                            <input required readonly name="location_in_string" class="form-control"
+                                                   id="inputLocation"
+                                                   type="text"
+                                                   value="{{ restaurant.get_location }}">
                                             <div id="map"></div>
 
                                             <div>
@@ -217,7 +228,7 @@
                                     </div>
 
 
-                                </div> <!-- Row END -->
+                                </form> <!-- Row END -->
                             </div>
                         </div>
 
@@ -288,10 +299,13 @@
         }).addTo(map);
 
         let marker;
-        {% if restaurant.get_latitude != '' and restaurant.get_longitude != '' %}
+        {% if restaurant.get_latitude and restaurant.get_longitude %}
             marker = L.marker([
-                {{ restaurant.get_latitude }},
-                {{ restaurant.get_longitude }},
+                {% if restaurant.get_location != '' %}
+                    {{ restaurant.get_latitude }}, {{ restaurant.get_longitude }}
+                {% else %}
+                    31.5204, 74.3587
+                {% endif %}
             ]).addTo(map);
         {% endif %}
 
@@ -315,7 +329,6 @@
                     const location_string = result.features[0].properties.formatted
                     const location_input_element = document.getElementById('inputLocation')
 
-                    document.getElementById('location-title').innerText = result.features[0].properties.formatted
 
                     location_input_element.value = location_string
                     document.getElementById('btn-location-save').removeAttribute('disabled')
