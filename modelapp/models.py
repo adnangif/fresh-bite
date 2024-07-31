@@ -19,7 +19,9 @@ class Person(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     role = models.CharField(max_length=100, choices=Roles.choices, default=Roles.NONE)
     phone = models.CharField(max_length=25, blank=True, default='')
+
     is_available_for_ride = models.BooleanField(default=False)
+    ride_count = models.IntegerField(default=0)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

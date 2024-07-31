@@ -59,6 +59,13 @@ class RiderPersonManager(CustomUserManager):
     def get_queryset(self):
         return super().get_queryset().filter(role=Roles.RIDER)
 
+    def get_rider(self):
+        rider = self.get_queryset().filter(is_available_for_ride=True).order_by('ride_count').first()
+        if rider:
+            rider.ride_count += 1
+            rider.save()
+        return rider
+
 
 class OrderManager(models.Manager):
     def create_order(self, user, restaurant, rider):

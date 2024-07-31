@@ -102,6 +102,8 @@ def review_order(request: HttpRequest, cart_id: int):
     cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)
     cart_items_exist = CartItem.objects.filter(cart=cart).exists()
 
+    # print(f"The Rider is: {Rider.objects.get_rider()}")
+
     if cart is None:
         return redirect('landingapp:landing_page')
 
@@ -110,8 +112,9 @@ def review_order(request: HttpRequest, cart_id: int):
         order = Order.objects.create_order(
             user=user,
             restaurant=cart.restaurant,
-            rider=Rider.objects.all().last(),
+            rider=Rider.objects.get_rider(),
         )
+        print(order)
         transaction = Transaction.objects.create(
             order=order,
             payment_type=cart.payment_type,
