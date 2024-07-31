@@ -277,9 +277,12 @@ def edit_profile(request: HttpRequest):
         user.phone = request.POST.get('phone')
 
         location_object = user.get_location_object()
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
 
-        location_object.latitude = request.POST.get('latitude')
-        location_object.longitude = request.POST.get('longitude')
+        location_object.latitude = latitude if latitude else 31.5204
+        location_object.longitude = longitude if longitude else 74.3587
+
         location_object.location_in_string = request.POST.get('location')
 
         location_object.save()
