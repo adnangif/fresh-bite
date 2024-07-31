@@ -40,7 +40,8 @@ class RegisterView(View):
 
         try:
             rider = Rider.objects.create_user(first_name=first_name, last_name=last_name, email=email,
-                                              password=password)
+                                              password=password
+                                              )
             return redirect('rider:login')
         except Exception as e:
             print(e)
@@ -54,27 +55,27 @@ def edit_profile(request: HttpRequest) -> HttpResponse:
     location_object = rider.get_location_object()
 
     if request.method == 'POST':
-        rider_form = UpdateRiderForm(request.POST, instance=rider)
-        if rider_form.is_valid():
-            rider_form.save()
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        is_available_for_ride = request.POST.get('is_available_for_ride')
 
-            latitude = request.POST.get('latitude')
-            longitude = request.POST.get('longitude')
-            location_in_string = request.POST.get('location')
+        rider.first_name = first_name
+        rider.last_name = last_name
+        rider.email = email
+        rider.phone = phone
+        rider.is_available_for_ride = is_available_for_ride or False
+        rider.save()
 
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
+        location_in_string = request.POST.get('location')
 
-            print('latitude ', latitude)
-            print('longitude ', longitude)
-            print('location_in_string ', location_in_string)
-
-            print(request.POST)
-
-            location_object.latitude = latitude
-            location_object.longitude = longitude
-            location_object.location_in_string = location_in_string
-            location_object.save()
-        else:
-            print(rider_form.errors)
+        location_object.latitude = latitude if latitude else 31.5204
+        location_object.longitude = longitude if longitude else 74.3587
+        location_object.location_in_string = location_in_string or ''
+        location_object.save()
 
     context = {
         'rider': rider,

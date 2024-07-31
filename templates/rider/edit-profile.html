@@ -108,13 +108,13 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName">First name</label>
-                                    <input name="first_name" class="form-control" id="inputFirstName" type="text"
+                                    <input required name="first_name" class="form-control" id="inputFirstName" type="text"
                                            placeholder="Enter your first name" value="{{ rider.first_name }}">
                                 </div>
                                 <!-- Form Group (last name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Last name</label>
-                                    <input name="last_name" class="form-control" id="inputLastName" type="text"
+                                    <input required name="last_name" class="form-control" id="inputLastName" type="text"
                                            placeholder="Enter your last name" value="{{ rider.last_name }}">
                                 </div>
                             </div>
@@ -125,15 +125,28 @@
                                     <input type="hidden" name="latitude" value="{{ user.get_latitude }}">
                                     <input type="hidden" name="longitude" value="{{ user.get_longitude }}">
 
-                                    <input name="location" class="form-control" id="inputLocation" type="text"
-                                          placeholder="Enter your location" value="{{ user.get_location }}">
+                                    <input required readonly name="location" class="form-control" id="inputLocation" type="text"
+                                           placeholder="Enter your location" value="{{ user.get_location }}">
                                     <div id="map"></div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Availability </label>
+
+                                    <div class="form-check">
+                                        <input name="is_available_for_ride" class="form-check-input" type="checkbox" value="1"
+                                               id="flexCheckChecked"
+                                                {% if rider.is_available_for_ride %} checked {% endif %}>
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            [If Checked, The rider will be assigned orders.]
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                <input name="email" class="form-control" id="inputEmailAddress" type="email"
+                                <input required name="email" class="form-control" id="inputEmailAddress" type="email"
                                        placeholder="Enter your email address" value="{{ rider.email }}">
                             </div>
                             <!-- Form Row-->
@@ -141,7 +154,7 @@
                                 <!-- Form Group (phone number)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputPhone">Phone number</label>
-                                    <input name="phone" class="form-control" id="inputPhone" type="tel"
+                                    <input required name="phone" class="form-control" id="inputPhone" type="number"
                                            placeholder="Enter your phone number" value="{{ rider.phone }}">
                                 </div>
 
@@ -196,7 +209,7 @@
                 .then(response => response.json())
                 .then(result => {
                     document.getElementById('inputLocation').value = result.features[0].properties.formatted
-                    
+
                     document.getElementById('save-btn').removeAttribute('disabled')
 
                 })

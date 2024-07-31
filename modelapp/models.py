@@ -10,7 +10,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.transaction import atomic
 from django.utils.translation import gettext_lazy as _
-from stripe.api_resources import payment_intent
 
 from .managers import CustomUserManager, UserPersonManager, OwnerPersonManager, RiderPersonManager, Roles, OrderManager
 
@@ -20,6 +19,7 @@ class Person(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     role = models.CharField(max_length=100, choices=Roles.choices, default=Roles.NONE)
     phone = models.CharField(max_length=25, blank=True, default='')
+    is_available_for_ride = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

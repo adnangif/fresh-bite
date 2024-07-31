@@ -6,4 +6,4 @@ from modelapp.models import Rider
 class UpdateRiderForm(ModelForm):
     class Meta:
         model = Rider
-        fields = ['first_name', 'last_name', 'email', 'phone']
+        fields = ['first_name', 'last_name', 'email', 'phone', 'is_available_for_ride']
