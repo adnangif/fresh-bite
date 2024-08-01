@@ -72,6 +72,8 @@ def edit_profile(request: HttpRequest) -> HttpResponse:
         longitude = request.POST.get('longitude')
         location_in_string = request.POST.get('location')
 
+
+
         location_object.latitude = latitude if latitude else 31.5204
         location_object.longitude = longitude if longitude else 74.3587
         location_object.location_in_string = location_in_string or ''

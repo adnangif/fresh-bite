@@ -50,21 +50,21 @@ class Person(AbstractUser):
 
     def get_location(self):
         location: Location = Location.objects.filter(entity=self).last()
-        if location:
+        if location and location.location_in_string:
             return location.location_in_string
         else:
             return ''
 
     def get_latitude(self):
         location: Location = Location.objects.filter(entity=self).last()
-        if location:
+        if location and location.latitude:
             return location.latitude
         else:
             return ''
 
     def get_longitude(self):
         location: Location = Location.objects.filter(entity=self).last()
-        if location:
+        if location and location.longitude:
             return location.longitude
         else:
             return ''
@@ -115,6 +115,9 @@ class Rider(Person):
     def save(self, *args, **kwargs):
         self.role = Roles.RIDER
         super(Rider, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.email +" "+ str(self.ride_count)
 
 
 class Restaurant(models.Model):

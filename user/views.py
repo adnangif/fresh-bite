@@ -108,11 +108,15 @@ def review_order(request: HttpRequest, cart_id: int):
         return redirect('landingapp:landing_page')
 
     if request.method == 'POST' and cart_items_exist and user.okay_for_first_order():
+        selected_rider = Rider.objects.get_rider()
+
+        if not selected_rider:
+            return HttpResponse("<h1>Rider Not Available. <a href='/'>Home</a></h1>")
 
         order = Order.objects.create_order(
             user=user,
             restaurant=cart.restaurant,
-            rider=Rider.objects.get_rider(),
+            rider=selected_rider,
         )
         print(order)
         transaction = Transaction.objects.create(

@@ -60,11 +60,14 @@ class RiderPersonManager(CustomUserManager):
         return super().get_queryset().filter(role=Roles.RIDER)
 
     def get_rider(self):
-        rider = self.get_queryset().filter(is_available_for_ride=True).order_by('ride_count').first()
-        if rider:
+        riders = self.get_queryset().filter(is_available_for_ride=True).order_by('ride_count')
+
+        if riders.exists():
+            rider = riders[0]
             rider.ride_count += 1
             rider.save()
-        return rider
+            return rider
+        return None
 
 
 class OrderManager(models.Manager):
