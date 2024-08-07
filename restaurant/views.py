@@ -157,7 +157,7 @@ def edit_menu(request: HttpRequest, pk: int):
 
     if request.method == 'POST':
         item_pk = request.POST.get('item_pk')
-
+        item = None
         if item_pk:
             item = MenuItem.objects.get(pk=item_pk)
             menu_item_form = UpdateMenuItemForm(request.POST, request.FILES, instance=item)
@@ -167,13 +167,15 @@ def edit_menu(request: HttpRequest, pk: int):
             else:
                 print(menu_item_form.errors)
         else:
-            MenuItem.objects.create(
+            item = MenuItem.objects.create(
                 menu_id=pk,
                 description=request.POST.get('description'),
                 name=request.POST.get('name'),
                 price=request.POST.get('price'),
                 image=request.FILES.get('image'),
             )
+        return render(request, 'restaurant/menu-item-view.html',
+                      {'item': item, 'menu_pk': pk})
 
     context = {
         'name': menu.name,
