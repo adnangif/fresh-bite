@@ -1,4 +1,5 @@
 import random
+import re
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
@@ -22,8 +23,13 @@ class CustomUserManager(BaseUserManager):
         """
         Create and save a user with the given email and password.
         """
+
+        email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
         if not email:
             raise ValueError(_("The Email must be set"))
+        if not re.fullmatch(email_regex, email):
+            raise ValueError(_("The Email must be in correct format"))
+
         email = BaseUserManager.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
