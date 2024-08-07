@@ -68,12 +68,12 @@
             align-items: center;
         }
 
-        .modal-content{
+        .modal-content {
             padding: 1rem;
             max-width: 20rem;
         }
 
-        .notification{
+        .notification {
             position: fixed;
             z-index: 10000;
             right: 0;
@@ -96,7 +96,7 @@
 
         }
 
-        #notification > .btn:hover{
+        #notification > .btn:hover {
             background-color: #0c4128;
             color: white;
             border-color: white;
@@ -109,12 +109,12 @@
 
     {% if show_menu_created_notification %}
         <div class="notification" id="notification">
-        <div class="d-grid justify-content-start">
+            <div class="d-grid justify-content-start">
 
-            <div>Successfully created menu! </div>
+                <div>Successfully created menu!</div>
 
-            <div> Please Add items to the menu.</div>
-        </div>
+                <div> Please Add items to the menu.</div>
+            </div>
             <button id="notification-close-btn" class="btn btn-outline-success">Close</button>
         </div>
 
@@ -122,7 +122,7 @@
             message_close_btn = document.getElementById('notification-close-btn')
             notification = document.getElementById('notification')
 
-            message_close_btn.addEventListener('click',e => {
+            message_close_btn.addEventListener('click', e => {
                 notification.style.display = 'none'
             })
 
@@ -153,7 +153,9 @@
                     <form id="delete-form-{{ menu.pk }}" method="POST" action="{% url 'restaurant:delete_menu' %}">
                         {% csrf_token %}
                         <input type="hidden" name="pk" value="{{ menu.pk }}">
-                        <button id="delete-form-btn-{{ menu.pk }}" type="button" class="btn btn-danger btn-lg my-3">Delete</button>
+                        <button id="delete-form-btn-{{ menu.pk }}" type="button" class="btn btn-danger btn-lg my-3">
+                            Delete
+                        </button>
                     </form>
 
                 </div>
@@ -179,20 +181,18 @@
                 no_btn_{{ menu.pk }} = document.getElementById(('no-{{ menu.pk }}'))
 
 
-
-
-                delete_form_btn_{{ menu.pk }}.addEventListener('click', ()=>{
+                delete_form_btn_{{ menu.pk }}.addEventListener('click', () => {
                     current_modal_{{ menu.pk }}.style.display = 'flex'
                 })
 
                 document.addEventListener('click', e => {
-                    if(e.target === current_modal_{{ menu.pk }}){
+                    if (e.target === current_modal_{{ menu.pk }}) {
                         current_modal_{{ menu.pk }}.style.display = 'none'
 
                     }
                 })
 
-                yes_btn_{{ menu.pk }}.addEventListener('click', ()=> {
+                yes_btn_{{ menu.pk }}.addEventListener('click', () => {
                     delete_form_{{ menu.pk }}.submit()
                 })
 
@@ -204,11 +204,15 @@
             </script>
         {% endfor %}
 
-        <div>
-            <a href="{% url 'restaurant:add_menu' %}" class="btn btn-warning btn-lg m-3">Add A New Menu</a>
-
-        </div>
-
+        {% if restaurant.is_publishable %}
+            <div>
+                <a href="{% url 'restaurant:add_menu' %}" class="btn btn-warning btn-lg m-3">Add A New Menu</a>
+            </div>
+        {% else %}
+            <div class="text-center fs-4">
+                Please Fill in the restaurant Information in the Restaurant Tab First...
+            </div>
+        {% endif %}
 
     </div>
 {% endblock %}

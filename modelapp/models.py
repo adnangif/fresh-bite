@@ -117,7 +117,7 @@ class Rider(Person):
         super(Rider, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.email +" "+ str(self.ride_count)
+        return self.email + " " + str(self.ride_count)
 
 
 class Restaurant(models.Model):
@@ -140,6 +140,14 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name + " owned by " + self.owner.email
+
+    def is_publishable(self):
+        if self.name and \
+                self.phone and \
+                self.phone2 and \
+                self.restaurant_image:
+            return True
+        return False
 
     def get_location(self):
         return self.owner.get_location()

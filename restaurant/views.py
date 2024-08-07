@@ -55,7 +55,7 @@ class RegisterView(View):
 
         except Exception as e:
             print(e)
-            return render(request, 'restaurant/register.html', {'error': "Invalid"})
+            return render(request, 'restaurant/register.html', {'error': str(e)})
 
 
 @owner_required
@@ -126,6 +126,7 @@ def menus(request: HttpRequest):
     context = {
         'menu_list': menu_list,
         'show_menu_created_notification': menu_created,
+        'restaurant': restaurant,
     }
 
     return render(request, 'restaurant/menu-list.html', context)

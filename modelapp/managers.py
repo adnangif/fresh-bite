@@ -2,7 +2,7 @@ import random
 import re
 
 from django.contrib.auth.base_user import BaseUserManager
-from django.db import models
+from django.db import models, IntegrityError
 from django.utils.translation import gettext_lazy as _
 
 
@@ -29,11 +29,13 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("The Email must be set"))
         if not re.fullmatch(email_regex, email):
             raise ValueError(_("The Email must be in correct format"))
-
-        email = BaseUserManager.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save()
+        try:
+            email = BaseUserManager.normalize_email(email)
+            user = self.model(email=email, **extra_fields)
+            user.set_password(password)
+            user.save()
+        except IntegrityError:
+            raise ValueError(_("Email already registered"))
         return user
 
     def create_superuser(self, email, password, **extra_fields):
