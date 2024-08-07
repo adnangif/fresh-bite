@@ -175,21 +175,23 @@ def change_location(request: HttpRequest):
 @user_required
 def livechat(request: HttpRequest):
     user = User.objects.get(id=request.user.id)
+    context = {
+        'user': user,
+        'chat_history': ChatHistory.objects.filter(user=user),
+    }
 
     if request.method == 'POST':
         query = request.POST.get('query')
         reply = generate_response(query)
 
-        ChatHistory.objects.create(
+        current_message = ChatHistory.objects.create(
             user=user,
             query=query,
             reply=reply,
         )
 
-    context = {
-        'user': user,
-        'chat_history': ChatHistory.objects.filter(user=user),
-    }
+        return render(request,'user/livechat-message.html', {'chat': current_message})
+
     return render(request, 'user/live-chat.html', context)
 
 
