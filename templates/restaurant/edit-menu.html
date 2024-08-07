@@ -56,7 +56,7 @@
 
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Item Name</span>
-                            <input name="name" type="text" class="form-control"
+                            <input required name="name" type="text" class="form-control"
                                    placeholder="Please Enter Item Name here"
                                    aria-label="Username"
                                    value="{{ item.name }}"
@@ -71,14 +71,14 @@
 
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Item Price</span>
-                            <input name="price" type="number" class="form-control" placeholder="Please Enter Price here"
+                            <input required min="1" name="price" type="number" class="form-control" placeholder="Please Enter Price here"
                                    aria-label="price"
                                    value="{{ item.price }}"
                                    aria-describedby="basic-addon1">
                         </div>
 
                         <div class="form-floating">
-                        <textarea name="description" class="form-control" placeholder="Leave a comment here"
+                        <textarea required name="description" class="form-control" placeholder="Leave a comment here"
                                   id="floatingTextarea2"
                                   style="height: 100px">{{ item.description }}</textarea>
                             <label for="floatingTextarea2">Item Description</label>
@@ -104,25 +104,25 @@
                 {% csrf_token %}
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Item Name</span>
-                    <input name="name" type="text" class="form-control" placeholder="Please Enter Item Name here"
+                    <input required minlength="3" name="name" type="text" class="form-control" placeholder="Please Enter Item Name here"
                            aria-label="Username"
                            aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="inputGroupFile01">Upload Image</label>
-                    <input name="image" type="file" class="form-control" id="inputGroupFile01">
+                    <input required name="image" type="file" class="form-control" id="inputGroupFile01">
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Item Price</span>
-                    <input name="price" type="number" class="form-control" placeholder="Please Enter Price here"
+                    <input required min="1" name="price" type="number" class="form-control" placeholder="Please Enter Price here"
                            aria-label="price"
                            aria-describedby="basic-addon1">
                 </div>
 
                 <div class="form-floating">
-                    <textarea name="description" class="form-control" placeholder="Leave a comment here"
+                    <textarea required name="description" class="form-control" placeholder="Leave a comment here"
                               id="floatingTextarea2"
                               style="height: 100px"></textarea>
                     <label for="floatingTextarea2">Item Description</label>
