@@ -154,7 +154,7 @@
                                 <!-- Form Group (phone number)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputPhone">Phone number</label>
-                                    <input required name="phone" class="form-control" id="inputPhone" type="number"
+                                    <input min="1000000000" max="99999999999" required name="phone" class="form-control" id="inputPhone" type="number"
                                            placeholder="Enter your phone number" value="{{ rider.phone }}">
                                 </div>
 

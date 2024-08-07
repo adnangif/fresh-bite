@@ -156,14 +156,14 @@
 
                                     <div class="col-md-6">
                                         <label class="form-label">Phone number </label>
-                                        <input required name="phone" type="text" class="form-control" placeholder=""
+                                        <input min="1000000000" max="99999999999" required name="phone" type="number" class="form-control" placeholder=""
                                                aria-label="Phone number"
                                                value="{{ phone }}">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label">Phone number2 </label>
-                                        <input name="phone2" type="text" class="form-control" placeholder=""
+                                        <input min="1000000000" max="99999999999" name="phone2" type="number" class="form-control" placeholder=""
                                                aria-label="Phone number"
                                                value="{{ phone2 }}">
                                     </div>
