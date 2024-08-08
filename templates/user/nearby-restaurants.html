@@ -9,6 +9,18 @@
             color: black;
         }
 
+        .centered-element {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            font-size: 3rem;
+            color: white;
+            text-transform: capitalize;
+            text-align: center;
+        }
+
     </style>
 
 {% endblock %}
@@ -114,13 +126,31 @@
 
                     {% for restaurant in restaurants %}
 
-                        <a href="{% url 'user:restaurant' restaurant_id=restaurant.pk %}"
-                           class="col-md-6 col-lg-3 col-12  my-1 ">
+                        <a
+                                {% if restaurant.is_out_of_service %}
+                                    href="#"
+                                {% else %}
+                                    href="{% url 'user:restaurant' restaurant_id=restaurant.pk %}"
+                                {% endif %}
+                                    class="col-md-6 col-lg-3 col-12  my-1 ">
                             <div class="card">
 
                                 {% if restaurant.restaurant_image %}
-                                    <img src="{{restaurant.restaurant_image.url}}"
-                                         class="card-img-top" alt="...">
+                                    {% if restaurant.is_out_of_service %}
+                                        <div style="position: relative;">
+                                            <img src="{{ restaurant.restaurant_image.url }}"
+                                                 style="filter: brightness(0.5)"
+                                                 class="card-img-top" alt="..."
+                                            >
+                                            <div class="centered-element">out of service</div>
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ restaurant.restaurant_image.url }}"
+                                             class="card-img-top" alt="..."
+                                             style=""
+                                        >
+                                    {% endif %}
+
                                 {% endif %}
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">{{ restaurant.name }}</h5>
@@ -146,7 +176,7 @@
                                         {% endif %}
                                     </h6>
 
-{#                                    <h6>distance: <strong>34</strong> min</h6>#}
+                                    {#                                    <h6>distance: <strong>34</strong> min</h6>#}
 
                                 </div>
                             </div>

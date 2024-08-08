@@ -402,6 +402,21 @@
                 {{ user.get_latitude }},
                 {{ user.get_longitude }},
             ]).addTo(map);
+            
+            let user_lat = "{{ user.get_latitude }}"
+            let user_lng = "{{ user.get_longitude }}"
+
+            fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${user_lat}&lon=${user_lng}&apiKey=c9743ce533884c64a9f4b465359d181f`)
+                .then(response => response.json())
+                .then(result => {
+                    const location_string = result.features[0].properties.formatted
+                    const location_input_element = document.getElementById('location-input-box')
+
+                    location_input_element.value = location_string
+                    btn_find_food.removeAttribute('disabled')
+
+                })
+                .catch(error => console.log('error', error));
         {% endif %}
 
         let latlng;
@@ -424,7 +439,7 @@
 
                     location_input_element.value = location_string
                     btn_find_food.removeAttribute('disabled')
-                    
+
                 })
                 .catch(error => console.log('error', error));
         });

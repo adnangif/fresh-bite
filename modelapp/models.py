@@ -1,5 +1,7 @@
+import datetime
 import ssl
 import threading
+from datetime import timezone
 
 import stripe
 import smtplib
@@ -140,6 +142,18 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name + " owned by " + self.owner.email
+
+    def is_out_of_service(self):
+        current_time = datetime.datetime.now().time()
+
+        if self.opens_at < self.closes_at:
+            if current_time < self.opens_at or current_time > self.closes_at:
+                return True
+        else:
+            # Service is open overnight
+            if self.opens_at > current_time > self.closes_at:
+                return True
+        return False
 
     def is_publishable(self):
         if self.name and \
