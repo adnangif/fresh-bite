@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Failure{% endblock %}
 {% block styles %}
     <style>
@@ -27,6 +27,7 @@
     <div class="main-container">
 
         <h1>Payment failure!</h1>
+        <img src="{% static 'icons/red-cross.svg' %}" height="150" width="150">
         <p>
             We regret to inform you that there was an issue processing your payment for your recent order with Freshbite
             via Stripe.
