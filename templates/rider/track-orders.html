@@ -39,7 +39,10 @@
                             <div>Order created at: {{ order_instance.order.created_at }}</div>
                         </div>
                         <h5 class="card-title fw-bold">{{ order_instance.order.restaurant.name }}</h5>
-
+                        {% if order_instance.order.is_rider_chat_open %}
+                            <a href="{% url 'rider:live_chat_with_user' order_id=order_instance.order.id %}"
+                               class="btn btn-primary">Chat with User</a>
+                        {% endif %}
 
                         <table class="table table-borderless rounded-3 table-striped">
                             <thead>

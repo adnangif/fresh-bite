@@ -639,9 +639,7 @@ class Message(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['sender']),
-            models.Index(fields=['receiver']),
-            models.Index(fields=['message_sent_at']),
+            models.Index(fields=['order']),
         ]
 
     def __str__(self):

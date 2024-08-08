@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from modelapp.models import Rider, Restaurant, Order, OrderedItem, OrderStatus, Transaction
+from modelapp.models import Rider, Restaurant, Order, OrderedItem, OrderStatus, Transaction, Message
 from rider.decorators import rider_required
 from rider.forms import UpdateRiderForm
 
@@ -118,3 +118,30 @@ def track_orders(request: HttpRequest) -> HttpResponse:
         'order_status': OrderStatus,
     }
     return render(request, 'rider/track-orders.html', context)
+
+@rider_required
+def live_chat_with_user(request: HttpRequest, order_id: int) -> HttpResponse:
+    order = Order.objects.get(pk=order_id)
+    sender = order.rider
+    receiver = order.user
+
+    context = {
+        'order': order,
+        'sender': sender,
+        'receiver': receiver,
+        'messages': Message.objects.filter(order=order),
+    }
+    if request.method == 'POST':
+        message = Message.objects.create(
+            sender=sender,
+            receiver=receiver,
+            text=request.POST.get('text'),
+            order=order,
+        )
+
+        return HttpResponse(status=200)
+
+    if request.method == 'GET' and request.GET.get('only-messages'):
+        return render(request,'rider/user-chat-all-messages.html', context)
+
+    return render(request, 'rider/live-chat-with-user.html', context)
