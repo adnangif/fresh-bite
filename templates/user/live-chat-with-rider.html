@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+
+{% block title %}Live Chat{% endblock %}
+{% block styles %}
+    <script src="https://unpkg.com/htmx.org@2.0.1"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex flex-column gap-5 p-3  position-relative" style="min-height: 100dvh;">
+        {% include 'user/rider-chat-all-messages.html' %}
+        
+        <form
+                hx-post="{% url 'user:livechat_with_rider' order_id=order.id %}"
+                hx-swap="none"
+                hx-on::after-request="this.reset()"
+                class=" w-100 d-flex flex-column align-items-end">
+            {% csrf_token %}
+            <div class="form-floating w-100 border-warning ">
+                <textarea name="text" style="min-height: 7rem" class="form-control border border-warning rounded-elem"
+                          placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">Write your message here</label>
+            </div>
+            <button type="submit" class="btn btn-warning btn-lg m-3 rounded-elem">Send</button>
+        </form>
+
+    </div>
+{% endblock %}

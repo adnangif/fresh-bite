@@ -238,6 +238,11 @@ class Order(models.Model):
     _total_amount = None
     objects = OrderManager()
 
+    def is_rider_chat_open(self):
+        if self.status == OrderStatus.PREPARING or self.status == OrderStatus.RIDER_ON_WAY:
+            return True
+        return False
+
     def get_status(self):
         return OrderStatus(self.status).label
 
@@ -622,3 +627,22 @@ class ChatHistory(models.Model):
 
     def __str__(self):
         return str(self.user) + " -> " + str(self.query) + " -> " + str(self.reply)
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='receiver')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True)
+    message_sent_at = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['sender']),
+            models.Index(fields=['receiver']),
+            models.Index(fields=['message_sent_at']),
+        ]
+
+    def __str__(self):
+        return str(self.sender) + " -> " + str(self.message_sent_at) + " -> " + str(self.text)

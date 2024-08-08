@@ -16,8 +16,10 @@
                             <div>Order created at: {{ order_instance.order.created_at }}</div>
                         </div>
                         <h5 class="card-title fw-bold text-capitalize">{{ order_instance.order.restaurant.name }}</h5>
-
-
+                        {% if order_instance.order.is_rider_chat_open %}
+                            <a href="{% url 'user:livechat_with_rider' order_id=order_instance.order.id %}"
+                               class="btn btn-primary">Chat with rider</a>
+                        {% endif %}
                         <table class="table table-borderless rounded-3 table-striped">
                             <thead>
                             <tr>
@@ -46,14 +48,14 @@
                                     <div class="fs-3 fw-bold">Rs. {{ order_instance.order.total_amount }}</div>
                                 </td>
                             </tr>
-{#                            <tr>#}
-{#                                <td>#}
-{#                                    <div class="fs-3 fw-bold">User OTP</div>#}
-{#                                </td>#}
-{#                                <td>#}
-{#                                    <div class="fs-3 fw-bold ">{{ order_instance.order.user_otp }}</div>#}
-{#                                </td>#}
-{#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <td>#}
+                            {#                                    <div class="fs-3 fw-bold">User OTP</div>#}
+                            {#                                </td>#}
+                            {#                                <td>#}
+                            {#                                    <div class="fs-3 fw-bold ">{{ order_instance.order.user_otp }}</div>#}
+                            {#                                </td>#}
+                            {#                            </tr>#}
 
                             <tr>
                                 <td>

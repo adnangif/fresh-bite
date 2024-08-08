@@ -9,7 +9,7 @@ from django.views import View
 
 from chatbot_backend import generate_response
 from modelapp.models import User, Restaurant, Menu, MenuItem, Cart, CartItem, PaymentTypes, Order, Rider, Transaction, \
-    TransactionStatus, OrderedItem, OrderStatus, Review, ReviewTypes, ChatHistory
+    TransactionStatus, OrderedItem, OrderStatus, Review, ReviewTypes, ChatHistory, Message
 from user.decorators import user_required
 from user.forms import UpdateUserForm
 import secrets
@@ -194,6 +194,36 @@ def livechat(request: HttpRequest):
 
     return render(request, 'user/live-chat.html', context)
 
+
+@user_required
+def livechat_with_rider(request:HttpRequest, order_id: int):
+    order = Order.objects.get(id=order_id)
+    if not order.is_rider_chat_open():
+        return redirect('user:track_orders')
+
+    sender = order.user
+    receiver = order.rider
+
+    context = {
+        'order': order,
+        'sender': sender,
+        'receiver': receiver,
+        'messages': Message.objects.filter(order_id=order_id),
+    }
+
+    if request.method == 'POST':
+        message = Message.objects.create(
+            order=order,
+            sender=sender,
+            receiver=receiver,
+            text=request.POST.get('text'),
+        )
+        return HttpResponse(status=200)
+
+    if request.method == 'GET' and request.GET.get('only-messages'):
+        return render(request, 'user/rider-chat-all-messages.html', context)
+
+    return render(request, 'user/live-chat-with-rider.html', context)
 
 @user_required
 def track_orders(request: HttpRequest):
