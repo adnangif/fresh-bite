@@ -20,6 +20,9 @@
                             <a href="{% url 'user:livechat_with_rider' order_id=order_instance.order.id %}"
                                class="btn btn-primary">Chat with rider</a>
                         {% endif %}
+                        <div class="m-2">
+                            <a href="{% url 'user:rider_reviews' rider_id=order_instance.order.rider.id %}">Read Rider Reviews</a>
+                        </div>
                         <table class="table table-borderless rounded-3 table-striped">
                             <thead>
                             <tr>

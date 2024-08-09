@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Rider Reviews
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem;
+        }
+
+        .review {
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+
+        h2 {
+            text-transform: capitalize;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="main-container">
+        <h2>
+            <i class="fa-solid fa-bicycle"></i>
+            <span>{{ rider.first_name }}</span>
+        </h2>
+        {% for review in reviews %}
+            <div class="review bg-warning">
+                <span>By <strong>{{ review.order.user.first_name }}</strong></span>
+                <div>Rating: {{ review.rating }}</div>
+                <p>{{ review.message }}</p>
+            </div>
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

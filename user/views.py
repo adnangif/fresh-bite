@@ -458,3 +458,17 @@ def restaurant_reviews(request: HttpRequest, restaurant_id: int):
 
     return render(request, 'user/restaurant-reviews.html', context)
 
+
+@user_required
+def rider_reviews(request: HttpRequest, rider_id: int):
+    rider = Rider.objects.get(pk=rider_id)
+
+    context = {
+        "rider": rider,
+        "reviews": Review.objects.filter(
+            review_type=ReviewTypes.RIDER,
+            order__rider=rider,
+        )
+    }
+
+    return render(request, 'user/rider-reviews.html', context)
