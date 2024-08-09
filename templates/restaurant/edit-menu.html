@@ -4,7 +4,11 @@
 
 {% block title %}Add New Menu{% endblock %}
 {% block styles %}
-    <script src="https://unpkg.com/htmx.org@2.0.1"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.1"
+            integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <style>
         body {
             background-color: #ededed;
@@ -57,7 +61,8 @@
                         <form
                                 hx-post="{% url 'restaurant:edit_menu' pk=menu_pk %}"
                                 hx-swap="none"
-                              enctype="multipart/form-data">
+                                hx-on::after-request="show_toast()"
+                                enctype="multipart/form-data">
                             {% csrf_token %}
 
                             <input type="hidden" name="item_pk" value="{{ item.pk }}">
@@ -93,11 +98,12 @@
                                 <label for="floatingTextarea2">Item Description</label>
                             </div>
 
-                            <button type="submit" class="btn btn-warning btn-lg my-3">Save Changes</button>
+                            <button type="submit" class="btn btn-warning btn-lg my-3">Save Changes
+                            </button>
 
 
                         </form>
-                        <form 
+                        <form
                                 hx-post="{% url 'restaurant:delete_item' %}"
                                 hx-target="closest .item"
                                 hx-swap="delete"
@@ -160,6 +166,24 @@
             e.preventDefault()
             location.reload()
         }
+    </script>
+
+    <script>
+        function show_toast() {
+            Toastify({
+                text: "Saved Changes!!",
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: 'green',
+                }
+
+            }).showToast();
+        }
+
     </script>
 
 {% endblock %}
