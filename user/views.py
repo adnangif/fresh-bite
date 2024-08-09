@@ -90,6 +90,10 @@ def view_restaurant(request: HttpRequest, restaurant_id: int):
             review_type=ReviewTypes.RESTAURANT,
             order__restaurant=restaurant,
         ).count(),
+        'food_reviews': Review.objects.filter(
+            review_type=ReviewTypes.FOOD,
+            order__restaurant=restaurant,
+        ),
         'cart_items': cart_items,
         'cart': cart,
     }

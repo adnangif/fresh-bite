@@ -17,7 +17,6 @@
         }
 
         .review {
-            border: solid 2px gray;
             border-radius: 1rem;
             padding: 1rem;
             margin: 0.5rem;
@@ -31,11 +30,14 @@
 
 {% block content %}
     <div class="main-container">
-        <h2>{{ restaurant.name }}</h2>
+        <h2>
+            <i class="fa-solid fa-shop"></i>
+            <span>{{ restaurant.name }}</span>
+        </h2>
         <h6>Average Rating: {{ restaurant.average_rating }}</h6>
 
         {% for review in reviews %}
-            <div class="review">
+            <div class="review bg-warning">
                 <span>By <strong>{{ review.order.user.first_name }}</strong></span>
                 <div>Rating: {{ review.rating }}</div>
                 <p>{{ review.message }}</p>
