@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Restaurant Reviews
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem;
+        }
+
+        .review {
+            border: solid 2px gray;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+
+        h2 {
+            text-transform: capitalize;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="main-container">
+        <h2>{{ restaurant.name }}</h2>
+        <h6>Average Rating: {{ restaurant.average_rating }}</h6>
+
+        {% for review in reviews %}
+            <div class="review">
+                <span>By <strong>{{ review.order.user.first_name }}</strong></span>
+                <div>Rating: {{ review.rating }}</div>
+                <p>{{ review.message }}</p>
+            </div>
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

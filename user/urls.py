@@ -25,4 +25,5 @@ urlpatterns = [
     path('feedback/', views.feedback, name='feedback'),
     path('live-chat/', views.livechat, name='livechat'),
     path('live-chat-with-rider/<int:order_id>', views.livechat_with_rider, name='livechat_with_rider'),
+    path('restaurant-reviews/<int:restaurant_id>', views.restaurant_reviews, name='restaurant_reviews'),
 ]

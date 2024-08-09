@@ -38,7 +38,6 @@ def nearby_restaurants(request: HttpRequest):
         ''', [latitude, latitude, longitude, longitude]
     )
 
-
     context = {
         'restaurants': restaurants,
     }
@@ -87,6 +86,10 @@ def view_restaurant(request: HttpRequest, restaurant_id: int):
     context = {
         'menu_list': menu_list,
         'restaurant': restaurant,
+        'restaurant_review_count': Review.objects.filter(
+            review_type=ReviewTypes.RESTAURANT,
+            order__restaurant=restaurant,
+        ).count(),
         'cart_items': cart_items,
         'cart': cart,
     }
@@ -190,13 +193,13 @@ def livechat(request: HttpRequest):
             reply=reply,
         )
 
-        return render(request,'user/livechat-message.html', {'chat': current_message})
+        return render(request, 'user/livechat-message.html', {'chat': current_message})
 
     return render(request, 'user/live-chat.html', context)
 
 
 @user_required
-def livechat_with_rider(request:HttpRequest, order_id: int):
+def livechat_with_rider(request: HttpRequest, order_id: int):
     order = Order.objects.get(id=order_id)
     if not order.is_rider_chat_open():
         return redirect('user:track_orders')
@@ -224,6 +227,7 @@ def livechat_with_rider(request:HttpRequest, order_id: int):
         return render(request, 'user/rider-chat-all-messages.html', context)
 
     return render(request, 'user/live-chat-with-rider.html', context)
+
 
 @user_required
 def track_orders(request: HttpRequest):
@@ -432,3 +436,21 @@ def change_cart_payment_type(request: HttpRequest):
 
     else:
         return HttpResponse(status=400, content="Invalid method type")
+
+
+@user_required
+def restaurant_reviews(request: HttpRequest, restaurant_id: int):
+    user: User = User.objects.get(pk=request.user.id)
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
+
+    context = {
+        "user": user,
+        "restaurant": restaurant,
+        "reviews": Review.objects.filter(
+            review_type=ReviewTypes.RESTAURANT,
+            order__restaurant=restaurant,
+        )
+    }
+
+    return render(request, 'user/restaurant-reviews.html', context)
+

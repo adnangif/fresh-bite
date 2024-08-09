@@ -134,8 +134,34 @@
         </div>
 
         <div class="flex-fill">
+            <div class="p-3 py-5 text-white m-4 rounded-3 shadow" style="background-color: #800080">
+                <h1 class="title fs-3">{{ restaurant.name }}</h1>
+                <span>Rating:
+                    {% if restaurant.average_rating > 0 %}
+                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                    {% endif %}
 
-            <h1 class="title fs-3">{{ restaurant.name }}</h1>
+                    {% if restaurant.average_rating > 1 %}
+                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if restaurant.average_rating > 2 %}
+                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if restaurant.average_rating > 3 %}
+                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if restaurant.average_rating > 4 %}
+                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                    {% endif %}
+                </span>
+                <span>(<a href="{% url 'user:restaurant_reviews' restaurant_id=restaurant.id %}">{{ restaurant_review_count }}</a> Reviews)</span>
+
+
+            </div>
+
             <form class="d-flex gap-3">
                 <input name="q" type="text" class="form-control rounded-elem" placeholder="Cuisine"
                        aria-label="Search food"
@@ -181,7 +207,7 @@
 
                         </div>
                     </div>
-                    
+
                 {% endif %}
             {% endfor %}
 
