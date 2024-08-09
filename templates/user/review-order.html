@@ -13,7 +13,13 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
+    <script src="https://unpkg.com/htmx.org@2.0.1"
+            integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <style>
+
         #map {
             height: 250px;
             margin: 0.5rem;
@@ -89,7 +95,11 @@
                         <img class="text-warning" src="{% static 'icons/location-marker.svg' %}">
                         <span id="inputLocation">{{ user.get_location }}</span>
                     </p>
-                    <form method="POST" action="{% url 'user:change_location' %}">
+                    <form 
+                            hx-post="{% url 'user:change_location' %}" 
+                            hx-swap="none"
+                            hx-on::after-request="show_toast()"
+                    >
                         {% csrf_token %}
                         <input type="hidden" name="latitude" value="{{ user.get_latitude }}">
                         <input type="hidden" name="longitude" value="{{ user.get_longitude }}">
@@ -107,35 +117,38 @@
                 <div class="card-header">
                     <div class=" fw-bolder">Personal Details</div>
                 </div>
-                <form method="POST" action="{% url 'user:change_personal_info' %}" class="card-body">
+                <form hx-post="{% url 'user:change_personal_info' %}"
+                      hx-swap="none"
+                      hx-on::after-request="show_toast()"
+                      class="card-body">
 
                     {% csrf_token %}
                     <input type="hidden" name="next_destination" value="{{ request.path }}">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">First Name</span>
-                        <input name="first_name" type="text" class="form-control" value="{{ user.first_name }}"
+                        <input required name="first_name" type="text" class="form-control" value="{{ user.first_name }}"
                                aria-label="Username"
                                aria-describedby="basic-addon1">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Last Name</span>
-                        <input name="last_name" type="text" class="form-control" value="{{ user.last_name }}"
+                        <input required name="last_name" type="text" class="form-control" value="{{ user.last_name }}"
                                aria-label="Username"
                                aria-describedby="basic-addon1">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Email</span>
-                        <input name="email" type="email" class="form-control" value="{{ user.email }}"
+                        <input required name="email" type="email" class="form-control" value="{{ user.email }}"
                                aria-label="Username"
                                aria-describedby="basic-addon1">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Phone</span>
-                        <input name="phone" type="number" class="form-control" value="{{ user.phone }}"
+                        <input required name="phone" type="number" class="form-control" value="{{ user.phone }}"
                                aria-label="Username"
                                aria-describedby="basic-addon1">
                     </div>
@@ -151,7 +164,10 @@
                 <div class="card-header">
                     <div class=" fw-bolder">Payment type</div>
                 </div>
-                <form method="POST" action="{% url 'user:change_cart_payment_type' %}" class="card-body">
+                <form hx-post="{% url 'user:change_cart_payment_type' %}"
+                      hx-swap="none"
+                      hx-on::after-request="show_toast()"
+                      class="card-body">
                     {% csrf_token %}
                     <input type="hidden" name="next_destination" value="{{ request.path }}">
                     <input type="hidden" name="cart_id" value="{{ cart.pk }}">
@@ -276,6 +292,23 @@
                 })
                 .catch(error => console.log('error', error));
         });
+
+    </script>
+    <script>
+        function show_toast() {
+            Toastify({
+                text: "Saved Changes!!",
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: 'green',
+                }
+
+            }).showToast();
+        }
 
     </script>
 
