@@ -141,6 +141,7 @@ def review_order(request: HttpRequest, cart_id: int):
         if transaction.payment_type == PaymentTypes.STRIPE:
             return redirect('paymentapp:handle_stripe_payment', order_id=order.id)
         else:
+            order.send_email_to_user_notifying_of_order()
             return redirect('user:track_orders')
 
     cart_items: list[CartItem] = CartItem.objects.filter(cart=cart)

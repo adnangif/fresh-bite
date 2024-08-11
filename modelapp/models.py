@@ -1,8 +1,6 @@
 import datetime
 import ssl
 import threading
-from datetime import timezone
-
 import stripe
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -318,14 +316,14 @@ class Order(models.Model):
         if self.status == OrderStatus.CANCELLED:
             return 'danger'
 
-    def send_email_to_user_notifying_of_order(self, payment_url: str):
+    def send_email_to_user_notifying_of_order(self, payment_url='Cash On Delivery'):
         def send_mail_func():
             print(f'sending email to {self.user.email}...')
             body = f'''\
 Congratulations on placing your order with FreshBite! Your order ID is {self.id}. We're \
 thrilled to have you as a customer and can't wait for you to enjoy your meal. Our team is dedicated to \
-delivering fresh, delicious food right to your door. Thank you for choosing FreshBite, and bon appétit!\
-your STRIPE PAYMENT URL: {payment_url}
+delivering fresh, delicious food right to your door. Thank you for choosing FreshBite, and bon appétit!
+Your STRIPE PAYMENT URL: {payment_url}
 '''
             msg = MIMEMultipart()
             msg['From'] = settings.SMTP_USERNAME
