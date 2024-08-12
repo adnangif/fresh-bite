@@ -1,4 +1,5 @@
 import datetime
+import secrets
 import ssl
 import threading
 import stripe
@@ -72,6 +73,39 @@ class Person(AbstractUser):
     def get_location_object(self):
         location: Location = Location.objects.get_or_create(entity=self)[0]
         return location
+
+    def get_reset_url(self):
+        token_object = PasswordReset.objects.get_or_create(person=self)[0]
+        token_object.reset_token = secrets.token_urlsafe(128)
+        token_object.save()
+
+        return settings.SERVER_DOMAIN + f'reset/{token_object.reset_token}'
+
+    def send_password_reset_email(self):
+        def send_mail_func():
+            print(f'sending email to {self.email}...')
+            body = f'''\
+Thank You for Your Request. Please Goto this link to reset your password:{self.get_reset_url()}
+'''
+            msg = MIMEMultipart()
+            msg['From'] = settings.SMTP_USERNAME
+            msg['To'] = self.email
+            msg['Subject'] = "Password Reset Request Successful"
+            msg.attach(MIMEText(body, 'plain'))
+            try:
+                context = ssl.create_default_context()
+                with smtplib.SMTP(settings.SMTP_SERVER, settings.SMTP_PORT) as server:
+                    server.ehlo()  # Can be omitted
+                    server.starttls(context=context)
+                    server.ehlo()  # Can be omitted
+                    server.login(settings.SMTP_USERNAME, settings.SMTP_PASSWORD)
+                    server.sendmail(settings.SMTP_USERNAME, self.email, msg.as_string())
+
+            except Exception as e:
+                print(f"Error: {e}")
+
+        email_sending_thread = threading.Thread(target=send_mail_func, )
+        email_sending_thread.start()
 
 
 class User(Person):
@@ -656,3 +690,18 @@ class Message(models.Model):
 
     def __str__(self):
         return str(self.sender) + " -> " + str(self.message_sent_at) + " -> " + str(self.text)
+
+
+class PasswordReset(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    reset_token = models.CharField(max_length=300, default='34fasdfq43asdtq43afsasrjytu')
+    last_update = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['created_at', 'reset_token']),
+        ]
+
+    def __str__(self):
+        return str(self.person) + " -> " + str(self.last_update) + " -> " + str(self.reset_token)
