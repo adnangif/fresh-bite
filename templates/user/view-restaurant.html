@@ -201,14 +201,21 @@
                 <hr>
                 <h2 class="fw-bold my-5">
                     <i class="fas fa-book-reader"></i>
-                    <span>Food Reviews</span> 
+                    <span>Food Reviews</span>
                 </h2>
 
                 {% for review in food_reviews %}
                     <div class="review border">
-                        <span>By <strong>{{ review.order.user.first_name }}</strong></span>
-                        <div>{% include 'show-stars.html' with rating=review.rating %}</div>
-                        <p>{{ review.message }}</p>
+                        {% if review.order.user.profile_picture %}
+                            <img width="50" height="50" class="rounded-circle"
+                                 src="{{ review.order.user.profile_picture.url }}">
+                        {% endif %}
+                        <div>
+
+                            <span>By <strong>{{ review.order.user.first_name }}</strong></span>
+                            <div>{% include 'show-stars.html' with rating=review.rating %}</div>
+                            <p>{{ review.message }}</p>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
