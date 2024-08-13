@@ -21,7 +21,6 @@
             border-radius: 1rem;
             padding: 1rem;
             margin: 1rem 0;
-            background-color: #ffc107;
         }
     </style>
 {% endblock %}
@@ -226,7 +225,7 @@
                 </h2>
 
                 {% for review in food_reviews %}
-                    <div class="review shadow">
+                    <div class="review border">
                         <span>By <strong>{{ review.order.user.first_name }}</strong></span>
                         <div>Rating: {{ review.rating }}</div>
                         <p>{{ review.message }}</p>

@@ -37,7 +37,7 @@
         <h6>Average Rating: {{ restaurant.average_rating }}</h6>
 
         {% for review in reviews %}
-            <div class="review bg-warning">
+            <div class="review border">
                 <span>By <strong>{{ review.order.user.first_name }}</strong></span>
                 <div>Rating: {{ review.rating }}</div>
                 <p>{{ review.message }}</p>
