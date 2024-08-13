@@ -27,96 +27,6 @@
 
 {% block content %}
     <div class="m-5 d-flex gap-5 position-relative">
-        {#        <div class="filter-sidepanel d-flex flex-column gap-3 px-5 border rounded p-3 sticky-top d-none d-lg-block h-75  ">#}
-        {#            <div class="py-4 sticky-top"></div>#}
-        {#            <h2 class="display-7">Filters</h2>#}
-        {##}
-        {#            <div>#}
-        {#                <h5 class="">Sort By</h5>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">#}
-        {#                    <label class="form-check-label" for="flexRadioDefault1">#}
-        {#                        Relevance#}
-        {#                    </label>#}
-        {#                </div>#}
-        {##}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">#}
-        {#                    <label class="form-check-label" for="flexRadioDefault1">#}
-        {#                        Shortest Distance#}
-        {#                    </label>#}
-        {#                </div>#}
-        {##}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">#}
-        {#                    <label class="form-check-label" for="flexRadioDefault1">#}
-        {#                        Fastest Delivery#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#            </div>#}
-        {##}
-        {#            <div>#}
-        {#                <h5 class="">Cuisines</h5>#}
-        {##}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Asian#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Bakery#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Beverage#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Cafe#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Cake#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Deserts#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Biriyani#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Chicken#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#                <div class="form-check">#}
-        {#                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
-        {#                    <label class="form-check-label" for="flexCheckDefault">#}
-        {#                        Chinese#}
-        {#                    </label>#}
-        {#                </div>#}
-        {#            </div>#}
-        {##}
-        {#            <button class="btn btn-warning   w-100 my-3">Filter</button>#}
-        {##}
-        {#        </div>#}
 
         <div class="flex-fill">
             <div class="mt-5 overflow-hidden">
@@ -154,30 +64,7 @@
                                 {% endif %}
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">{{ restaurant.name }}</h5>
-                                    <h6>Rating:
-                                        {% if restaurant.average_rating > 0 %}
-                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                        {% endif %}
-
-                                        {% if restaurant.average_rating > 1 %}
-                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                        {% endif %}
-
-                                        {% if restaurant.average_rating > 2 %}
-                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                        {% endif %}
-
-                                        {% if restaurant.average_rating > 3 %}
-                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                        {% endif %}
-
-                                        {% if restaurant.average_rating > 4 %}
-                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                                        {% endif %}
-                                    </h6>
-
-                                    {#                                    <h6>distance: <strong>34</strong> min</h6>#}
-
+                                    {% include 'show-stars.html' with rating=restaurant.average_rating %}
                                 </div>
                             </div>
                         </a>

@@ -142,27 +142,7 @@
         <div class="flex-fill">
             <div class="p-3 py-5 text-white m-4 rounded-3 shadow" style="background-color: #800080">
                 <h1 class="title fs-3">{{ restaurant.name }}</h1>
-                <span>Rating:
-                    {% if restaurant.average_rating > 0 %}
-                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                    {% endif %}
-
-                    {% if restaurant.average_rating > 1 %}
-                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                    {% endif %}
-
-                    {% if restaurant.average_rating > 2 %}
-                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                    {% endif %}
-
-                    {% if restaurant.average_rating > 3 %}
-                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                    {% endif %}
-
-                    {% if restaurant.average_rating > 4 %}
-                        <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                    {% endif %}
-                </span>
+                {% include 'show-stars.html' with rating=restaurant.average_rating %}
                 <span>(<a
                         href="{% url 'user:restaurant_reviews' restaurant_id=restaurant.id %}">{{ restaurant_review_count }}</a> Reviews)</span>
 
@@ -227,7 +207,7 @@
                 {% for review in food_reviews %}
                     <div class="review border">
                         <span>By <strong>{{ review.order.user.first_name }}</strong></span>
-                        <div>Rating: {{ review.rating }}</div>
+                        <div>{% include 'show-stars.html' with rating=review.rating %}</div>
                         <p>{{ review.message }}</p>
                     </div>
                 {% endfor %}
