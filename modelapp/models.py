@@ -23,6 +23,7 @@ class Person(AbstractUser):
 
     is_available_for_ride = models.BooleanField(default=False)
     ride_count = models.IntegerField(default=0)
+    profile_picture = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

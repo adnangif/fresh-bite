@@ -91,6 +91,25 @@
     <div class="container-xl px-4 mt-4">
 
         <div class="row">
+            <div class="col-xl-4">
+                <form method="POST" action="{% url 'user:upload_profile' %}" enctype="multipart/form-data" class="card mb-4 mb-xl-0">
+                    {% csrf_token %}
+                    <div class="card-header">Profile Picture</div>
+                    <div class="card-body text-center">
+                        {% if user.profile_picture %}
+                            <img class="img-account-profile rounded-circle mb-2"
+                                 src="{{ user.profile_picture.url }}" alt="">
+                        {% else %}
+                            <img class="img-account-profile rounded-circle mb-2"
+                                 src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                        {% endif %}
+                        <div class="d-flex m-4 border">
+                            <input name="image" type="file" class="w-100">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Upload new image</button>
+                    </div>
+                </form>
+            </div>
 
             <div class="col-xl-8">
                 <div class="card mb-4">
@@ -103,7 +122,8 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName">First name</label>
-                                    <input required name="first_name" class="form-control" id="inputFirstName" type="text"
+                                    <input required name="first_name" class="form-control" id="inputFirstName"
+                                           type="text"
                                            placeholder="Enter your first name" value="{{ user.first_name }}">
                                 </div>
                                 <div class="col-md-6">
@@ -119,7 +139,8 @@
                                     <input type="hidden" name="latitude" value="{{ user.get_latitude }}">
                                     <input type="hidden" name="longitude" value="{{ user.get_longitude }}">
 
-                                    <input required readonly name="location" class="form-control" id="inputLocation" type="text"
+                                    <input required readonly name="location" class="form-control" id="inputLocation"
+                                           type="text"
                                            value="{{ user.get_location }}">
                                     <div id="map"></div>
                                 </div>
@@ -132,7 +153,8 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputPhone">Phone number</label>
-                                    <input min="1000000000" max="99999999999" required name="phone" class="form-control" id="inputPhone" type="number"
+                                    <input min="1000000000" max="99999999999" required name="phone" class="form-control"
+                                           id="inputPhone" type="number"
                                            placeholder="Enter your phone number" value="{{ user.phone }}">
                                 </div>
                             </div>

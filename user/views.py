@@ -473,3 +473,15 @@ def rider_reviews(request: HttpRequest, rider_id: int):
     }
 
     return render(request, 'user/rider-reviews.html', context)
+
+
+@user_required
+def upload_profile(request: HttpRequest):
+    if request.method == "POST":
+        img = request.FILES.get('image')
+        user:User = User.objects.get(pk=request.user.id)
+
+        user.profile_picture = img
+        user.save()
+
+    return redirect('user:edit_profile')

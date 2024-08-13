@@ -27,4 +27,5 @@ urlpatterns = [
     path('live-chat-with-rider/<int:order_id>/', views.livechat_with_rider, name='livechat_with_rider'),
     path('restaurant-reviews/<int:restaurant_id>/', views.restaurant_reviews, name='restaurant_reviews'),
     path('rider-reviews/<int:rider_id>/', views.rider_reviews, name='rider_reviews'),
+    path('upload-profile/', views.upload_profile, name='upload_profile'),
 ]
