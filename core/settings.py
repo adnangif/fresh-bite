@@ -152,7 +152,16 @@ ENDPOINT_SECRET = 'whsec_23fb92a362197d88adc4f06b9a43ecb92b8d4af49c367d75cf11a24
 
 SERVER_DOMAIN = "http://127.0.0.1:8000/"
 
-SMTP_SERVER = 'smtp.mailersend.net'
-SMTP_PORT = 587
-SMTP_USERNAME = 'MS_UUbVe5@trial-z3m5jgr0ykmgdpyo.mlsender.net'
-SMTP_PASSWORD = 'MPqknV2VO7Zg7nBw'
+# SMTP_SERVER = 'smtp.mailersend.net'
+# SMTP_PORT = 587
+# SMTP_PASSWORD = 'MPqknV2VO7Zg7nBw'
+
+# SMTP_SERVER = 'in-v3.mailjet.com'
+# SMTP_PORT = 465
+# SMTP_USERNAME = 'ecc9fbb1287fb704646f105e41957b98'
+# SMTP_PASSWORD = '94ac02f9675203380d34e6a9c2fb4117'
+# SMTP_USERNAME = 'MS_UUbVe5@trial-z3m5jgr0ykmgdpyo.mlsender.net'
+
+MAILJET_API_KEY = 'ecc9fbb1287fb704646f105e41957b98'
+MAILJET_SECRET_KEY = '6ebbe4977cbf45ed6c9601351451615a'
+FROM_EMAIL = "v2gsol.dev@gmail.com"

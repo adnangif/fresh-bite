@@ -12,6 +12,7 @@ from django.db import models
 from django.db.transaction import atomic
 from django.utils.translation import gettext_lazy as _
 
+from mail_sender import send_mail_from_mailjet
 from .managers import CustomUserManager, UserPersonManager, OwnerPersonManager, RiderPersonManager, Roles, OrderManager
 
 
@@ -88,19 +89,13 @@ class Person(AbstractUser):
             body = f'''\
 Thank You for Your Request. Please Goto this link to reset your password:{self.get_reset_url()}
 '''
-            msg = MIMEMultipart()
-            msg['From'] = settings.SMTP_USERNAME
-            msg['To'] = self.email
-            msg['Subject'] = "Password Reset Request Successful"
-            msg.attach(MIMEText(body, 'plain'))
             try:
-                context = ssl.create_default_context()
-                with smtplib.SMTP(settings.SMTP_SERVER, settings.SMTP_PORT) as server:
-                    server.ehlo()  # Can be omitted
-                    server.starttls(context=context)
-                    server.ehlo()  # Can be omitted
-                    server.login(settings.SMTP_USERNAME, settings.SMTP_PASSWORD)
-                    server.sendmail(settings.SMTP_USERNAME, self.email, msg.as_string())
+                send_mail_from_mailjet(
+                    to_addr=self.email,
+                    to_name=self.first_name,
+                    subject="Password Reset Email",
+                    content=body,
+                )
 
             except Exception as e:
                 print(f"Error: {e}")
@@ -360,19 +355,14 @@ thrilled to have you as a customer and can't wait for you to enjoy your meal. Ou
 delivering fresh, delicious food right to your door. Thank you for choosing FreshBite, and bon appétit!
 Your STRIPE PAYMENT URL: {payment_url}
 '''
-            msg = MIMEMultipart()
-            msg['From'] = settings.SMTP_USERNAME
-            msg['To'] = self.user.email
-            msg['Subject'] = "Successfully placed your order"
-            msg.attach(MIMEText(body, 'plain'))
+
             try:
-                context = ssl.create_default_context()
-                with smtplib.SMTP(settings.SMTP_SERVER, settings.SMTP_PORT) as server:
-                    server.ehlo()  # Can be omitted
-                    server.starttls(context=context)
-                    server.ehlo()  # Can be omitted
-                    server.login(settings.SMTP_USERNAME, settings.SMTP_PASSWORD)
-                    server.sendmail(settings.SMTP_USERNAME, self.user.email, msg.as_string())
+                send_mail_from_mailjet(
+                    to_addr=self.user.email,
+                    to_name=self.user.first_name,
+                    subject="Successfully Placed Order",
+                    content=body,
+                )
 
             except Exception as e:
                 print(f"Error: {e}")
