@@ -40,6 +40,10 @@
             </div>
             <div class="text-danger">{{ error }}</div>
 
+            <div class="my-2 d-flex">
+                <a href="{% url 'landingapp:request_reset_password' %}">Forgot Password?</a>
+            </div>
+
             <button type="submit" class="btn btn-warning text-white btn-lg ">Login</button>
 
             <div class="my-2 d-flex">

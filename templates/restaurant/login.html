@@ -36,7 +36,8 @@
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input name="email" type="email" class="form-control" id="exampleInputEmail1"
+                       aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
@@ -44,8 +45,13 @@
                 <input name="password" type="password" class="form-control " id="exampleInputPassword1">
             </div>
 
+            <div class="my-2 d-flex">
+                <a href="{% url 'landingapp:request_reset_password' %}">Forgot Password?</a>
+            </div>
+
             <button type="submit" class="btn text-white btn-lg "
-               style="background: #40a37c;">Login</button>
+                    style="background: #40a37c;">Login
+            </button>
             <div class="my-2 d-flex">
 
                 <a href="{% url 'restaurant:register' %}">Register New Account</a>
