@@ -211,8 +211,8 @@ class Restaurant(models.Model):
         self.total_rating_population += 1
         self.save()
 
-        if self.total_rating and self.total_rating_population:
-            self.avg_rating = round(self.total_rating / self.total_rating_population, 1)
+        if self.total_rating > 0 and self.total_rating_population > 0:
+            self.average_rating = round(self.total_rating / self.total_rating_population, 1)
             self.save()
 
 

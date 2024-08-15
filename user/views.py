@@ -382,7 +382,7 @@ def rate(request: HttpRequest, order_id):
 
         if restaurant_rating:
             try:
-                order.view_restaurant.set_rating(int(restaurant_rating))
+                order.restaurant.set_rating(int(restaurant_rating))
             except Exception as e:
                 print("Restaurant Rating Not Saved.")
                 print(e)
